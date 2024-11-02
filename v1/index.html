@@ -1,0 +1,422 @@
+<html>
+    <style>
+        html {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: black;
+            color: white;
+        }
+        #container {
+            max-width: 600px;
+            margin: auto;
+        }
+        #container > * {
+            text-align: center;
+            margin: 10px;
+        }
+        #question {
+            position: relative;
+            height: 50%;
+            padding: 10%;
+            border: 5px solid black;
+            border-radius: 25px;
+            overflow: auto;
+            font-size:x-large;
+            background-color: lightblue;
+            color: black;
+
+            -moz-user-select: -moz-none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        #footer {
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+        img {
+            width: 20px;
+            height: 20px;
+            margin: 5px;
+        }
+        #github {
+            filter: invert(1);
+        }
+    </style>
+    
+    <script>
+        let completequestions = [
+        ["What’s a favorite recent memory?", "experience"], 
+["What’s do you love most about your favorite community?", "people"], 
+["What are you most passionate about?", "worldview"], 
+["If you had one day left to live, what would you do?", "fantasy"], 
+["What is the biggest lesson you’ve learned in life?", "worldview"], 
+["What are you most proud of yourself for?", "worldview"], 
+["What do you regret the most?", "experience"], 
+["Who do you look up to? Why?", "people"], 
+["What qualities do you love the most about your role model(s)?", "people"], 
+["If money was not an issue, what would you do?", "fantasy"], 
+["Where do you see yourself in 5 years?", "goals"], 
+["Have you ever had your heart broken?", "experience"], 
+["What is the most unforgettable moment in your life so far?", "experience"], 
+["What's your favorite quote that you live by?", "worldview"], 
+["What makes you happy?", "likes"], 
+["What do you love about your life?", "likes"], 
+["What do you consider as your greatest strengths and weaknesses?", "worldview"], 
+["What are you most grateful for?", "likes"], 
+["What is one thing you want to change in this world?", "dislikes"], 
+["What is one thing you want to change about yourself?", "dislikes"], 
+["What is something you always wanted to say?", "worldview"], 
+["Who matters the most to you?", "people"], 
+["What worries you the most?", "dislikes"], 
+["If you could have one wish granted, what would it be?", "fantasy"], 
+["What is something you always wanted to learn/do but life just got in the way?", "fantasy"], 
+["What is something you wish you had more time to do?", "fantasy"], 
+["Who do you need to get in touch with because it’s been too long?", "people"], 
+["What is something new you recently tried and enjoyed?", "experience"], 
+["What will you have wanted to accomplish by the time you’re 100?", "goals"], 
+["Describe something you achieved that you didn’t think was possible.", "experience"], 
+["What gives you hope?", "worldview"], 
+["What is a new habit you want to pick up?", "goals"], 
+["What life advice would you offer a newborn infant (given that they will remember it)?", "worldview"], 
+["When did you last cry? Why, and who was with you?", "experience"], 
+["What matters to you and why?", "worldview"], 
+["What is your greatest accomplishment?", "experience"], 
+["What is something you do differently than most people?", "tendencies"], 
+["What is your next great adventure?", "goals"], 
+["What’s one thing that could happen today that would make it great?", "likes"], 
+["What/Who inspires you?", "people"], 
+["What are the little things you stop to appreciate and enjoy?", "likes"], 
+["What does home mean to you?", "worldview"], 
+["What do you want to do before you die?", "goals"], 
+["How do you show your love?", "people"], 
+["What scar that you have has the best story?", "experience"], 
+["Where do you feel most free? Where do you feel most free to express yourself?", "likes"], 
+["What do you stand for?", "likes"], 
+["What are you most committed to?", "goals"], 
+["What advice would you give yourself 5 years ago?", "worldview"], 
+["Describe a turning point in your life.", "experience"], 
+["If you only have one hour left to live, who would you be with?", "people"], 
+["What is the kindest/sweetest thing someone has ever done for you?", "experience"], 
+["What/Who do you miss the most?", "experience"], 
+["Describe your perfect day.", "fantasy"], 
+["What do you value most in a friend/relation -ship?", "people"], 
+["What does love mean to you?", "people"], 
+["Do you believe in love?", "people"], 
+["Tell us about your mother and your relationship with her.", "people"], 
+["Tell us about your father and your relationship with him.", "people"], 
+["Which parent are you closer to and why?", "people"], 
+["What was your biggest failure and how did you overcome it?", "experience"], 
+["What’s your greatest achievement and how did it shape you?", "experience"], 
+["In what ways do you hold yourself back?", "tendencies"], 
+["What was your dream job growing up?", "fantasy"], 
+["If you could change one thing about yourself, what would it be?", "dislikes"], 
+["What makes you cry?", "dislikes"], 
+["What’s your fondest childhood memory?", "experience"], 
+["What has been the best phase in your life?", "experience"], 
+["What has been the worst phase in your life?", "experience"], 
+["What is a relationship dealbreaker for you?", "people"], 
+["When do you think a person is ready for marriage?", "worldview"], 
+["What’s on your bucket list this year?", "goals"], 
+["What did your past relationship teach you?", "people"], 
+["What’s one thing that people always misunderstand about you?", "people"], 
+["Share of a moment when you were thankful that you stepped outside of your comfort zone.", "experience"], 
+["Share of a moment that ignited or re-ignited your passion.", "experience"], 
+["Who are you thankful to have met or reconnected with recently?", "people"], 
+["Think of a person you met recently that improved your experience, what would you like to say to them?", "people"], 
+["What is your most magical and unforgettable moment?", "experience"], 
+["If you walked into a room with everyone you have ever met, who would you go looking for first?", "people"], 
+["Tell us about how something that happened recently will contine to affect your life.", "experience"], 
+["When did you not speak up when you should have?", "worldview"], 
+["Think of the last time you were really angry. How do you feel about it now?", "experience"], 
+["Have you ever failed somebody or a close friend?", "people"], 
+["Have you ever had to give up on something or someone for the sake of another?", "people"], 
+["What drives you to do better at something?", "tendencies"], 
+["What is one thing you wish you could do?", "fantasy"], 
+["What worries you most about the future?", "dislikes"], 
+["What are you holding onto that you need to let go of?", "tendencies"], 
+["What impact do you want to leave on the world?", "goals"], 
+["Why do you matter?", "worldview"], 
+["Are you happy with yourself?", "goals"], 
+["What is one fear that you know is holding you back?", "tendencies"], 
+["What have you done that you are not proud of?", "experience"], 
+["In what way are you your own worst enemy?", "tendencies"], 
+["What mistakes do you make over and over again?", "tendencies"], 
+["What has been draining your happiness?", "dislikes"], 
+["What is the #1 thing you intend to accomplish before you die?", "goals"], 
+["What are you looking to be remembered for? Why is this important to you?", "goals"], 
+["If there is one person that you could talk to, dead or alive, who would it be?", "fantasy"], 
+["What’s the most difficult decision you have had to make?", "experience"], 
+["How would you describe your childhood?", "experience"], 
+["What dreams do you have for your children? How similar are they to your parents’ dream for you?", "worldview"], 
+["Where am I wrong?", "identity"], 
+["Are my thoughts generally hurting? Or healing?", "tendencies"], 
+["Truly, is your current career path what you really want to be doing?", "goals"], 
+["How do you want to be remembered?", "goals"], 
+["What is your biggest fear?", "dislikes"], 
+["Who is someone you need to forgive?", "people"], 
+["How do you define who you are?", "worldview"], 
+["What do you really want?", "likes"], 
+["What is something you need to get off your chest?", "experience"], 
+["What are your triggers and what causes them?", "dislikes"], 
+["Is there anyone you hold a grudge against? If so, what's holding you back from letting go and moving on?", "people"], 
+["Do you feel misunderstood? If so, what are common misconceptions about you?", "people"], 
+["What’s the worst thing you have done in your life and why did you do it?", "experience"], 
+["Do you lie to yourself to avoid addressing your fears?", "tendencies"], 
+["When are you hardest on yourself and why?", "dislikes"], 
+["Do you enforce boundaries on others or do you let people cross lines?", "people"], 
+["Are you 100% when you're around other people? Do you put on a mask or persona? Do you know who you are?", "people"], 
+["Do you forgive yourself when you make a mistake? When you make mistakes can you move on from them or do they continue to hurt you?", "tendencies"], 
+["What are your toxic traits?", "tendencies"], 
+["Are you happy being alone with your own company?  Do you use other people to fill a void?", "people"], 
+["Do you respond well to constructive criticism? Are you over-sensitive to any form of feedback?", "tendencies"], 
+["Do you allow yourself to be vulnerable? Do you put walls up or allow yourself to be open?", "tendencies"], 
+["Do you accept yourself as you are?", "tendencies"], 
+["Do you feel as though people respect you?", "people"], 
+["Do you have any unhealthy attachment or habits? Do you try to curb them or entertain them?", "tendencies"], 
+["Which emotion makes you feel the most uncomfortable? Which emotion do you try to avoid?", "tendencies"], 
+["Which negative emotion are you most comfortable with? Do you cling onto a certain emotion on a daily basis to feel normal?", "tendencies"], 
+["Is your inner voice kind or critical? What does it say to you on a normal day?", "tendencies"], 
+["Is your inner voice truly yours? Who’s voice could be influencing your inner voice? (parents, peers, etc.)", "tendencies"], 
+["Do you downplay what you really feel or what you're REALLY feeling for the sake of others?", "people"], 
+["Why do you let people who don’t acknowledge your feelings stay in your life? Do you have a desire to keep their company? Or do you know that there’s a way to make the relationship better?", "people"], 
+["Do you value yourself and what you bring to the table?", "identity"], 
+["How can you be more kind to yourself? How do you sabotage yourself?", "tendencies"], 
+["How important are you to yourself?", "identity"], 
+["Have you ever made someone else feel proud of you? If so, who and why?", "people"], 
+["Do you feel like you’re “only good as your last achievement?” Why or why not?", "identity"], 
+["What are your most undesirable traits and characteristics? How can you work on them?", "tendencies"], 
+["What image do you think people have of you versus how would you like others to describe you? What are the differences between the two images and which one do you like better?", "people"], 
+["What is your definition of failure and success?", "identity"], 
+["What is your definition of perfect, and is it attainable?", "worldview"], 
+["Do you hold yourself to a higher standard than other people? Why?", "tendencies"], 
+["In what ways do you feel inferior to others? Why?", "people"], 
+["Have you ever sacrificed a part of yourself to fit in better? How do you feel about it now?", "identity"], 
+["Have you ever felt abandoned by others around you? In what ways have you abandoned others?", "people"], 
+["How do you show up for others that you don’t do for yourself?", "people"], 
+["What do you still need to forgive yourself for?", "identity"], 
+["What do you feel most guilty for?", "identity"], 
+["Have you ever stayed in a relationship that you knew deep down was not good for you? (romantic, work, friends) Why did you stay?-Explore this questions and the emotions that surfaces", "people"], 
+["Do you feel worthy of the good things in your life? Why or why not?", "worldview"], 
+["Describe the time you felt most alone.", "experience"], 
+["How do you let people take advantage of you? Does acknowledging that people have taken advantage of you bring up certain emotions? If you could turn back the clock, what would you do differently?", "people"], 
+["Where do you need to set better boundaries in your life?", "tendencies"], 
+["Did you get the support and respect you needed in your childhood from parents, teachers, and peers? How did that shape you into the person you are today?", "people"], 
+["If you had to take a negative experience and reframe it positively, how would you do it? How does the act of reframing make you feel?", "experience"], 
+["In what ways do you seek validation from others?", "people"], 
+["What is the biggest lie you keep telling yourself? Where did it come from?", "tendencies"], 
+["Tell us about a time you were let down by someone you looked up to?", "people"], 
+["What's a trait you see in other people that you wish you had? Why do you not have that trait yourself?", "likes"], 
+["Do you find yourself over-thinking about what you say or how you acted? What usually triggers this?", "tendencies"], 
+["What tends to trigger envy for you? Why do you think that is?", "tendencies"], 
+["What frustrates you about your parents and siblings? Do you have similar traits?", "people"], 
+["Which emotions are you afraid of showing others?", "people"], 
+["How can you give others more space and acceptance to be themselves around you?", "people"], 
+["What causes you to be angry and defensive? What is the earliest memory of this pattern occurring?", "tendencies"], 
+["What are some beliefs you tend to expect others to agree with you on? In general, and in specific communities?", "worldview"], 
+["What were you brought up to value in your family? How are your own values similar or different?", "worldview"], 
+["What family patterns do you fear repeating?", "worldview"], 
+["In what situations do you feel less than others, equal to others, and better than others? Why do you feel this way?", "people"], 
+["Tell us about a time you opened up to someone and felt rejected? A time you felt accepted?", "people"], 
+["When were you last jealous of someone? What do they have that you wanted? What is it that you are truly jealous of?", "likes"], 
+["What behaviors in others that upsets you the most? Why is that?", "dislikes"], 
+["Which dreams of yours feel possible? Which are impossible?", "goals"], 
+["Which past version of yourself do you hope no one ever sees?", "dislikes"], 
+["What event has hurt you the most in your life? What reminds you of that time? What parts of you still remain there?", "experience"], 
+["What is a negative thing you can not stop telling yourself?", "dislikes"], 
+["What lies are you telling yourself right now?", "tendencies"], 
+["What made you feel unloved as a child?", "people"], 
+["What was the main thing you wanted in your childhood that you never received? How do you think that shaped you?", "likes"], 
+["Do you allow yourself to be sad? Do you allow yourself to be angry?", "tendencies"], 
+["What is the worst thing you have done to yourself? Why did you do it? How can you make it up to yourself and show yourself love?", "identity"], 
+["Have you ever experienced grief and loss in your life? Do you feel as though you could have saved them if you did something different? Why?", "experience"], 
+["Do you blame your parents for anything? Now that you are older, do you feel like you understand their actions more?", "people"], 
+["Is it easy for you to ask for help? Does it make you feel weak and vulnerable? Why do you think that is?", "people"], 
+["What can you not accept about yourself?", "tendencies"], 
+["Do you have any secrets you intend to take to your grave?", "identity"], 
+["Who have you been pretending to be?", "tendencies"], 
+["Are you resisting your here and now?", "people"], 
+["What harm are you trying to protect yourself from?", "tendencies"], 
+["What or who are you passionate enough about to endure anything for?", "likes"], 
+["What gets in the way of your authenticity?", "tendencies"], 
+["In what ways are you playing a victim in your life? How can you play a hero in your life?", "tendencies"], 
+["What qualities did you initially admired about your ex? In what ways have you developed this quality in yourself before the relationship?", "people"], 
+["Nobody enjoys feeling hurt, rejected, heartbroken, jealousy, etc. what is the very worst feeling for you personally? Why? Where does that come from?", "dislikes"], 
+["Do you have healthy boundaries? What is allowing or preventing you from having the courage to hold that space?", "tendencies"], 
+["What makes you feel empty? How do you tend to fill that void?", "tendencies"], 
+["Who has the most influence over you? Is that healthy?", "people"], 
+["Who has hurt you the most in your life? What would you say to them now?", "people"], 
+["What memories bring you shame? What led to your behavior?", "identity"], 
+["With whom or in what situations do you find yourself putting on a mask or a different persona? What do you think will happen if you expose your true self?", "people"], 
+["Negative traits tends to develop in childhood as a defense mechanism. They are useful at the time but not now as adults. What are your negative traits and where do you think they came from?", "tendencies"], 
+["Which relationships in your life no longer serves you? How would you feel if you allowed these relationships to dissolve? Is it worth salvaging?", "people"], 
+["How are you letting yourself down at this moment in life?", "dislikes"], 
+["Who do you owe an apology to? What would you say to them now?", "people"], 
+["Who owes you an apology? What would you say to them now?", "people"], 
+["What situation in your life do you most wish had a different outcome?", "experience"], 
+["What is the worst emotion someone can provoke from you? Why do you feel so strongly about this?", "dislikes"], 
+["How can you let go?", "tendencies"], 
+["What do you miss the most about your ex and your life with them? What did you learn about that relationship?", "people"], 
+["Who disappointed you as a child? Do you have any similarities with them?", "people"], 
+["How often do you forgive yourself? What do you feel you need to be forgiven for?", "tendencies"], 
+["How do you carry the weight of your past trauma? How does it manifest in your life now?", "experience"], 
+["How did you deal with trauma in the past and how do you combat it in the present?", "tendencies"], 
+["How do you enforce boundaries? How do you feel when people overstep them?", "tendencies"], 
+["What is the biggest promise to you that someone else has broken? How did that make you feel?", "people"], 
+["What is the biggest promise you have broken? Why did you break it? How did it make you feel?", "people"], 
+["Are you being fully honest with yourself right now?", "identity"], 
+["Are you holding onto people that don’t deserve you?", "people"], 
+["Do you feel unloved or unworthy as an adult?", "identity"], 
+["What steps can you take to give more self love and self-worth to yourself?", "identity"], 
+["Why did you do it?", "identity"], 
+["Do you use other people to fill a void?", "people"], 
+["How do you handle disappointment?", "tendencies"], 
+["What pain or emotions are you trying to escape from?", "tendencies"], 
+["If you met yourself for the first time, what would your first impression be?", "tendencies"], 
+["If you were to write an apology letter to yourself, what would you say?", "identity"], 
+["Do you feel safe?", "identity"], 
+["In what ways are you privileged? What do you take for granted?", "tendencies"], 
+["What is something that you always complain about? What ownership do you have in that situation?", "dislikes"], 
+["What personal vices do you wish you had more control over?", "tendencies"], 
+["What need do your vices satisfy? (Distraction, feeling loved? Calms anxiety, etc.)", "tendencies"], 
+["In what ways are you like your guardians? In what ways do you hope you are not like them?", "people"], 
+["What family patterns do you fear you are repeating?", "tendencies"], 
+["How would you describe your life to your child? What parts should you emphasize? What parts would you leave out?", "experience"], 
+["What is the biggest obstacle to finding the happiness that you want?", "goals"], 
+["What relationship pattern has followed me throughout my life? What would happen if I broke this pattern?", "people"], 
+["How worthy do you honestly believe you are?", "identity"], 
+["Do you stay silent so as to not experience rejection? Where do you think this started?", "tendencies"], 
+["Who or what have you taken for granted?", "people"], 
+["Which behavior do you judge most in yourself? Is your judgment justified?", "dislikes"], 
+["Which behavior do you judge most in others? Is your judgment justified?", "dislikes"], 
+["If you could get rid of one memory, which would it be? Why do you want to erase it? If that memory is gone, how would it affect who you are right now?", "dislikes"], 
+["Which of your memories is the most painful to you?", "experience"], 
+["Are you truly good at asking for help? What is really holding you back?", "tendencies"], 
+["What qualities or parts of yourself do you have to hide to feel accepted and loved?", "people"], 
+["What do you need to hear right now to feel worthy and loved?", "identity"], 
+["Are there any negative qualities or patterns you have copied from someone out of loyalty or a desire to be accepted by them? If you let that behavior go would it affect your relationship with them? What do you need to feel safe to release this behavior?", "people"], 
+["What benefits do you think you are getting from your negative behaviors?", "tendencies"], 
+["Have you ever projected your own insecurities or fear onto someone else? Where do you think that came from?", "tendencies"], 
+["Do you put your needs first, or do you always take care of other people and neglect yourself? What are you afraid will happen if you prioritize yourself first?", "people"], 
+["Are there any boundaries you let people cross time and time again? If so, why do you think that is? What could happen if you didn’t compromise on your boundaries?", "people"], 
+["Do you feel safe disagreeing with people or expressing your opinions? Why?", "people"], 
+["Do you link your value to your achievements? If you didn’t achieve the things society says you should, do you still feel worthy of happiness? Why or why not?", "identity"], 
+["Is there anyone you often compare yourself to and end up falling short? Why are they your measure of your success, value, and worth?", "people"], 
+["Would it be safe to be happy as just the best version of you, flaws and all?", "identity"], 
+["When was a time you needed someone to support you and they didn’t, how could you offer that support to yourself?", "people"], 
+["When have you given your power away by blaming someone else for your actions, reactions, or inactions?", "people"], 
+["Pretend no one else exists, how do you visualize your dream life? What are you not doing right now because you are afraid of how others will react?", "fantasy"], 
+["Do you stay silent so as not to experience rejection? Where do you think this started?", "identity"], 
+["What times have you felt most ashamed of your life? What/who caused the shame?", "dislikes"], 
+["What unfulfilled dream scares you the most?", "goals"], 
+["What is your mother’s/caregiver’s worst trait? Do you share this trait? Why?", "people"], 
+["What is your father’s/caregiver’s worst trait? Do you share this trait? Why?", "people"], 
+["Do you allow yourself to be sad when unhappy life events arise? Why or why not?", "dislikes"], 
+["Have you experienced great grief or loss in your life? Do you feel like you could have saved this person if you had done this or that differently? Why?", "experience"], 
+["Do you blame your mother/father/caregiver for anything? If you put yourself in their shoes, do their actions make more sense to you? Why or why not?", "people"], 
+["What does self-love look like to you?", "identity"], 
+["Tell us about the last time you felt that someone truly understood you.", "people"], 
+["What’s the nicest thing you’ve ever done?", "experience"], 
+["Why are you single/not single?", "people"], 
+["What’s your rice purity score?", "experience"], 
+["What do you think your rice purity score will be when you die?", "worldview"], 
+["What’s your favorite part about existing?", "worldview"], 
+["What’s your favorite part about existence?", "worldview"], 
+["When is the earliest you would get married?", "worldview"], 
+["What’s something you want brutal advice about?", "tendencies"], 
+["What’s a skill that you think every single person in the world should have? Think of something that doesn’t affect the meaning of life - ie makes life too easy / eliminates uniqueness of people", "worldview"], 
+["How often do you tell the truth when people ask how you are?", "people"],
+["How would you describe yourself?", "identity"], 
+["How do you think other people would describe you?", "identity"]
+        ]
+        let questions = completequestions
+        let viewedIndex;
+        let numqs = questions.length
+        let getCardInd = () => {
+            if (viewed == numqs)
+                return current
+            let newIndexes = viewedIndex.filter((pair)=>!pair[0]).map(pair=>pair[1])
+            let newIndex = newIndexes[parseInt(Math.random() * newIndexes.length)]
+            return newIndex
+        }
+        let drawNewCard = (cardind) => {
+            if (cardind < 0 || cardind >= numqs)
+                document.getElementById("question").innerHTML = "#" + document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
+                "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
+            else {
+                current = cardind
+                document.getElementById("question").innerHTML = "#" + (current+1) + "<br><b>" + questions[current][0] + 
+                    "</b><br><span style='position:absolute;bottom:0;right:0;margin:5px;font-size:medium;'>" + questions[current][1] + "<span>"
+                if (!viewedIndex[current][0])
+                    viewed++
+                viewedIndex[current][0] = true
+                document.getElementById("numviewed").innerHTML = viewed
+                if (viewed > 0)
+                    document.getElementById("resetbutton").disabled = false;
+                if (viewed == numqs)
+                    document.getElementById("drawbutton").disabled = true;
+            }
+        }
+        let resetDeck = () => {
+            viewedIndex = questions.map((val,i) => [false, i])
+            viewed = 0;
+            document.getElementById("question").innerHTML = "<div style='width:100%;height:100%;line-height:100%;font-size:xxx-large'><b><br><br>"+
+                "Crystal's<br>Curated<br>Questions</b></div>" + 
+                "<span style='position:absolute;bottom:0;right:0;margin:5px;font-size:medium;'>" + document.getElementById("deckdd").value + " deck<span>"
+            document.getElementById("numviewed").innerHTML = viewed
+            document.getElementById("resetbutton").disabled = true;
+            document.getElementById("drawbutton").disabled = false;
+            document.getElementById("enteredcardnum").value = ""
+            document.getElementById("enteredcardnum").max = numqs
+        }
+
+        document.onkeypress = function (e) {
+            if (e.keyCode == 13 || e.keyCode == 32) {
+                drawNewCard(getCardInd())
+            } else if (e.keyCode == 114) {
+                resetDeck()
+            }
+        }
+    </script>
+    <div id="container">
+        <div><button id="resetbutton" onclick="resetDeck()">Reset Deck</button></div>
+        <div id="question" onclick="drawNewCard(getCardInd())"></div>
+        <div><button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button></div>
+        <div><span id="numviewed">0</span>/<span id="numcards"></span> cards seen</div>
+        <div>Find Card # <input id="enteredcardnum" type="number" min="1" max="1" onChange="drawNewCard(event.currentTarget.value -1)"></div>
+        <div>Use <select id="deckdd"><option>complete</option></select> deck</div>
+        <script>
+            document.getElementById("numcards").innerHTML = numqs
+            let decks = [...new Set(questions.map((val)=>val[1]))].sort()
+            let deckdd = document.getElementById("deckdd")
+            for(let i in decks) {
+                let opt = document.createElement("option")
+                opt.innerHTML = decks[i]
+                deckdd.appendChild(opt)
+            }
+            deckdd.onchange = (e) => {
+                let deck = e.currentTarget.value
+                questions = completequestions.filter((val)=>deck == "complete" || val[1]==deck)
+                numqs = questions.length
+                document.getElementById("numcards").innerHTML = numqs
+                resetDeck()
+            }
+            let current;
+            let viewed;
+            resetDeck()
+        </script>
+    </div>
+
+    <div id="footer">
+        made by Crystal Wen, to present a collection of deep questions I've selected.
+        sources of truth (in regards to this deck):
+        <a href="https://github.com/coderystal/kdramastats/tree/main/v1" target="_blank"><img id="github"
+            src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"></a>
+        <a href="https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing" target="_blank"><img id="youtube"
+            src="https://img.icons8.com/color/512/google-sheets.png"></a>
+
+    </div>
+</html>
