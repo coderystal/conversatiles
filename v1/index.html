@@ -63,6 +63,7 @@
 ["What is the biggest lesson you’ve learned in life?", "worldview", false], 
 ["What are you most proud of yourself for?", "worldview", false], 
 ["Who do you look up to?", "people", false], 
+["Was it worth it?", "experience", true], 
 ["What qualities do you love the most about your role model(s)?", "people", false], 
 ["If money was not an issue, what would you do?", "fantasy", false], 
 ["Where do you hope to see yourself in 5 years?", "goals", false], 
@@ -99,6 +100,7 @@
 ["What does home mean to you?", "worldview", false], 
 ["What are some things you don't want to die before doing?", "goals", false], 
 ["How do you show your love?", "people", false], 
+["What needs to happen?", "worldview", true], 
 ["What scar that you have has the best story?", "experience", false], 
 ["Where do you feel most free? Where do you feel most free to express yourself?", "likes", false], 
 ["What do you stand for?", "likes", true], 
@@ -130,6 +132,7 @@
 ["What did your past relationship teach you?", "people", false], 
 ["Share of a moment when you were thankful that you stepped outside of your comfort zone.", "experience", false], 
 ["Share of a moment that ignited or re-ignited your passion.", "experience", false], 
+["What's your proof?", "experience", true], 
 ["Who are you thankful to have met or reconnected with recently?", "people", false], 
 ["Think of a person you met recently that improved your experience, what would you like to say to them?", "people", false], 
 ["What is your most magical and unforgettable moment?", "experience", false], 
@@ -146,6 +149,7 @@
 ["Why do you matter?", "worldview", false], 
 ["Are you happy?", "goals", true], 
 ["What is one fear that you know is holding you back?", "tendencies", false], 
+["Why are you here? Why are we here?", "worldview", true], 
 ["What have you done that you are not proud of?", "experience", false], 
 ["In what way are you your own worst enemy?", "tendencies", false], 
 ["What has been draining your happiness?", "dislikes", false], 
@@ -293,6 +297,7 @@
 ["Do you stay silent so as to not experience rejection? Where do you think this started?", "tendencies", false], 
 ["Who or what have you taken for granted?", "people", false], 
 ["Which behavior do you judge most in yourself? Is your judgment justified?", "dislikes", false], 
+["Why not?", "tendencies", true], 
 ["Which behavior do you judge most in others? Is your judgment justified?", "dislikes", false], 
 ["If you could get rid of one memory, which would it be? Why do you want to erase it? If that memory is gone, how would it affect who you are right now?", "dislikes", false], 
 ["Which of your memories is the most painful to you?", "experience", false], 
@@ -384,6 +389,8 @@
 ["What has life taught you recently?", "experience", false], 
 ["What is the one thing you would most like to change about the world?", "goals", false], 
 ["Where do you find inspiration?", "worldview", false], 
+["What have you noticed?", "experience", true], 
+["How did you notice?", "tendencies", true], 
 ["Can you describe your life in a six word sentence?", "identity", false], 
 ["If we learn from our mistakes, why are we always so afraid to make a mistake?", "worldview", false], 
 ["What impact do you want to leave on the world?", "goals", false], 
@@ -422,6 +429,7 @@
 ["When you close your eyes what do you see?", "tendencies", false], 
 ["What sustains you on a daily basis?", "experience", false], 
 ["What are your top five personal values?", "identity", false], 
+["Why can't you remember?", "experience", true], 
 ["Why must you love someone enough to let them go?", "people", false], 
 ["Do you ever celebrate the green lights?", "tendencies", false], 
 ["What personal prisons have you built out of fears?", "experience", false], 
@@ -471,6 +479,7 @@
 ["What's your definition of heaven?", "fantasy", false], 
 ["What is your most prized possession?", "identity", false], 
 ["How would you describe yourself in one sentence?", "identity", false], 
+["How do you know you're alive?", "identity", true], 
 ["What stands between you and happiness?", "goals", false], 
 ["What makes a person beautiful?", "people", false], 
 ["Is there ever a time when giving up makes sense?", "experience", false], 
@@ -596,8 +605,10 @@
 ["What positive changes have you made in your life recently?", "experience", false], 
 ["Who makes you feel good about yourself?", "people", false], 
 ["What is your biggest regret?", "experience", false], 
+["Why is that okay?", "worldview", true], 
 ["Which one of your responsibilities do you wish you could get rid of?", "experience", false], 
 ["What's something you don't like to do that you are still really good at?", "dislikes", false], 
+["Who would know?", "people", true], 
 ["What type of person angers you the most?", "dislikes", false], 
 ["What is missing in your life?", "goals", true], 
 ["What is your most striking physical attribute?", "identity", false], 
@@ -676,6 +687,7 @@
 ["What's a quick decision you once made that changed your life?", "experience", false], 
 ["What have you lost interest in recently?", "tendencies", false], 
 ["What makes life easier?", "worldview", false], 
+["Why didn't you do it?", "identity", true], 
 ["What was the last thing you furiously argued about with someone?", "experience", false], 
 ["What job would you never do no matter how much it paid?", "dislikes", false], 
 ["What is the number one solution to healing the world?", "worldview", false], 
@@ -695,13 +707,7 @@
 ["If you could do it all over again, would you change anything?", "fantasy", false], 
 ["How would you describe your future in three words?", "goals", false], 
 ["What made you realize that you're not invincible?", "experience", false], 
-["What do you crave?", "tendencies", true], 
-["Why didn't you do it?", "identity", true], 
-["Why not?", "tendencies", true], 
-["Who would know?", "people", true], 
-["Was it worth it?", "experience", true], 
-["Why are you here? Why are we here?", "worldview", true], 
-["Why can't you remember?", "experience", true]
+["What do you crave?", "tendencies", true]
         ]
         let questions = completequestions
         let viewedIndex;
@@ -759,7 +765,7 @@
         <div><button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button></div>
         <div><span id="numviewed">0</span>/<span id="numcards"></span> cards seen</div>
         <div>Find Card # <input id="enteredcardnum" type="number" min="1" max="1" onChange="drawNewCard(event.currentTarget.value -1)"></div>
-        <div>Use <select id="deckdd"><option>complete</option></select> deck</div>
+        <div>Use <select id="deckdd"><option>complete</option><option>!?</option></select> deck</div>
         <script>
             document.getElementById("numcards").innerHTML = numqs
             let decks = [...new Set(questions.map((val)=>val[1]))].sort()
@@ -771,7 +777,7 @@
             }
             deckdd.onchange = (e) => {
                 let deck = e.currentTarget.value
-                questions = completequestions.filter((val)=>deck == "complete" || val[1]==deck)
+                questions = completequestions.filter((val)=>deck == "complete" || (deck == "!?" && val[2]) || val[1]==deck)
                 numqs = questions.length
                 document.getElementById("numcards").innerHTML = numqs
                 resetDeck()
