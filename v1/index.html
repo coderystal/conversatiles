@@ -10,6 +10,10 @@
             font-size: large;
             padding: 10px;
         }
+        #numviewed, #numcards {
+            font-size: medium;
+            padding: 5px;
+        }
         #container {
             max-width: 600px;
             margin: auto;
@@ -719,11 +723,13 @@
             let newIndex = newIndexes[parseInt(Math.random() * newIndexes.length)]
             return newIndex
         }
-        let drawNewCard = (cardind) => {
+        let drawNewCard = (cardind, back) => {
             if (cardind < 0 || cardind >= numqs)
                 document.getElementById("question").innerHTML = "#" + document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
                 "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
             else {
+                if (!back)
+                    stack.push(current)
                 current = cardind
                 document.getElementById("question").style.color = (questions[current][2]) ? "red" : "black"
                 document.getElementById("question").innerHTML = "#" + (current+1) + "<br><b>" + questions[current][0] + 
@@ -737,39 +743,81 @@
                 if (viewed == numqs)
                     document.getElementById("drawbutton").disabled = true;
             }
+            document.getElementById("undobtn").disabled = stack.length <= 1; 
         }
         let resetDeck = () => {
             viewedIndex = questions.map((val,i) => [false, i])
             viewed = 0;
-            document.getElementById("question").innerHTML = "<div style='width:100%;height:100%;line-height:100%;font-size:xxx-large'><b><br>"+
-                "Crystal's<br>Curated<br>Questions</b></div>" + 
+            document.getElementById("question").innerHTML = "<div style='width:100%;height:100%;line-height:100%;font-size:xxx-large;color:black;'><b><br>"+
+                "Curious<br>Convo<br>Companion</b><div style='font-size:small'>by coderystal</div></div>" + 
                 "<span style='position:absolute;bottom:0;right:0;margin:5px;font-size:medium;'>" + document.getElementById("deckdd").value + " deck<span>"
             document.getElementById("numviewed").innerHTML = viewed
             document.getElementById("resetbutton").disabled = true;
             document.getElementById("drawbutton").disabled = false;
             document.getElementById("enteredcardnum").value = ""
             document.getElementById("enteredcardnum").max = numqs
+            current = undefined
+            document.getElementById('undobtn').disabled = true
         }
 
         document.onkeypress = function (e) {
-            if (e.keyCode == 13 || e.keyCode == 32) {
-                drawNewCard(getCardInd())
-            } else if (e.keyCode == 114) {
+            // if (e.keyCode == 13 || e.keyCode == 32) {
+            //     drawNewCard(getCardInd())
+            // } else 
+            if (e.keyCode == 114) {
                 resetDeck()
             }
+        }
+
+        function popupViewed() {
+            let modalcontent = document.querySelector(".modal-content")
+            modal.style.display = 'block'
+            modalcontent.innerHTML = "..."
+            let html = "Deck history<hr>"
+            viewedIndex.filter((viewedIndex)=>viewedIndex[0]).map((viewedIndex)=>viewedIndex[1]).forEach(
+                (viewedI) => {
+                    html += (viewedI+1) + " - " + questions[viewedI][0] + "<br>"
+                }
+            )
+            if (html == "Deck history<hr>")
+                html = "No deck history."
+            modalcontent.innerHTML = html
+        }
+        function popupAll() {
+            let modalcontent = document.querySelector(".modal-content")
+            modal.style.display = 'block'
+            modalcontent.innerHTML = "..."
+            html = "Deck<hr>"
+            questions.forEach(
+                (question, i) => {
+                    html += (i+1) + " - " + question[0] + "<br>"
+                }
+            )
+            if (html == "Deck<hr>")
+                html = "No cards in deck."
+            modalcontent.innerHTML = html
         }
     </script>
     <div id="container">
         <div><button id="resetbutton" onclick="resetDeck()">Reset Deck</button></div>
         <div id="question" onclick="drawNewCard(getCardInd())"></div>
-        <div><button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button></div>
-        <div><span id="numviewed">0</span>/<span id="numcards"></span> cards seen</div>
+        
+        <div>
+            <button id = 'undobtn' onclick="drawNewCard(stack.pop(), true)">Undo</button>
+            <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
+        </div>
+        <div>
+            <button id="numviewed" onclick="popupViewed()"></button>
+            /<button id="numcards" onclick="popupAll()"></button> cards seen
+
+        </div>
         <div>Find Card # <input id="enteredcardnum" type="number" min="1" max="1" onChange="drawNewCard(event.currentTarget.value -1)"></div>
         <div>Use <select id="deckdd"><option>complete</option><option>!?</option></select> deck</div>
         <script>
             document.getElementById("numcards").innerHTML = numqs
             let decks = [...new Set(questions.map((val)=>val[1]))].sort()
             let deckdd = document.getElementById("deckdd")
+            let stack = []
             for(let i in decks) {
                 let opt = document.createElement("option")
                 opt.innerHTML = decks[i]
@@ -797,4 +845,51 @@
             src="https://img.icons8.com/color/512/google-sheets.png"></a>
 
     </div>
+
+
+
+
+    <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(8, 57, 21, 0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      width: 80%;
+      max-height: 60%;
+      overflow: auto;
+      color: black;
+      text-align: center;
+      font-size: 14px;
+      position: relative;
+    }
+
+    </style>
+    
+  <div id="infomodal" class="modal" onclick="document.getElementById('infomodal').style.display = 'none';">
+    <div class="modal-content" onclick="event.stopPropagation()">
+    </div>
+    <script>
+        let modal = document.getElementById('infomodal')
+        function closepopup() {
+            modal.style.display = "none";
+        }
+
+        window.addEventListener('keyup', function (e) {
+            if (e.key === "Escape") { // escape key maps to keycode `27`
+                closepopup();
+            }
+        });
+    </script>
+  </div>
 </html>
