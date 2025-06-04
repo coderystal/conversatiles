@@ -31,3 +31,5 @@ legend:
 ### UNTESTED
 * enabled/disabled states - reset, undo, draw
 * specific order of undo after first - low value
+* find card #
+* use deck
