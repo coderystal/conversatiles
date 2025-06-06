@@ -8,18 +8,18 @@ legend:
 * JUnit `org.junit`
 * WebDriverManager `import io.github.bonigarcia.wdm.WebDriverManager`
 ## Features tested
-### QuestionDeckFlipAndReset
+### FlipAndReset
 * click card or _draw_ * 652
   * increases **viewed** by 1, **total** unchanged
   * added to _history_
   * flips through entire deck (all qnums 1-652)
-* reset * 10
-  * after _reset_ (first time after flipped through entire deck)
+* test * 10
+  * _reset_ (first time after flipped through entire deck)
   * click card or _draw_ * m
     * check first 2 validations from above click card or _draw_
-### QuestionDeckUndo
-* undo * 10
-  * after click card or _draw_ * mf
+### Undo
+* test * 10
+  * click card or _draw_ * mf
     * maintaining total historyset and count and trailing previous card
     * increases **viewed** by 1
   * click _undo_ * mu
@@ -28,8 +28,28 @@ legend:
     * all undos
       * duplicate of some card in historyset (adding to does not change size of historyset)
       * **viewed** unchanged, **total** unchanged
+### DisabledButtons
+* test * 10
+  * reset state
+    * **viewed** and **total** are enabled
+    * _reset_ and back are disabled
+    * _draw_ is enabled
+  * click card or _draw_ * mf (first round, mf = all cards)
+    * **viewed**, **total**, and _reset_ are enabled
+    * _back_ is enabled if at least 2 cards have been flipped
+    * _draw_ is enabled if not all cards have been flipped
+  * click reset
+### Backable
+* test * 10
+  * click card or _draw_ * mf (first round, mf = all cards)
+    * +1 backable for each, starting from 1 for 2nd card
+    * _back_ button is enabled when backable > 0
+  * click _back_ * (up to mb, or when backable is 0, whichever is first)
+    * -1 backable for each
+    * _back_ button is enabled when backable > 0
+  * click _back_ * backable
+  * _back_ button is disabled
 ### UNTESTED
-* enabled/disabled states - reset, undo, draw
 * specific order of undo after first - low value
 * find card #
 * use deck
