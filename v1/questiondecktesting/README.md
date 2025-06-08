@@ -12,7 +12,9 @@ legend:
 * click card or _draw_ * 652
   * increases **viewed** by 1, **total** unchanged
   * added to _history_
-  * flips through entire deck (all qnums 1-652)
+* flipped through deck validations
+  * all qnums 1-652 represented
+  * seen questions match _deck_
 * test * 10
   * _reset_ (first time after flipped through entire deck)
   * click card or _draw_ * m
@@ -49,7 +51,13 @@ legend:
     * _back_ button is enabled when backable > 0
   * click _back_ * backable
   * _back_ button is disabled
+### FindCardNumber
+* store _deck_
+* test (*50 + *652 + *50 - includes revisiting cards, before and after the whole deck has been seen)
+  * clear input (ctrl+a delete or baskpace *3)
+  * type qnum
+  * send enter or tab
+  * increases **viewed** if applicable, **total** unchanged
 ### UNTESTED
 * specific order of undo after first - low value
-* find card #
 * use deck
