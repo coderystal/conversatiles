@@ -10,6 +10,10 @@ public class Question implements Comparable<Question>{
 		num = Integer.parseInt(qDtls[0].substring(1));
 		text = qDtls[1];
 	}
+	public Question(int num, String text) {
+		this.num = num;
+		this.text = text;
+	}
 	@Override
 	public int compareTo(Question o) {
 		return this.num - o.num; 
