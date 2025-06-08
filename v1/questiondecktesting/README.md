@@ -61,3 +61,4 @@ legend:
 ### UNTESTED
 * specific order of undo after first - low value
 * use deck
+* find card # impact on history
