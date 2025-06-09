@@ -756,9 +756,12 @@
         }
         let drawNewCard = (cardind, back) => {
             if (/^\d+$/.test(cardind)) { //if cardind is a positive integer
-                if (cardind < 0 || cardind >= numqs)
-                    document.getElementById("question").innerHTML = "#" + document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
-                    "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
+                if (cardind < 0 || cardind >= numqs) {
+                    document.getElementById("question").innerHTML =  "<br><div class='cardq'>#" + 
+                        document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
+                        "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
+                    document.getElementById("question").style.color = "black"
+                }
                 else { 
                     if (!back)
                         stack.push(current)
