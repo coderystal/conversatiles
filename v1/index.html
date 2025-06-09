@@ -3,7 +3,8 @@
         html {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             background-color: black;
-            color: white;
+            color: grey;
+            font-size: 2vh;
 
             -moz-user-select: -moz-none;
             -khtml-user-select: none;
@@ -11,19 +12,21 @@
             -ms-user-select: none;
             user-select: none;
         }
-        button {
+        button:not(.coffee), input, select {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: large;
-            padding: 10px;
-        }
-        #numviewed, #numcards {
-            font-size: medium;
-            padding: 5px;
+            font-size: 2vh;
+            height: 5%;
+
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 4%;
+            padding-right: 4%;
         }
         #container {
-            max-width: 600px;
+            max-width: 80%;
+            max-width: 900px;
             margin: auto;
-            max-height: 90%;
+            max-height: 95%;
             overflow: auto;
         }
         #container > * {
@@ -32,14 +35,41 @@
         }
         #question {
             position: relative;
-            height: 35%;
-            padding: 10%;
+            padding: 5%;
             border: 5px solid black;
             border-radius: 25px;
             overflow: auto;
-            font-size:x-large;
+            font-size: 4vh;
             background-color: lightblue;
             color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+        
+        @media (min-height: 1000px) {
+            #question {
+                height: 55%;
+            }
+        }
+        @media (max-height: 1000px) {
+            #question {
+                height: 35%;
+            }
+        }
+
+        .coffee {
+            font-size: 2vh;
+        }
+        .cardatt {
+            position:absolute;
+            bottom:0;
+            right:0;
+            margin:5px;
+            font-size: 2vh;
+        }
+        input:invalid {
+            color: red;
         }
         #footer {
             height: 30px;
@@ -47,6 +77,7 @@
             bottom: 0;
             display: flex;
             align-items: center;
+            font-size: small;
         }
         img {
             width: 20px;
@@ -724,33 +755,38 @@
             return newIndex
         }
         let drawNewCard = (cardind, back) => {
-            if (cardind < 0 || cardind >= numqs)
-                document.getElementById("question").innerHTML = "#" + document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
-                "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
-            else {
-                if (!back)
-                    stack.push(current)
-                current = cardind
-                document.getElementById("question").style.color = (questions[current][2]) ? "red" : "black"
-                document.getElementById("question").innerHTML = "#" + (current+1) + "<br><b>" + questions[current][0] + 
-                    "</b><br><span style='position:absolute;bottom:0;right:0;margin:5px;font-size:medium;'>" + questions[current][1] + "<span>"
-                if (!viewedIndex[current][0])
-                    viewed++
-                viewedIndex[current][0] = true
-                document.getElementById("numviewed").innerHTML = viewed
-                if (viewed > 0)
-                    document.getElementById("resetbutton").disabled = false;
-                if (viewed == numqs)
-                    document.getElementById("drawbutton").disabled = true;
+            if (/^\d+$/.test(cardind)) { //if cardind is a positive integer
+                if (cardind < 0 || cardind >= numqs)
+                    document.getElementById("question").innerHTML = "#" + document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
+                    "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
+                else { 
+                    if (!back)
+                        stack.push(current)
+                    current = cardind
+                    document.getElementById("question").style.color = (questions[current][2]) ? "red" : "black"
+                    document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + (current+1) + "</span>" +
+                        "<div class='cardq'><b>" + questions[current][0] + 
+                        "</b></div><span class = 'cardatt'>" + questions[current][1] + "<span>"
+                    if (!viewedIndex[current][0])
+                        viewed++
+                    viewedIndex[current][0] = true
+                    document.getElementById("numviewed").innerHTML = viewed
+                    if (viewed > 0)
+                        document.getElementById("resetbutton").disabled = false;
+                    if (viewed == numqs)
+                        document.getElementById("drawbutton").disabled = true;
+                }
+                document.getElementById("backbtn").disabled = stack.length <= 1; 
             }
-            document.getElementById("backbtn").disabled = stack.length <= 1; 
         }
         let resetDeck = () => {
             viewedIndex = questions.map((val,i) => [false, i])
             viewed = 0;
-            document.getElementById("question").innerHTML = "<div style='width:100%;height:100%;line-height:100%;font-size:xxx-large;color:black;'><b><br>"+
-                "Curious<br>Convo<br>Companion</b><div style='font-size:small'>by coderystal</div></div>" + 
-                "<span style='position:absolute;bottom:0;right:0;margin:5px;font-size:medium;'>" + document.getElementById("deckdd").value + " deck<span>"
+            document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:5vh'><b>"+
+                "Curious<br>Convo<br>Companion</b><div style='font-size:2vh'>by coderystal</div>" +
+                "<button class='coffee' onclick='event.stopPropagation()'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>☕ Buy me a coffee</a></button>" + 
+                "</div>" + 
+                "<span class='cardatt'>" + document.getElementById("deckdd").value + " deck<span>"
             document.getElementById("numviewed").innerHTML = viewed
             document.getElementById("resetbutton").disabled = true;
             document.getElementById("drawbutton").disabled = false;
@@ -758,6 +794,7 @@
             document.getElementById("enteredcardnum").max = numqs
             current = undefined
             document.getElementById('backbtn').disabled = true
+            document.getElementById("question").style.color = "black"
             stack = []
         }
 
@@ -809,10 +846,10 @@
         </div>
         <div>
             <button id="numviewed" onclick="popupViewed()"></button>
-            /<button id="numcards" onclick="popupAll()"></button> cards seen
+            / <button id="numcards" onclick="popupAll()"></button> cards seen
 
         </div>
-        <div>Find Card # <input id="enteredcardnum" type="text" pattern="[0-9]{1-3}" inputmode="numeric" size="3" onChange="drawNewCard(event.currentTarget.value -1)"></div>
+        <div>Find Card # <input id="enteredcardnum" type="text" pattern="[0-9]+" inputmode="numeric" size="3" onChange="drawNewCard(event.currentTarget.value -1)"></div>
         <div>Use <select id="deckdd"><option>complete</option><option>!?</option></select> deck</div>
         <script>
             document.getElementById("numcards").innerHTML = numqs
