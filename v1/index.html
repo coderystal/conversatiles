@@ -288,7 +288,7 @@
 ["What or who are you passionate enough about to endure anything for?", "likes", false], 
 ["What gets in the way of your authenticity?", "tendencies", false], 
 ["In what ways are you playing a victim in your life? How can you play a hero in your life?", "tendencies", false], 
-["What qualities did you initially admired about your ex? In what ways have you developed this quality in yourself before the relationship?", "people", false], 
+["What qualities did you initially admire about your ex? In what ways have you developed this quality in yourself before the relationship?", "people", false], 
 ["Nobody enjoys feeling hurt, rejected, heartbroken, jealousy, etc. what is the very worst feeling for you personally? Where does that come from?", "dislikes", false], 
 ["Do you have healthy boundaries? What is allowing or preventing you from having the courage to hold that space?", "tendencies", false], 
 ["What makes you feel empty? How do you tend to fill that void?", "tendencies", false], 
@@ -804,12 +804,25 @@
             stack = []
         }
 
-        document.onkeypress = function (e) {
-            // if (e.keyCode == 13 || e.keyCode == 32) {
-            //     drawNewCard(getCardInd())
-            // } else 
-            if (e.keyCode == 114) {
-                resetDeck()
+        document.onkeydown = function (e) {
+            if (e.target != document.getElementById("enteredcardnum")) {
+                if(/\d/.test(e.key)) {
+                    console.log("type " + e.key)
+                    document.getElementById("enteredcardnum").value += e.key
+                } else if (e.key == 'Enter') {
+                    if (document.getElementById("enteredcardnum").value.trim() != '')
+                        drawNewCard(parseInt(document.getElementById("enteredcardnum").value.trim()) -1)
+                } else if (e.key == 'Backspace') {
+                    document.getElementById("enteredcardnum").value = document.getElementById("enteredcardnum").value.slice(0,-1)
+                } else
+                    switch (e.key.toLowerCase()) {
+                        case 'r': resetDeck(); break;
+                        case ' ': drawNewCard(getCardInd()); break; //don't use enter, expected behaviors
+                        case 'b': drawNewCard(stack.pop(), true); break;
+                        case 'h': popupViewed(); break;
+                        case 'a': popupAll(); break; //not if ctrl a
+                        default: showA11y();
+                    }
             }
         }
 
@@ -840,6 +853,20 @@
             if (html == "Deck<hr>")
                 html = "No cards in deck."
             modalcontent.innerHTML = html
+        }
+        function showA11y() {
+            document.getElementById("resetbutton").innerHTML = "Reset Deck (R)"
+            document.getElementById("drawbutton").innerHTML = "Draw New Card (space)"
+            document.getElementById("backbtn").innerHTML = "Back (B)"
+            document.getElementById("numviewed").innerHTML = viewed + "(H)"
+            document.getElementById("numcards").innerHTML = numqs + "(A)"
+            setTimeout(()=>{
+                document.getElementById("resetbutton").innerHTML = "Reset Deck"
+                document.getElementById("drawbutton").innerHTML = "Draw New Card"
+                document.getElementById("backbtn").innerHTML = "Back"
+                document.getElementById("numviewed").innerHTML = viewed
+                document.getElementById("numcards").innerHTML = numqs
+            }, 1000)
         }
     </script>
     <div id="container">
@@ -877,6 +904,7 @@
             let current;
             let viewed;
             resetDeck()
+            document.querySelector(".coffee").style.display = 'none'
         </script>
     </div>
 
