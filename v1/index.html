@@ -20,6 +20,9 @@
         font-size: 1.5vh;
         opacity: 70%;
     }
+    #navbar {
+        padding-bottom: 30px;
+    }
 
     button:not(.coffee),
     input,
@@ -808,20 +811,21 @@
                 if (!viewedIndex[current][0])
                     viewed++
                 viewedIndex[current][0] = true
-                document.getElementById("numviewed").innerHTML = viewed
+                document.getElementById("numviewed").innerHTML = viewed + " cards seen"
                 if (viewed > 0)
                     document.getElementById("resetbutton").disabled = false;
                 if (viewed == numqs)
                     document.getElementById("drawbutton").disabled = true;
             }
             document.getElementById("backbtn").disabled = stack.length <= 1;
+            document.getElementById("enteredcardnum").value = (cardind+1)
         }
     }
     let resetDeck = () => {
         viewedIndex = questions.map((val, i) => [false, i])
         viewed = 0;
         showTitle()
-        document.getElementById("numviewed").innerHTML = viewed
+        document.getElementById("numviewed").innerHTML = viewed + " cards seen"
         document.getElementById("resetbutton").disabled = true;
         document.getElementById("drawbutton").disabled = false;
         document.getElementById("enteredcardnum").value = ""
@@ -854,21 +858,21 @@
         document.getElementById("question").style.color = "black"
     }
     function showCoderystal() {
-        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh' onclick='event.stopPropagation();'>" +
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh'>" +
             "<b>Find me everywhere @coderystal for updates and new projects!</b>" + "<br><br>" +
             "I love making stuff for people to use - and this is my first coding project I'm calling finished! If you're reading this, especially if you didn't hear about it from me, I'm so excited you found me, and I hope you get some use out of Convo Companion." + "<br><br>" +
             "<b>Want to create a site of your own?</b><br>" +
-            "<a href='https://github.com/coderystal/questiondeck/tree/main/v1' target='_blank'>GitHub</a> (source code and documentation)" +"<br>" +
+            "<a onclick='event.stopPropagation();' href='https://github.com/coderystal/questiondeck/tree/main/v1' target='_blank'>GitHub</a> (source code and documentation)" +"<br>" +
             "I aim to share projects that serve as demonstrations and references, for anyone with an idea who wants to use code to bring it to life." + "<br><br>" +
             "<b>Want to see the data behind this site?</b><br>" +
-            "<a href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)<br>"+
+            "<a onclick='event.stopPropagation();' href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)<br>"+
             "Here's where I organized and made decisions for the contents of this site, as someone who is not great with processing words.<br><br>" +
             "</div>"
         document.getElementById("question").style.color = "black"
     }
 
     function showInstructions() {
-        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh' onclick='event.stopPropagation();'>" +
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh'>" +
             "Select a deck. Draw at random, find by number, or view either the discarded or full deck. Reset to clear the history.<br>Each button can be selected using the keyboard, click any key to see." +
             "<br><br>" +
             "Make the most of each question - explain, qualify, and don't hold back.<br>" +
@@ -952,14 +956,14 @@
         document.getElementById("resetbutton").innerHTML = "Reset Deck (R)"
         document.getElementById("drawbutton").innerHTML = "Draw New Card (space)"
         document.getElementById("backbtn").innerHTML = "Back (B)"
-        document.getElementById("numviewed").innerHTML = viewed + "(H)"
-        document.getElementById("numcards").innerHTML = numqs + "(A)"
+        document.getElementById("numviewed").innerHTML = viewed + " cards seen (H)"
+        document.getElementById("numcards").innerHTML = numqs  + " cards (A)"
         setTimeout(() => {
             document.getElementById("resetbutton").innerHTML = "Reset Deck"
             document.getElementById("drawbutton").innerHTML = "Draw New Card"
             document.getElementById("backbtn").innerHTML = "Back"
-            document.getElementById("numviewed").innerHTML = viewed
-            document.getElementById("numcards").innerHTML = numqs
+            document.getElementById("numviewed").innerHTML = viewed + " cards seen"
+            document.getElementById("numcards").innerHTML = numqs + " cards"
         }, 1000)
     }
 </script>
@@ -970,26 +974,28 @@
         <a onclick='showInstructions()'>How to play</a>
         <a onclick='showCoderystal()'>Coderystal</a>
     </div>
-    <div><button id="resetbutton" onclick="resetDeck()">Reset Deck</button></div>
-    <div id="question" onclick="drawNewCard(getCardInd())"></div>
-
     <div>
+        <button id="resetbutton" onclick="resetDeck()">Reset History</button>
         <button id='backbtn' onclick="drawNewCard(stack.pop(), true)">Back</button>
+        <button id="numviewed" onclick="popupViewed()"></button>
+    </div>
+    <div id="question" onclick="drawNewCard(getCardInd())"></div>
+    <div>
         <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
+        <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+" inputmode="numeric" size="4"
+            onChange="drawNewCard(event.currentTarget.value -1)"></div>
     </div>
     <div>
-        <button id="numviewed" onclick="popupViewed()"></button>
-        / <button id="numcards" onclick="popupAll()"></button> cards seen
-
-    </div>
-    <div>Find Card # <input id="enteredcardnum" type="text" pattern="[0-9]+" inputmode="numeric" size="4"
-            onChange="drawNewCard(event.currentTarget.value -1)"></div>
-    <div>Use <select id="deckdd">
+        <select id="deckdd">
             <option>complete</option>
             <option style="color: red;">react!</option>
-        </select> deck</div>
+        </select> set: 
+        <button id="numcards" onclick="popupAll()"></button>
+    </div>
+    
+    
     <script>
-        document.getElementById("numcards").innerHTML = numqs
+        document.getElementById("numcards").innerHTML = numqs + " cards"
         let decks = [...new Set(questions.map((val) => val[1]))].sort()
         let deckdd = document.getElementById("deckdd")
         let stack = []
@@ -1002,7 +1008,7 @@
             let deck = e.currentTarget.value
             questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
             numqs = questions.length
-            document.getElementById("numcards").innerHTML = numqs
+            document.getElementById("numcards").innerHTML = numqs + " cards"
             resetDeck()
         }
         let current;
