@@ -845,7 +845,7 @@
     }
 
     function showAbout() {
-        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh'>" +
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:1.7vh'>" +
             "<b style='font-size:2vh'>Convo Companion</b>" + "<br>" +
             "New insight, every click" + "<br><br>" +
             "Uncover deeper understandings, one question at a time. Never get stuck, with 600+ thought-provoking prompts across different topics to think on and talk through. " + "<br>" +
@@ -858,7 +858,7 @@
         document.getElementById("question").style.color = "black"
     }
     function showCoderystal() {
-        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh'>" +
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:1.7vh'>" +
             "<b>Find me everywhere @coderystal for updates and new projects!</b>" + "<br><br>" +
             "I love making stuff for people to use - and this is my first coding project I'm calling finished! If you're reading this, especially if you didn't hear about it from me, I'm so excited you found me, and I hope you get some use out of Convo Companion." + "<br><br>" +
             "<b>Want to create a site of your own?</b><br>" +
@@ -872,10 +872,14 @@
     }
 
     function showInstructions() {
-        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh'>" +
-            "Select a deck. Draw at random, find by number, or view either the discarded or full deck. Reset to clear the history.<br>Each button can be selected using the keyboard, click any key to see." +
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:1.7vh'>" +
+            "<b>Choose your deck!</b> Browse the ten sub-categories we've divided our questions into.<br>"+
+            "<b>Pick a card!</b> Enter a number or let us find a new question.<br>" +
+            "<b>Let us keep track!</b> Review your history, or reset tp put all cards back into play.<br>" +
+            "<b>Skim them all!</b> See the full list of everything in the deck.<br>" +
+            "If you're on your computer, each button can be selected using the keyboard, click any key to see." +
             "<br><br>" +
-            "Make the most of each question - explain, qualify, and don't hold back.<br>" +
+            "When you can, make the most of each question - explain, qualify, and don't hold back.<br>" +
             "To relax a bit, try answering with just one word!" +
             "<br><br>" +
             "Be kind and have fun!"
@@ -899,7 +903,11 @@
                     case ' ': drawNewCard(getCardInd()); break; //don't use enter, expected behaviors
                     case 'b': drawNewCard(stack.pop(), true); break;
                     case 'h': popupViewed(); break;
-                    case 'a': popupAll(); break; //not if ctrl a
+                    case 'd': popupAll(); break;
+                    case 'a': showAbout(); break;
+                    case 't': showTitle(); break;
+                    case 'i': showInstructions(); break;
+                    case 'c': showCoderystal(); break;
                     default: showA11y();
                 }
         }
@@ -957,22 +965,30 @@
         document.getElementById("drawbutton").innerHTML = "Draw New Card (space)"
         document.getElementById("backbtn").innerHTML = "Back (B)"
         document.getElementById("numviewed").innerHTML = viewed + " cards seen (H)"
-        document.getElementById("numcards").innerHTML = numqs  + " cards (A)"
+        document.getElementById("numcards").innerHTML = numqs  + " cards (D)"
+        document.getElementById("about").innerHTML = "About (A)"
+        document.getElementById("title").innerHTML = "Title (T)"
+        document.getElementById("instructions").innerHTML = "Instructions (I)"
+        document.getElementById("coderystal").innerHTML = "Coderystal (C)"
         setTimeout(() => {
             document.getElementById("resetbutton").innerHTML = "Reset Deck"
             document.getElementById("drawbutton").innerHTML = "Draw New Card"
             document.getElementById("backbtn").innerHTML = "Back"
             document.getElementById("numviewed").innerHTML = viewed + " cards seen"
             document.getElementById("numcards").innerHTML = numqs + " cards"
+            document.getElementById("about").innerHTML = "About"
+            document.getElementById("title").innerHTML = "Title"
+            document.getElementById("instructions").innerHTML = "Instructions"
+            document.getElementById("coderystal").innerHTML = "Coderystal"
         }, 1000)
     }
 </script>
 <div id="container">
     <div id="navbar">
-        <a onclick='showAbout()'>About</a>
-        <a onclick='showTitle()'>Go to title</a>
-        <a onclick='showInstructions()'>How to play</a>
-        <a onclick='showCoderystal()'>Coderystal</a>
+        <a id='about' onclick='showAbout()'>About</a>
+        <a id='title' onclick='showTitle()'>Title</a>
+        <a id='instructions' onclick='showInstructions()'>Instructions</a>
+        <a id='coderystal' onclick='showCoderystal()'>Coderystal</a>
     </div>
     <div>
         <button id="resetbutton" onclick="resetDeck()">Reset History</button>
@@ -989,7 +1005,7 @@
         <select id="deckdd">
             <option>complete</option>
             <option style="color: red;">react!</option>
-        </select> set: 
+        </select> deck: 
         <button id="numcards" onclick="popupAll()"></button>
     </div>
     
