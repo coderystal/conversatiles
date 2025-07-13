@@ -13,6 +13,13 @@
         user-select: none;
     }
 
+    #navbar * {
+        margin-left: 10px;
+        margin-right: 10px;
+        text-decoration: underline;
+        opacity: 70%;
+    }
+
     button:not(.coffee),
     input,
     select {
@@ -97,7 +104,7 @@
         bottom: 0;
         display: flex;
         align-items: center;
-        font-size: 2vh;
+        font-size: 1.5vh;
     }
 
     img {
@@ -807,11 +814,7 @@
     let resetDeck = () => {
         viewedIndex = questions.map((val, i) => [false, i])
         viewed = 0;
-        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:5vh'><b>" +
-            "ConvoKit</b><div style='font-size:2vh'>by coderystal</div>" +
-            "<button class='coffee' onclick='event.stopPropagation()'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>☕ Buy me a coffee</a></button>" +
-            "</div>" +
-            "<span class='cardatt'>" + document.getElementById("deckdd").value + " deck<span>"
+        showTitle()
         document.getElementById("numviewed").innerHTML = viewed
         document.getElementById("resetbutton").disabled = true;
         document.getElementById("drawbutton").disabled = false;
@@ -821,6 +824,50 @@
         document.getElementById('backbtn').disabled = true
         document.getElementById("question").style.color = "black"
         stack = []
+    }
+
+    function showTitle() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:5vh'><b>" +
+            "Convo Companion</b><div style='font-size:2vh'>by coderystal</div>" +
+            "<button class='coffee' onclick='event.stopPropagation()'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>☕ Buy me a coffee</a></button>" +
+            "</div>" +
+            "<span class='cardatt'>" + document.getElementById("deckdd").value + " deck<span>"
+    }
+
+    function showAbout() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh'>" +
+            "<b style='font-size:2vh'>Convo Companion</b>" + "<br>" +
+            "New insight, every click" + "<br><br>" +
+            "Uncover deeper understandings, one question at a time. Never get stuck, with 600+ thought-provoking prompts across different topics to think on and talk through. " + "<br>" +
+            "Know what you need? Find your way in with our neatly browsable library." + "<br>" +
+            "Ready for anything? Jump right in with our inviting, no-nonsense cards." + "<br><br>" +
+            "<b>A note from coderystal</b>" + "<br>" +
+            "I designed this site as a tool in the task of getting to know a person, yourself or otherwise. I've found that pre-written questions, presented as an activity, can make things a little less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of these questions I've gathered. May this deck lead you to new places!" + "<br>" +
+            "There are still some features I'm hoping to incorporate... Find me everywhere @coderystal for updates and new projects!" + "<br><br>" +
+            "</div>"
+    }
+    function showCoderystal() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh' onclick='event.stopPropagation();'>" +
+            "<b>Find me everywhere @coderystal for updates and new projects!</b>" + "<br><br>" +
+            "I love making stuff for people to use - and this is my first coding project I'm calling finished! If you're reading this, especially if you didn't hear about it from me, I'm so excited you found me, and I hope you get some use out of Convo Companion." + "<br><br>" +
+            "<b>Want to create a site of your own?</b><br>" +
+            "<a href='https://github.com/coderystal/questiondeck/tree/main/v1' target='_blank'>GitHub</a> (source code and documentation)" +"<br>" +
+            "I aim to share projects that serve as demonstrations and references, for anyone with an idea who wants to use code to bring it to life." + "<br><br>" +
+            "<b>Want to see the data behind this site?</b><br>" +
+            "<a href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project's data)<br>"+
+            "Here's where I organized and made decisions for the contents of this site, as someone who is not great with processing words.<br><br>" +
+            "</div>"
+    }
+
+    function showInstructions() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh' onclick='event.stopPropagation();'>" +
+            "Select a deck. Draw at random, find by number, or view either the discarded or full deck.<br>Each button can be selected using the keyboard, click any key to see." +
+            "<br><br>" +
+            "Make the most of each question - explain, qualify, and don't hold back.<br>" +
+            "To relax a bit, try answering with just one word!" +
+            "<br><br>" +
+            "Be kind and have fun!"
+            "</div>"
     }
 
     document.onkeydown = function (e) {
@@ -908,6 +955,12 @@
     }
 </script>
 <div id="container">
+    <div id="navbar">
+        <a onclick='showAbout()'>About</a>
+        <a onclick='showTitle()'>Go to title</a>
+        <a onclick='showInstructions()'>How to play</a>
+        <a onclick='showCoderystal()'>Coderystal</a>
+    </div>
     <div><button id="resetbutton" onclick="resetDeck()">Reset Deck</button></div>
     <div id="question" onclick="drawNewCard(getCardInd())"></div>
 
