@@ -17,6 +17,7 @@
         margin-left: 10px;
         margin-right: 10px;
         text-decoration: underline;
+        font-size: 1.5vh;
         opacity: 70%;
     }
 
@@ -70,11 +71,17 @@
         #question {
             height: 55%;
         }
+        #footer {
+            font-size: 1.25vh;
+        }
     }
 
     @media (max-height: 1000px) {
         #question {
             height: 35%;
+        }
+        #footer {
+            font-size: 2vh;
         }
     }
 
@@ -104,7 +111,6 @@
         bottom: 0;
         display: flex;
         align-items: center;
-        font-size: 1.5vh;
     }
 
     img {
@@ -822,7 +828,6 @@
         document.getElementById("enteredcardnum").max = numqs
         current = undefined
         document.getElementById('backbtn').disabled = true
-        document.getElementById("question").style.color = "black"
         stack = []
     }
 
@@ -832,6 +837,7 @@
             "<button class='coffee' onclick='event.stopPropagation()'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>☕ Buy me a coffee</a></button>" +
             "</div>" +
             "<span class='cardatt'>" + document.getElementById("deckdd").value + " deck<span>"
+        document.getElementById("question").style.color = "black"
     }
 
     function showAbout() {
@@ -845,6 +851,7 @@
             "I designed this site as a tool in the task of getting to know a person, yourself or otherwise. I've found that pre-written questions, presented as an activity, can make things a little less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of these questions I've gathered. May this deck lead you to new places!" + "<br>" +
             "There are still some features I'm hoping to incorporate... Find me everywhere @coderystal for updates and new projects!" + "<br><br>" +
             "</div>"
+        document.getElementById("question").style.color = "black"
     }
     function showCoderystal() {
         document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh' onclick='event.stopPropagation();'>" +
@@ -854,20 +861,22 @@
             "<a href='https://github.com/coderystal/questiondeck/tree/main/v1' target='_blank'>GitHub</a> (source code and documentation)" +"<br>" +
             "I aim to share projects that serve as demonstrations and references, for anyone with an idea who wants to use code to bring it to life." + "<br><br>" +
             "<b>Want to see the data behind this site?</b><br>" +
-            "<a href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project's data)<br>"+
+            "<a href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)<br>"+
             "Here's where I organized and made decisions for the contents of this site, as someone who is not great with processing words.<br><br>" +
             "</div>"
+        document.getElementById("question").style.color = "black"
     }
 
     function showInstructions() {
         document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:1.7vh' onclick='event.stopPropagation();'>" +
-            "Select a deck. Draw at random, find by number, or view either the discarded or full deck.<br>Each button can be selected using the keyboard, click any key to see." +
+            "Select a deck. Draw at random, find by number, or view either the discarded or full deck. Reset to clear the history.<br>Each button can be selected using the keyboard, click any key to see." +
             "<br><br>" +
             "Make the most of each question - explain, qualify, and don't hold back.<br>" +
             "To relax a bit, try answering with just one word!" +
             "<br><br>" +
             "Be kind and have fun!"
             "</div>"
+        document.getElementById("question").style.color = "black"
     }
 
     document.onkeydown = function (e) {
