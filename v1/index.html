@@ -20,6 +20,7 @@
         font-size: 1.5vh;
         opacity: 70%;
     }
+
     #navbar {
         padding-bottom: 30px;
     }
@@ -74,6 +75,7 @@
         #question {
             height: 55%;
         }
+
         #footer {
             font-size: 1.25vh;
         }
@@ -83,6 +85,7 @@
         #question {
             height: 35%;
         }
+
         #footer {
             font-size: 2vh;
         }
@@ -130,7 +133,7 @@
 <script>
     let completequestions = [
         ["What’s a favorite recent memory?", "experience", false],
-        ["What’s do you love most about your favorite community?", "people", false],
+        ["What do you love most about your favorite community?", "people", false],
         ["What are you most passionate about?", "worldview", false],
         ["If you had one day left to live, what would you do?", "fantasy", false],
         ["What is the biggest lesson you’ve learned in life?", "worldview", false],
@@ -148,7 +151,7 @@
         ["What do you consider as your greatest strengths and weaknesses?", "worldview", false],
         ["What are you most grateful for?", "likes", false],
         ["What is one thing you want to change in this world?", "dislikes", false],
-        ["What is one thing you want to change about yourself?", "dislikes", false],
+        ["What is one thing you're trying to change about yourself?", "goals", false],
         ["What is something you always wanted to say?", "worldview", false],
         ["Who matters the most to you?", "people", true],
         ["What worries you the most?", "dislikes", false],
@@ -204,7 +207,7 @@
         ["What’s on your bucket list this year?", "goals", false],
         ["What did your past relationship teach you?", "people", false],
         ["Share of a moment when you were thankful that you stepped outside of your comfort zone.", "experience", false],
-        ["Share of a moment that ignited or re-ignited your passion.", "experience", false],
+        ["Share a moment that ignited or re-ignited your passion.", "experience", false],
         ["What's your proof?", "experience", true],
         ["Who are you thankful to have met or reconnected with recently?", "people", false],
         ["Think of a person you met recently that improved your experience, what would you like to say to them?", "people", false],
@@ -232,8 +235,8 @@
         ["What’s the most difficult decision you have had to make?", "experience", false],
         ["How would you describe your childhood?", "experience", false],
         ["What dreams do you have for your children? How similar are they to your parents’ dream for you?", "worldview", false],
-        ["Where am I wrong?", "identity", false],
-        ["Are my thoughts generally hurting? Or healing?", "tendencies", false],
+        ["Where am I wrong?", "worldview", false],
+        ["How would you characterize your thoughts? Are they generally hurting or healing?", "tendencies", false],
         ["Truly, is your current career path what you really want to be doing?", "goals", false],
         ["How do you expect to be remembered, if you were to die today?", "identity", false],
         ["What is your biggest fear?", "dislikes", false],
@@ -248,11 +251,12 @@
         ["Do you lie to yourself to avoid addressing your fears?", "tendencies", false],
         ["When are you hardest on yourself?", "dislikes", false],
         ["Do you enforce boundaries on others or do you let people cross lines?", "people", false],
-        ["Are you 100% when you're around other people? Do you put on a mask or persona? Do you know who you are?", "people", false],
+        ["Are you 100% when you're around other people? Do you put on a mask or persona?", "people", false],
+        ["Do you know who you are?", "identity", false],
         ["Do you forgive yourself when you make a mistake? When you make mistakes can you move on from them or do they continue to hurt you?", "tendencies", false],
         ["What are your toxic traits?", "tendencies", false],
-        ["Are you happy being alone with your own company?  Do you use other people to fill a void?", "people", false],
-        ["Do you respond well to constructive criticism? Are you over-sensitive to any form of feedback?", "tendencies", false],
+        ["Are you happy being alone with your own company?", "people", false],
+        ["How do you respond to criticism and feedback? What are you sensitive about?", "tendencies", false],
         ["Do you allow yourself to be vulnerable? Do you put walls up or allow yourself to be open?", "tendencies", false],
         ["Do you accept yourself as you are?", "tendencies", false],
         ["Do you feel as though people respect you?", "people", false],
@@ -261,7 +265,7 @@
         ["Which negative emotion are you most comfortable with? Do you cling onto a certain emotion on a daily basis to feel normal?", "tendencies", false],
         ["Is your inner voice kind or critical? What does it say to you on a normal day?", "tendencies", false],
         ["Is your inner voice truly yours? Who’s voice could be influencing your inner voice? (parents, peers, etc.)", "tendencies", false],
-        ["Do you downplay what you really feel or what you're REALLY feeling for the sake of others?", "people", false],
+        ["Do you downplay what you really feel or have been feeling for the sake of others?", "people", false],
         ["Why do you let people who don’t acknowledge your feelings stay in your life? Do you have a desire to keep their company? Or do you know that there’s a way to make the relationship better?", "people", false],
         ["Do you value yourself and what you bring to the table?", "identity", false],
         ["How can you be more kind to yourself? How do you sabotage yourself?", "tendencies", false],
@@ -279,10 +283,10 @@
         ["How do you show up for others that you don’t do for yourself?", "people", false],
         ["What do you still need to forgive yourself for?", "identity", false],
         ["What do you feel most guilty for?", "identity", false],
-        ["Have you ever stayed in a relationship that you knew deep down was not good for you? (romantic, work, friends) Why did you stay?-Explore this questions and the emotions that surfaces", "people", false],
-        ["Do you feel worthy of the good things in your life? Why or why not?", "worldview", false],
+        ["Have you ever stayed in a relationship that you knew deep down was not good for you? (romantic, work, friends) Why did you stay?", "people", false],
+        ["Do you feel worthy of the good things in your life?", "worldview", false],
         ["Describe the time you felt most alone.", "experience", false],
-        ["How do you let people take advantage of you? Does acknowledging that people have taken advantage of you bring up certain emotions? If you could turn back the clock, what would you do differently?", "people", false],
+        ["How do you let people take advantage of you? Does acknowledging that people have taken advantage of you bring up certain emotions? What would you do differently?", "people", false],
         ["Where do you need to set better boundaries in your life?", "tendencies", false],
         ["Did you get the support and respect you needed in your childhood from parents, teachers, and peers? How did that shape you into the person you are today?", "people", false],
         ["If you had to take a negative experience and reframe it positively, how would you do it? How does the act of reframing make you feel?", "experience", false],
@@ -291,7 +295,7 @@
         ["Tell us about a time you were let down by someone you looked up to?", "people", false],
         ["What's a trait you see in other people that you wish you had? Why do you not have that trait yourself?", "likes", false],
         ["Do you find yourself over-thinking about what you say or how you acted? What usually triggers this?", "tendencies", false],
-        ["What tends to trigger envy for you? Why do you think that is?", "tendencies", false],
+        ["What tends to trigger envy for you? Why?", "tendencies", false],
         ["What frustrates you about your parents and siblings? Do you have similar traits?", "people", false],
         ["Which emotions are you afraid of showing others?", "people", false],
         ["How can you give others more space and acceptance to be themselves around you?", "people", false],
@@ -301,8 +305,8 @@
         ["What family patterns do you fear repeating?", "worldview", false],
         ["In what situations do you feel less than others, equal to others, and better than others? Why do you feel this way?", "people", false],
         ["Tell us about a time you opened up to someone and felt rejected? A time you felt accepted?", "people", false],
-        ["When were you last jealous of someone? What do they have that you wanted? What is it that you are truly jealous of?", "likes", false],
-        ["What behaviors in others that upsets you the most? Why is that?", "dislikes", false],
+        ["When were you last jealous of someone? What did you want to have? What do you want?", "likes", false],
+        ["What behaviors in others upset you the most? Why?", "dislikes", false],
         ["Which dreams of yours feel possible? Which are impossible?", "goals", false],
         ["Which past version of yourself do you hope no one ever sees?", "dislikes", false],
         ["What event has hurt you the most in your life? What reminds you of that time? What parts of you still remain there?", "experience", false],
@@ -312,12 +316,11 @@
         ["What was the main thing you wanted in your childhood that you never received? How do you think that shaped you?", "likes", false],
         ["Do you allow yourself to be sad? Do you allow yourself to be angry?", "tendencies", false],
         ["What is the worst thing you have done to yourself? Why did you do it? How can you make it up to yourself and show yourself love?", "identity", false],
-        ["Have you ever experienced grief and loss in your life? Do you feel as though you could have saved them if you did something different?", "experience", false],
         ["Do you blame your parents for anything? Now that you are older, do you feel like you understand their actions more?", "people", false],
-        ["Is it easy for you to ask for help? Does it make you feel weak and vulnerable? Why do you think that is?", "people", false],
+        ["Is it easy for you to ask for help? Does it make you feel weak and vulnerable? Why?", "people", false],
         ["What can you not accept about yourself?", "tendencies", false],
         ["Do you have any secrets you intend to take to your grave?", "identity", false],
-        ["Who have you been pretending to be?", "tendencies", false],
+        ["Who have you been pretending to be?", "tendencies", true],
         ["Are you resisting your here and now?", "people", false],
         ["What harm are you trying to protect yourself from?", "tendencies", false],
         ["What or who are you passionate enough about to endure anything for?", "likes", false],
@@ -330,9 +333,9 @@
         ["Who has the most influence over you? Is that healthy?", "people", false],
         ["Who has hurt you the most in your life? What would you say to them now?", "people", false],
         ["What memories bring you shame? What led to your behavior?", "identity", false],
-        ["With whom or in what situations do you find yourself putting on a mask or a different persona? What do you think will happen if you expose your true self?", "people", false],
-        ["Negative traits tends to develop in childhood as a defense mechanism. They are useful at the time but not now as adults. What are your negative traits and where do you think they came from?", "tendencies", false],
-        ["Which relationships in your life no longer serves you? How would you feel if you allowed these relationships to dissolve? Is it worth salvaging?", "people", false],
+        ["With whom or in what situations do you find yourself putting on a mask or a different persona? What do you think will happen if you expose your true self?", "identity", false],
+        ["What are your negative traits and how do you think they developed? Do you think they were useful for you in the past?", "tendencies", false],
+        ["Which relationships in your life no longer serve you? How would you feel if you allowed these relationships to dissolve? Is it worth salvaging?", "people", false],
         ["How are you letting yourself down at this moment in life?", "dislikes", false],
         ["Who do you owe an apology to? What would you say to them now?", "people", false],
         ["Who owes you an apology? What would you say to them now?", "people", false],
@@ -365,14 +368,14 @@
         ["In what ways are you like your guardians? In what ways do you hope you are not like them?", "people", false],
         ["What family patterns do you fear you are repeating?", "tendencies", false],
         ["How would you describe your life to your child? What parts should you emphasize? What parts would you leave out?", "experience", false],
-        ["What relationship pattern has followed me throughout my life? What would happen if I broke this pattern?", "people", false],
+        ["What relationship pattern has followed you throughout your life? What would happen if you broke this pattern?", "people", false],
         ["How worthy do you honestly believe you are?", "identity", false],
         ["Do you stay silent so as to not experience rejection? Where do you think this started?", "tendencies", false],
         ["Who or what have you taken for granted?", "people", false],
         ["Which behavior do you judge most in yourself? Is your judgment justified?", "dislikes", false],
         ["Why not?", "tendencies", true],
         ["Which behavior do you judge most in others? Is your judgment justified?", "dislikes", false],
-        ["If you could get rid of one memory, which would it be? Why do you want to erase it? If that memory is gone, how would it affect who you are right now?", "dislikes", false],
+        ["If you could get rid of one memory, which would it be? Why, and how would it affect who you are right now?", "dislikes", false],
         ["Which of your memories is the most painful to you?", "experience", false],
         ["Are you truly good at asking for help? What is really holding you back?", "tendencies", false],
         ["What qualities or parts of yourself do you have to hide to feel accepted and loved?", "people", false],
@@ -381,22 +384,21 @@
         ["What benefits do you think you are getting from your negative behaviors?", "tendencies", false],
         ["Have you ever projected your own insecurities or fear onto someone else? Where do you think that came from?", "tendencies", false],
         ["Do you put your needs first, or do you always take care of other people and neglect yourself? What are you afraid will happen if you prioritize yourself first?", "people", false],
-        ["Are there any boundaries you let people cross time and time again? If so, why do you think that is? What could happen if you didn’t compromise on your boundaries?", "people", false],
+        ["Are there any boundaries you let people cross time and time again? Why? What could happen if you didn’t compromise on your boundaries?", "people", false],
         ["Do you feel safe disagreeing with people or expressing your opinions?", "people", false],
-        ["Do you link your value to your achievements? If you didn’t achieve the things society says you should, do you still feel worthy of happiness? Why or why not?", "identity", false],
+        ["Do you link your value to your achievements? If you didn’t achieve the things society says you should, do you still feel worthy of happiness?", "identity", false],
         ["Is there anyone you often compare yourself to and end up falling short? Why are they your measure of your success, value, and worth?", "people", false],
         ["Would it be safe to be happy as just the best version of you, flaws and all?", "identity", false],
         ["When was a time you needed someone to support you and they didn’t, how could you offer that support to yourself?", "people", false],
         ["When have you given your power away by blaming someone else for your actions, reactions, or inactions?", "people", false],
         ["Pretend no one else exists, how do you visualize your dream life? What are you not doing right now because you are afraid of how others will react?", "fantasy", false],
-        ["Do you stay silent so as not to experience rejection? Where do you think this started?", "identity", false],
         ["What times have you felt most ashamed of your life? What/who caused the shame?", "dislikes", false],
         ["What unfulfilled dream scares you the most?", "goals", false],
         ["What is your mother’s/caregiver’s worst trait? Do you share this trait?", "people", false],
         ["What is your father’s/caregiver’s worst trait? Do you share this trait?", "people", false],
-        ["Do you allow yourself to be sad when unhappy life events arise? Why or why not?", "dislikes", false],
-        ["Have you experienced great grief or loss in your life? Do you feel like you could have saved this person if you had done this or that differently?", "experience", false],
-        ["Do you blame your mother/father/caregiver for anything? If you put yourself in their shoes, do their actions make more sense to you? Why or why not?", "people", false],
+        ["Do you allow yourself to be sad when unhappy life events arise?", "dislikes", false],
+        ["Have you experienced grief or loss in your life? Do you feel like you could have saved this person?", "experience", false],
+        ["Do you blame a parent or caregiver for anything? Can you make sense of their behavior?", "people", false],
         ["What does self-love look like to you?", "identity", false],
         ["Tell us about the last time you felt that someone truly understood you.", "people", false],
         ["What’s the nicest thing you’ve ever done?", "experience", false],
@@ -443,9 +445,8 @@
         ["Would you break the law to save a loved one?", "people", false],
         ["What makes you smile?", "likes", false],
         ["When it's all said and done, will you have said more than you've done?", "goals", false],
-        ["If you had the opportunity to get a message across to a large group of people, what would your message be?", "worldview", false],
+        ["If you had the opportunity to get one message across to a large group of people, what would it be?", "worldview", false],
         ["If the average human lifespan was 40 years, how would you live your life differently?", "fantasy", false],
-        ["What do we all have in common besides our genes that makes us human?", "worldview", false],
         ["If you could choose one book as a mandatory read for all high school students, which book would you choose?", "worldview", false],
         ["Would you rather have less work or more work you actually enjoy doing?", "fantasy", false],
         ["What is important enough to go to war over?", "worldview", false],
@@ -465,11 +466,11 @@
         ["What have you noticed?", "experience", true],
         ["How did you notice?", "tendencies", true],
         ["Can you describe your life in a six word sentence?", "identity", false],
-        ["If we learn from our mistakes, why are we always so afraid to make a mistake?", "worldview", false],
+        ["Why are you afraid to make a mistake?", "worldview", false],
         ["What impact do you want to leave on the world?", "goals", false],
         ["What is the most defining moment of your life thus far?", "experience", false],
         ["In the haste of your daily life, what are you not seeing?", "tendencies", false],
-        ["If life is so short, why do we do so many things we don't like and like so many things we don't do?", "worldview", false],
+        ["Why do you not do what you want to do, and do what you hate?", "worldview", false],
         ["What lifts your spirits when life gets you down?", "likes", false],
         ["Have you ever regretted something you did not say or do?", "experience", false],
         ["Has your greatest fear ever come true?", "experience", false],
@@ -489,7 +490,7 @@
         ["Is there such a thing as perfect?", "worldview", true],
         ["To what degree have you actually controlled the course your life has taken?", "worldview", false],
         ["What does it mean to be human?", "worldview", true],
-        ["If you looked into the heart of your enemy, what do you think you would find that is different from what is in your own heart?", "worldview", false],
+        ["What's the most fundamental difference between you and your enemy?", "worldview", false],
         ["What do you love most about yourself?", "identity", false],
         ["Where would you most like to go?", "goals", false],
         ["Is it more important to do what you love or to love what you are doing?", "goals", false],
@@ -505,7 +506,7 @@
         ["Why can't you remember?", "experience", true],
         ["Why must you love someone enough to let them go?", "people", false],
         ["Do you ever celebrate the green lights?", "tendencies", false],
-        ["What personal prisons have you built out of fears?", "experience", false],
+        ["How are your fears imprisoning you?", "experience", false],
         ["What one thing have you not done that you really want to do?", "goals", false],
         ["Why are you, you?", "identity", false],
         ["If you haven't achieved it yet what do you have to lose?", "tendencies", false],
@@ -529,7 +530,7 @@
         ["What is your greatest challenge?", "goals", false],
         ["How do you know when it's time to continue holding on or time to let go?", "experience", false],
         ["How do you define success?", "worldview", false],
-        ["If someone could tell you the exact day and time you are going to die, would you want them to tell you?", "tendencies", false],
+        ["If someone could tell you the exact day and time you are going to die, would you want them to tell you?", "worldview", false],
         ["If I could grant you one wish what would you wish for?", "fantasy", false],
         ["What have you read online recently that inspired you?", "experience", false],
         ["Why do religions that advocate unity divide the human race?", "worldview", false],
@@ -542,7 +543,7 @@
         ["What word best describes the way you've spent the last month of your life?", "identity", false],
         ["What makes everyone smile?", "tendencies", false],
         ["What do you owe yourself?", "identity", false],
-        ["What would your 'priceless' MasterCard-style commercial be?", "fantasy", false],
+        ["What's a priceless experience you've had?", "experience", false],
         ["Can you think of a time when impossible became possible?", "experience", false],
         ["How have you changed in the last five years?", "experience", false],
         ["What are you sure of in your life?", "identity", false],
@@ -564,7 +565,7 @@
         ["Is it better to have loved and lost or to have never loved at all?", "people", false],
         ["What would you do if you made a mistake and somebody died?", "worldview", false],
         ["Who do you trust?", "people", false],
-        ["If you were forced to eliminate every physical possession from your life with the exception of what could fit into a single backpack, what would you put in it?", "identity", false],
+        ["If you were forced to eliminate every physical possession from your life with the exception of what could fit into a single backpack, what would you put in it?", "likes", false],
         ["When does silence convey more meaning than words?", "worldview", false],
         ["How do you spend the majority of your free time?", "tendencies", false],
         ["Who do you think of first when you think of 'success?'", "people", false],
@@ -584,10 +585,10 @@
         ["What has been the most terrifying moment of your life thus far?", "experience", false],
         ["Who is the strongest person you know?", "people", false],
         ["If you could take a single photograph of your life, what would it look like?", "fantasy", false],
-        ["Is the reward worth the risk?", "worldview", false],
+        ["Is the reward worth the risk?", "worldview", true],
         ["For you personally, what makes today worth living?", "worldview", false],
         ["What have you done in the last year that makes you proud?", "experience", false],
-        ["What did you learn recently that changed the way you live?", "experience", false],
+        ["What did you learn recently that changed the way you live?", "worldview", false],
         ["What is your fondest memory from the past three years?", "experience", false],
         ["What are the primary components of a happy life?", "worldview", false],
         ["How would the world be different if you were never born?", "identity", false],
@@ -615,7 +616,7 @@
         ["What's been on your mind most lately?", "worldview", false],
         ["What do you think is worth waiting for?", "worldview", false],
         ["What chances do you wish you had taken?", "goals", false],
-        ["Where else would you like to live?", "identity", false],
+        ["Where else would you like to live?", "likes", false],
         ["What motivates you to go to work each day?", "tendencies", false],
         ["What do you wish you had done differently?", "experience", false],
         ["What is your greatest strength and your greatest weakness?", "identity", false],
@@ -633,7 +634,7 @@
         ["What worries you about the future?", "worldview", false],
         ["What one 'need' and one 'want' will you strive to achieve in the next twelve months?", "goals", false],
         ["What life lessons did you have to experience firsthand before you fully understood them?", "experience", false],
-        ["Do you like the city or town you live in? Why or why not?", "identity", false],
+        ["Do you like the city or town you live in?", "identity", false],
         ["What's the best part of being you?", "identity", false],
         ["When you look back over the past month, what single moment stands out?", "experience", false],
         ["What do you do to relieve stress?", "tendencies", false],
@@ -653,7 +654,7 @@
         ["Through all of life's twists and turns who has been there for you?", "people", false],
         ["What or who has been distracting you?", "people", false],
         ["What are you looking forward to in the upcoming week?", "goals", false],
-        ["Who is your mentor and what have you learned from them!", "people", false],
+        ["Who is your mentor and what have you learned from them?", "people", false],
         ["What are you uncertain about?", "worldview", false],
         ["What do you think about when you lie awake in bed?", "worldview", false],
         ["What's something most people don't know about you?", "identity", false],
@@ -661,7 +662,7 @@
         ["What makes you weird?", "identity", false],
         ["If you could relive yesterday what would you do differently?", "experience", false],
         ["What do you do over and over again that you hate doing?", "tendencies", true],
-        ["Would you rather your child be less attractive and extremely intelligent or extremely attractive and less intelligent?", "fantasy", false],
+        ["What would choose for your child on a zero-sum scale of intelligence to attractiveness?", "worldview", false],
         ["What white lies do you often tell?", "tendencies", false],
         ["What is the biggest change you have made in your life in the last year?", "experience", false],
         ["What do you understand today about your life that you did not understand a year ago?", "experience", false],
@@ -702,7 +703,8 @@
         ["Other than money, what else have you gained from your current job?", "experience", false],
         ["Whom do you secretly envy?", "worldview", false],
         ["In twenty years, what do you want to remember?", "goals", false],
-        ["What are you most excited about in your life right now - today?", "likes", false],
+        ["What are you most excited about for your life?", "likes", false],
+        ["What are you most excited about for today?", "likes", false],
         ["What experience from this past year do you appreciate the most?", "experience", false],
         ["What is the most enjoyable thing your family has done together in the last three years?", "experience", false],
         ["How many hours of television do you watch in a week? A month? A year?", "tendencies", false],
@@ -780,8 +782,13 @@
         ["If you could do it all over again, would you change anything?", "fantasy", false],
         ["How would you describe your future in three words?", "goals", false],
         ["What made you realize that you're not invincible?", "experience", false],
-        ["What do you crave?", "tendencies", true]
-    ]
+        ["What do you crave?", "tendencies", true],
+        ["How are you coping?", "tendencies", false],
+        ["Are you a coward?", "tendencies", false],
+        ["Who takes care of you?", "people", false],
+        ["What's something consequential you've done?", "experience", false],
+        ["What would you say to someone truly, deeply evil?", "worldview", false],
+        ["What is one thing you're trying to change about yourself?", "dislikes", false]]
     let questions = completequestions
     let viewedIndex;
     let numqs = questions.length
@@ -818,7 +825,7 @@
                     document.getElementById("drawbutton").disabled = true;
             }
             document.getElementById("backbtn").disabled = stack.length <= 1;
-            document.getElementById("enteredcardnum").value = (cardind+1)
+            document.getElementById("enteredcardnum").value = (cardind + 1)
         }
     }
     let resetDeck = () => {
@@ -862,10 +869,10 @@
             "<b>Find me everywhere @coderystal for updates and new projects!</b>" + "<br><br>" +
             "I love making stuff for people to use - and this is my first coding project I'm calling finished! If you're reading this, especially if you didn't hear about it from me, I'm so excited you found me, and I hope you get some use out of Convo Companion." + "<br><br>" +
             "<b>Want to create a site of your own?</b><br>" +
-            "<a onclick='event.stopPropagation();' href='https://github.com/coderystal/questiondeck/tree/main/v1' target='_blank'>GitHub</a> (source code and documentation)" +"<br>" +
+            "<a onclick='event.stopPropagation();' href='https://github.com/coderystal/questiondeck/tree/main/v1' target='_blank'>GitHub</a> (source code and documentation)" + "<br>" +
             "I aim to share projects that serve as demonstrations and references, for anyone with an idea who wants to use code to bring it to life." + "<br><br>" +
             "<b>Want to see the data behind this site?</b><br>" +
-            "<a onclick='event.stopPropagation();' href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)<br>"+
+            "<a onclick='event.stopPropagation();' href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)<br>" +
             "Here's where I organized and made decisions for the contents of this site, as someone who is not great with processing words.<br><br>" +
             "</div>"
         document.getElementById("question").style.color = "black"
@@ -873,7 +880,7 @@
 
     function showInstructions() {
         document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:1.7vh'>" +
-            "<b>Choose your deck!</b> Browse the ten sub-categories we've divided our questions into.<br>"+
+            "<b>Choose your deck!</b> Browse the ten sub-categories we've divided our questions into.<br>" +
             "<b>Pick a card!</b> Enter a number or let us find a new question.<br>" +
             "<b>Let us keep track!</b> Review your history, or reset tp put all cards back into play.<br>" +
             "<b>Skim them all!</b> See the full list of everything in the deck.<br>" +
@@ -883,7 +890,7 @@
             "To relax a bit, try answering with just one word!" +
             "<br><br>" +
             "Be kind and have fun!"
-            "</div>"
+        "</div>"
         document.getElementById("question").style.color = "black"
     }
 
@@ -942,7 +949,7 @@
         let modalcontent = document.querySelector(".modal-content")
         modal.style.display = 'block'
         modalcontent.innerHTML = "..."
-        
+
         let table = document.createElement("table")
         table.innerHTML = "<tr><th colspan='2'>" + (questions.length == 0 ? "No cards in deck." : "Deck") + "</th></tr>"
         questions.forEach(
@@ -965,7 +972,7 @@
         document.getElementById("drawbutton").innerHTML = "Draw New Card (space)"
         document.getElementById("backbtn").innerHTML = "Back (B)"
         document.getElementById("numviewed").innerHTML = viewed + " cards seen (H)"
-        document.getElementById("numcards").innerHTML = numqs  + " cards (D)"
+        document.getElementById("numcards").innerHTML = numqs + " cards (D)"
         document.getElementById("about").innerHTML = "About (A)"
         document.getElementById("title").innerHTML = "Title (T)"
         document.getElementById("instructions").innerHTML = "Instructions (I)"
@@ -998,18 +1005,18 @@
     <div id="question" onclick="drawNewCard(getCardInd())"></div>
     <div>
         <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
-        <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+" inputmode="numeric" size="4"
-            onChange="drawNewCard(event.currentTarget.value -1)"></div>
+        <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+"
+                inputmode="numeric" size="4" onChange="drawNewCard(event.currentTarget.value -1)"></div>
     </div>
     <div>
         <select id="deckdd">
             <option>complete</option>
             <option style="color: red;">react!</option>
-        </select> deck: 
+        </select> deck:
         <button id="numcards" onclick="popupAll()"></button>
     </div>
-    
-    
+
+
     <script>
         document.getElementById("numcards").innerHTML = numqs + " cards"
         let decks = [...new Set(questions.map((val) => val[1]))].sort()
@@ -1076,17 +1083,21 @@
     table {
         width: 100%;
     }
+
     table * {
         color: black;
         font-size: 14px;
     }
+
     td:nth-child(1) {
         text-align: right;
         vertical-align: text-top;
     }
+
     tr:nth-child(even) {
         background-color: lightblue;
     }
+
     th {
         background-color: white;
     }
