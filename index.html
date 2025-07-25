@@ -1,0 +1,289 @@
+<html>
+    <link rel="stylesheet" href="styles.css">
+    <script src = "script.js"></script>
+
+<script>
+let questions = completequestions
+    let viewedIndex;
+    let numqs = questions.length
+    let getCardInd = () => {
+        if (viewed == numqs)
+            return current
+        let newIndexes = viewedIndex.filter((pair) => !pair[0]).map(pair => pair[1])
+        let newIndex = newIndexes[parseInt(Math.random() * newIndexes.length)]
+        return newIndex
+    }
+    let drawNewCard = (cardind, back) => {
+        if (/^\d+$/.test(cardind)) { //if cardind is a positive integer
+            if (cardind < 0 || cardind >= numqs) {
+                document.getElementById("question").innerHTML = "<br><div class='cardq'>#" +
+                    document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
+                    "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
+                document.getElementById("question").style.color = "black"
+            }
+            else {
+                if (!back)
+                    stack.push(current)
+                current = cardind
+                document.getElementById("question").style.color = (questions[current][2]) ? "red" : "black"
+                document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + (current + 1) + "</span>" +
+                    "<div class='cardq'><b>" + questions[current][0] +
+                    "</b></div><span class = 'cardatt'>" + questions[current][1] + "<span>"
+                if (!viewedIndex[current][0])
+                    viewed++
+                viewedIndex[current][0] = true
+                document.getElementById("numviewed").innerHTML = viewed + " cards seen"
+                if (viewed > 0)
+                    document.getElementById("resetbutton").disabled = false;
+                if (viewed == numqs)
+                    document.getElementById("drawbutton").disabled = true;
+            }
+            document.getElementById("backbtn").disabled = stack.length <= 1;
+            document.getElementById("enteredcardnum").value = (cardind + 1)
+        }
+    }
+    let resetDeck = () => {
+        viewedIndex = questions.map((val, i) => [false, i])
+        viewed = 0;
+        showTitle()
+        document.getElementById("numviewed").innerHTML = viewed + " cards seen"
+        document.getElementById("resetbutton").disabled = true;
+        document.getElementById("drawbutton").disabled = false;
+        document.getElementById("enteredcardnum").value = ""
+        document.getElementById("enteredcardnum").max = numqs
+        current = undefined
+        document.getElementById('backbtn').disabled = true
+        stack = []
+    }
+
+    function showTitle() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:5vh'><b>" +
+            "Convo Companion</b><div style='font-size:2vh'>by coderystal</div>" +
+            "<button class='coffee' onclick='event.stopPropagation()'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>☕ Buy me a coffee</a></button>" +
+            "</div>" +
+            "<span class='cardatt'>" + document.getElementById("deckdd").value + " deck<span>"
+        document.getElementById("question").style.color = "black"
+    }
+
+    function showAbout() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:1.7vh'>" +
+            "<b style='font-size:2vh'>Convo Companion</b>" + "<br>" +
+            "New insight, every click" + "<br><br>" +
+            "Uncover deeper understandings, one question at a time. Never get stuck, with 600+ thought-provoking prompts across different topics to think on and talk through. " + "<br>" +
+            "Know what you need? Find your way in with our neatly browsable library." + "<br>" +
+            "Ready for anything? Jump right in with our inviting, no-nonsense cards." + "<br><br>" +
+            "<b>A note from coderystal</b>" + "<br>" +
+            "I designed this site as a tool in the task of getting to know a person, yourself or otherwise. I've found that pre-written questions, presented as an activity, can make things a little less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of these questions I've gathered. May this deck lead you to new places!" + "<br>" +
+            "There are still some features I'm hoping to incorporate... Find me everywhere @coderystal for updates and new projects!" + "<br><br>" +
+            "</div>"
+        document.getElementById("question").style.color = "black"
+    }
+    function showCoderystal() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:1.7vh'>" +
+            "<b>Find me everywhere @coderystal for updates and new projects!</b>" + "<br><br>" +
+            "I love making stuff for people to use - and this is my first coding project I'm calling finished! If you're reading this, especially if you didn't hear about it from me, I'm so excited you found me, and I hope you get some use out of Convo Companion." + "<br><br>" +
+            "<b>Want to create a site of your own?</b><br>" +
+            "<a onclick='event.stopPropagation();' href='https://github.com/coderystal/questiondeck/tree/main' target='_blank'>GitHub</a> (source code and documentation)" + "<br>" +
+            "I aim to share projects that serve as demonstrations and references, for anyone with an idea who wants to use code to bring it to life." + "<br><br>" +
+            "<b>Want to see the data behind this site?</b><br>" +
+            "<a onclick='event.stopPropagation();' href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)<br>" +
+            "Here's where I organized and made decisions for the contents of this site, as someone who is not great with processing words.<br><br>" +
+            "</div>"
+        document.getElementById("question").style.color = "black"
+    }
+
+    function showInstructions() {
+        document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:1.7vh'>" +
+            "<b>Choose your deck!</b> Browse the ten sub-categories we've divided our questions into.<br>" +
+            "<b>Pick a card!</b> Enter a number or let us find a new question.<br>" +
+            "<b>Let us keep track!</b> Review your history, or reset tp put all cards back into play.<br>" +
+            "<b>Skim them all!</b> See the full list of everything in the deck.<br>" +
+            "If you're on your computer, each button can be selected using the keyboard, click any key to see." +
+            "<br><br>" +
+            "When you can, make the most of each question - explain, qualify, and don't hold back.<br>" +
+            "<b style='color:red'>Some cards are purposely vague - see how you react, share what comes to mind!</b><br>" +
+            "To relax a bit, try answering with just one word!" +
+            "<br><br>" +
+            "Be kind and have fun!"
+        "</div>"
+        document.getElementById("question").style.color = "black"
+    }
+
+    document.onkeydown = function (e) {
+        if (e.target != document.getElementById("enteredcardnum")) {
+            if (/\d/.test(e.key)) {
+                console.log("type " + e.key)
+                document.getElementById("enteredcardnum").value += e.key
+            } else if (e.key == 'Enter') {
+                if (document.getElementById("enteredcardnum").value.trim() != '')
+                    drawNewCard(parseInt(document.getElementById("enteredcardnum").value.trim()) - 1)
+            } else if (e.key == 'Backspace') {
+                document.getElementById("enteredcardnum").value = document.getElementById("enteredcardnum").value.slice(0, -1)
+            } else
+                switch (e.key.toLowerCase()) {
+                    case 'r': resetDeck(); break;
+                    case ' ': drawNewCard(getCardInd()); break; //don't use enter, expected behaviors
+                    case 'b': drawNewCard(stack.pop(), true); break;
+                    case 'h': popupViewed(); break;
+                    case 'd': popupAll(); break;
+                    case 'a': showAbout(); break;
+                    case 't': showTitle(); break;
+                    case 'i': showInstructions(); break;
+                    case 'c': showCoderystal(); break;
+                    default: showA11y();
+                }
+        }
+    }
+
+    function popup() {
+        let modalcontent = document.querySelector(".modal-content")
+        modal.style.display = 'flex'
+        modalcontent.innerHTML = "..."
+        return modalcontent
+    }
+
+    function popupViewed() {
+        let modalcontent = popup()
+
+        let table = document.createElement("table")
+
+        let history = viewedIndex.filter((viewedIndex) => viewedIndex[0]).map((viewedIndex) => viewedIndex[1])
+        table.innerHTML = "<tr><th colspan='2'>" + (history.length == 0 ? "No deck history." : "Deck history") + "</th></tr>"
+
+        history.forEach(
+            (viewedI) => {
+                let tr = document.createElement("tr")
+                let ind = document.createElement("td")
+                ind.innerHTML = viewedI + 1
+                let qust = document.createElement("td")
+                qust.innerHTML = questions[viewedI][0]
+                tr.appendChild(ind)
+                tr.appendChild(qust)
+                table.appendChild(tr)
+            }
+        )
+        modalcontent.innerHTML = ""
+        modalcontent.appendChild(table)
+    }
+    function popupAll() {
+        let modalcontent = popup()
+
+        let table = document.createElement("table")
+        table.innerHTML = "<tr><th colspan='2'>" + (questions.length == 0 ? "No cards in deck." : "Deck") + "</th></tr>"
+        questions.forEach(
+            (question, i) => {
+                let tr = document.createElement("tr")
+                let ind = document.createElement("td")
+                ind.innerHTML = i + 1
+                let qust = document.createElement("td")
+                qust.innerHTML = question[0]
+                tr.appendChild(ind)
+                tr.appendChild(qust)
+                table.appendChild(tr)
+            }
+        )
+        modalcontent.innerHTML = ""
+        modalcontent.appendChild(table)
+    }
+    function showA11y() {
+        document.getElementById("resetbutton").innerHTML = "Reset Deck (R)"
+        document.getElementById("drawbutton").innerHTML = "Draw New Card (space)"
+        document.getElementById("backbtn").innerHTML = "Back (B)"
+        document.getElementById("numviewed").innerHTML = viewed + " cards seen (H)"
+        document.getElementById("numcards").innerHTML = numqs + " cards (D)"
+        document.getElementById("about").innerHTML = "About (A)"
+        document.getElementById("title").innerHTML = "Title (T)"
+        document.getElementById("instructions").innerHTML = "Instructions (I)"
+        document.getElementById("coderystal").innerHTML = "Coderystal (C)"
+        setTimeout(() => {
+            document.getElementById("resetbutton").innerHTML = "Reset Deck"
+            document.getElementById("drawbutton").innerHTML = "Draw New Card"
+            document.getElementById("backbtn").innerHTML = "Back"
+            document.getElementById("numviewed").innerHTML = viewed + " cards seen"
+            document.getElementById("numcards").innerHTML = numqs + " cards"
+            document.getElementById("about").innerHTML = "About"
+            document.getElementById("title").innerHTML = "Title"
+            document.getElementById("instructions").innerHTML = "Instructions"
+            document.getElementById("coderystal").innerHTML = "Coderystal"
+        }, 1000)
+    }
+</script>
+<div id="container">
+    <div id="navbar">
+        <a id='about' onclick='showAbout()'>About</a>
+        <a id='title' onclick='showTitle()'>Title</a>
+        <a id='instructions' onclick='showInstructions()'>Instructions</a>
+        <a id='coderystal' onclick='showCoderystal()'>Coderystal</a>
+    </div>
+    <div>
+        <button id="resetbutton" onclick="resetDeck()">Reset History</button>
+        <button id='backbtn' onclick="drawNewCard(stack.pop(), true)">Back</button>
+        <button id="numviewed" onclick="popupViewed()"></button>
+    </div>
+    <div id="question" onclick="drawNewCard(getCardInd())"></div>
+    <div>
+        <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
+        <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+"
+                inputmode="numeric" size="4" onChange="drawNewCard(event.currentTarget.value -1)"></div>
+    </div>
+    <div>
+        <select id="deckdd">
+            <option>complete</option>
+            <option style="color: red;">react!</option>
+        </select> deck:
+        <button id="numcards" onclick="popupAll()"></button>
+    </div>
+
+
+    <script>
+        document.getElementById("numcards").innerHTML = numqs + " cards"
+        let decks = [...new Set(questions.map((val) => val[1]))].sort()
+        let deckdd = document.getElementById("deckdd")
+        let stack = []
+        for (let i in decks) {
+            let opt = document.createElement("option")
+            opt.innerHTML = decks[i]
+            deckdd.appendChild(opt)
+        }
+        deckdd.onchange = (e) => {
+            let deck = e.currentTarget.value
+            questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
+            numqs = questions.length
+            document.getElementById("numcards").innerHTML = numqs + " cards"
+            resetDeck()
+        }
+        let current;
+        let viewed;
+        resetDeck()
+        document.querySelector(".coffee").style.display = 'none'
+    </script>
+</div>
+
+<div id="footer">
+    made by Crystal Wen, to present a collection of invasive questions I've selected.
+    sources of truth (in regards to this deck):
+    <a href="https://github.com/coderystal/questiondeck/tree/main" target="_blank"><img id="github"
+            src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"></a>
+    <a href="https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing"
+        target="_blank"><img id="youtube" src="https://img.icons8.com/color/512/google-sheets.png"></a>
+
+</div>
+
+<div id="infomodal" class="modal" onclick="document.getElementById('infomodal').style.display = 'none';">
+    <div class="modal-content" onclick="event.stopPropagation()">
+    </div>
+    <script>
+        let modal = document.getElementById('infomodal')
+        function closepopup() {
+            modal.style.display = "none";
+        }
+
+        window.addEventListener('keyup', function (e) {
+            if (e.key === "Escape") { // escape key maps to keycode `27`
+                closepopup();
+            }
+        });
+    </script>
+</div>
+
+</html>

@@ -1,0 +1,177 @@
+    html {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        background-color: black;
+        color: grey;
+        font-size: 2vh;
+
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+
+    #navbar * {
+        margin-left: 10px;
+        margin-right: 10px;
+        text-decoration: underline;
+        font-size: 1.5vh;
+        opacity: 70%;
+    }
+
+    #navbar {
+        padding-bottom: 30px;
+    }
+
+    button:not(.coffee),
+    input,
+    select {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 2vh;
+        height: 5%;
+    }
+
+    button:not(.coffee),
+    select {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+    #container {
+        max-width: 80%;
+        max-width: 900px;
+        margin: auto;
+        max-height: 95%;
+        overflow: auto;
+    }
+
+    #container>* {
+        text-align: center;
+        margin: 10px;
+    }
+
+    #question {
+        position: relative;
+        padding: 5%;
+        border: 5px solid black;
+        border-radius: 25px;
+        overflow: auto;
+        font-size: 4vh;
+        background-color: lightblue;
+        color: black;
+        display: flex;
+        justify-content: center;
+    }
+
+    .cardq {
+        margin: auto;
+    }
+
+    @media (min-height: 1000px) {
+        #question {
+            height: 55%;
+        }
+
+        #footer {
+            font-size: 1.25vh;
+        }
+    }
+
+    @media (max-height: 1000px) {
+        #question {
+            height: 35%;
+        }
+
+        #footer {
+            font-size: 2vh;
+        }
+    }
+
+    .coffee {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin: 5px;
+        border-radius: 100px;
+        font-size: 2vh;
+    }
+
+    .cardatt {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 5px;
+        font-size: 2vh;
+    }
+
+    input:invalid {
+        color: red;
+    }
+
+    #footer {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    img {
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+    }
+
+    #github {
+        filter: invert(1);
+    }
+
+
+    
+    .modal {
+        display: none;
+        align-items: center;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(8, 57, 21, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        width: 80%;
+        max-height: 80%;
+        overflow: auto;
+        color: black;
+        text-align: center;
+        font-size: 2vh;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    table * {
+        color: black;
+        font-size: 2vh;
+    }
+
+    td:nth-child(1) {
+        text-align: right;
+        vertical-align: text-top;
+    }
+
+    tr:nth-child(even) {
+        background-color: lightblue;
+    }
+
+    th {
+        background-color: white;
+    }
