@@ -156,6 +156,7 @@
 
     table {
         width: 100%;
+        border-spacing: 0px;
     }
 
     table * {
@@ -164,8 +165,10 @@
     }
 
     td:nth-child(1) {
-        text-align: right;
         vertical-align: text-top;
+        color: rgb(120, 120, 120);
+        text-align: right;
+        padding-right: 5px;
     }
 
     tr:nth-child(even) {
@@ -174,4 +177,36 @@
 
     th {
         background-color: white;
+        position: sticky;
+        top: -20px; /*matches modal-content padding*/
+        border-bottom: 5px solid black;
+    }
+
+
+    .dislikes {
+        color: #8F3001;
+    }
+    .experience {
+        color: #025C73;
+    }
+    .fantasy {
+        color: #73026F;
+    }
+    .goals {
+        color: #027337;
+    }
+    .identity {
+        color: #590273;
+    }
+    .likes {
+        color: #730251;
+    }
+    .people {
+        color: #736402;
+    }
+    .tendencies {
+        color: #734802;
+    }
+    .worldview {
+        color: #026073;
     }
