@@ -25,10 +25,10 @@ let questions = completequestions
                 if (!back)
                     stack.push(current)
                 current = cardind
-                document.getElementById("question").style.color = (questions[current][2]) ? "red" : "black"
+                let qust = questions[current]
                 document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + (current + 1) + "</span>" +
-                    "<div class='cardq'><b>" + questions[current][0] +
-                    "</b></div><span class = 'cardatt'>" + questions[current][1] + "<span>"
+                    "<div class='cardq' style='color:" + ((qust[2]) ? "red" : "black") + "'><b>" + qust[0] +
+                    "</b></div><span class = 'cardatt "+qust[1]+"'>" + qust[1] + "<span>"
                 if (!viewedIndex[current][0])
                     viewed++
                 viewedIndex[current][0] = true
@@ -142,6 +142,18 @@ let questions = completequestions
         return modalcontent
     }
 
+    function createTr(question, i) {
+        let tr = document.createElement("tr")
+        let ind = document.createElement("td")
+        ind.innerHTML = i + 1
+        let qust = document.createElement("td")
+        qust.innerHTML = question[0]
+        qust.classList.add(question[1])
+        tr.appendChild(ind)
+        tr.appendChild(qust)
+        return tr
+    }
+
     function popupViewed() {
         let modalcontent = popup()
 
@@ -151,16 +163,7 @@ let questions = completequestions
         table.innerHTML = "<tr><th colspan='2'>" + (history.length == 0 ? "No deck history." : "Deck history") + "</th></tr>"
 
         history.forEach(
-            (viewedI) => {
-                let tr = document.createElement("tr")
-                let ind = document.createElement("td")
-                ind.innerHTML = viewedI + 1
-                let qust = document.createElement("td")
-                qust.innerHTML = questions[viewedI][0]
-                tr.appendChild(ind)
-                tr.appendChild(qust)
-                table.appendChild(tr)
-            }
+            (viewedI) => { table.appendChild(createTr(questions[viewedI], viewedI)) }
         )
         modalcontent.innerHTML = ""
         modalcontent.appendChild(table)
@@ -169,18 +172,11 @@ let questions = completequestions
         let modalcontent = popup()
 
         let table = document.createElement("table")
-        table.innerHTML = "<tr><th colspan='2'>" + (questions.length == 0 ? "No cards in deck." : "Deck") + "</th></tr>"
+        let deck = document.getElementById("deckdd").value
+        upperDeck = deck.charAt(0).toUpperCase() + deck.slice(1)
+        table.innerHTML = "<tr><th colspan='2' class='"+deck+"'>" + (questions.length == 0 ? "No cards in deck." : upperDeck + " Deck") + "</th></tr>"
         questions.forEach(
-            (question, i) => {
-                let tr = document.createElement("tr")
-                let ind = document.createElement("td")
-                ind.innerHTML = i + 1
-                let qust = document.createElement("td")
-                qust.innerHTML = question[0]
-                tr.appendChild(ind)
-                tr.appendChild(qust)
-                table.appendChild(tr)
-            }
+            (question, i) => { table.appendChild(createTr(question, i)) }
         )
         modalcontent.innerHTML = ""
         modalcontent.appendChild(table)
@@ -243,6 +239,7 @@ let questions = completequestions
         for (let i in decks) {
             let opt = document.createElement("option")
             opt.innerHTML = decks[i]
+            opt.classList.add(decks[i])
             deckdd.appendChild(opt)
         }
         deckdd.onchange = (e) => {
