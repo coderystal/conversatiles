@@ -2,7 +2,7 @@
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         background-color: black;
         color: grey;
-        font-size: 2vh;
+        font-size: max(2vh, 15px);
 
         -moz-user-select: -moz-none;
         -khtml-user-select: none;
@@ -28,8 +28,8 @@
     input,
     select {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 2vh;
-        height: 5%;
+        font-size: max(2vh, 15px);
+        height: max(5%, 25px);
     }
 
     button:not(.coffee),
@@ -96,15 +96,14 @@
         left: 0;
         margin: 5px;
         border-radius: 100px;
-        font-size: 2vh;
+        font-size: max(2vh, 15px);
     }
 
     .cardatt {
         position: absolute;
         bottom: 0;
-        right: 0;
         margin: 5px;
-        font-size: 2vh;
+        font-size: max(2vh, 15px);
     }
 
     input:invalid {
@@ -146,12 +145,13 @@
         background-color: #fefefe;
         margin: auto;
         padding: 20px;
-        width: 80%;
+        min-width: 40%;
+        max-width: 80%;
         max-height: 80%;
         overflow: auto;
         color: black;
         text-align: center;
-        font-size: 2vh;
+        font-size: max(2vh, 15px);
     }
 
     table {
@@ -161,7 +161,7 @@
 
     table * {
         color: black;
-        font-size: 2vh;
+        font-size: max(2vh, 15px);
     }
 
     td:nth-child(1) {
