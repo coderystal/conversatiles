@@ -58,7 +58,7 @@ let questions = completequestions
 
     function showTitle() {
         document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:5vh'><b>" +
-            "Convo Companion</b><div style='font-size:3vh'>by coderystal</div>" +
+            "Conversatiles</b><div style='font-size:2.5vh'>by coderystal</div>" +
             "<button class='coffee' onclick='event.stopPropagation()'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>☕ Buy me a coffee</a></button>" +
             "</div>" +
             "<span class='cardatt'>" + document.getElementById("deckdd").value + " deck<span>"
@@ -67,7 +67,7 @@ let questions = completequestions
 
     function showAbout() {
         document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 14px);'>" +
-            "<b style='font-size:max(2vh, 18px);'>Convo Companion</b>" + "<br>" +
+            "<b style='font-size:max(2vh, 18px);'>Conversatiles</b>" + "<br>" +
             "New insight, every click" + "<br>" +
             "<p style='text-align: left;margin:0;'>Uncover deeper understandings, one question at a time. Never get stuck, with 600+ thought-provoking prompts across different topics to think on and talk through.</p> " + "<br>" +
             "<b>Know what you need?</b> Find your way in with our neatly browsable library." + "<br>" +
@@ -81,7 +81,7 @@ let questions = completequestions
     function showCoderystal() {
         document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 14px);'>" +
             "<b>Find me everywhere @coderystal for updates and new projects!</b>" + "<br><br>" +
-            "<p style='text-align: left;margin:0;'>I love making stuff for people to use - and this is my first coding project I'm calling finished! I'm so excited you're reading this, especially if you didn't hear about it from me. I hope you enjoy Convo Companion." + "</p><br>" +
+            "<p style='text-align: left;margin:0;'>I love making stuff for people to use - and this is my first coding project I'm calling finished! I'm so excited you're reading this, especially if you didn't hear about it from me. I hope you enjoy Conversatiles." + "</p><br>" +
             "<b>Want to create a site of your own?</b><br>" +
             "<a onclick='event.stopPropagation();' href='https://github.com/coderystal/questiondeck/tree/main' target='_blank'>GitHub</a> (source code and documentation)" +
             "<p style='text-align: left;margin:0;'>I aim to share projects that serve as demonstrations and references, of how I bring ideas to life with code." + "</p><br>" +
@@ -110,7 +110,7 @@ let questions = completequestions
     }
 
     document.onkeydown = function (e) {
-        if (e.target != document.getElementById("enteredcardnum")) {
+        if (e.target != document.getElementById("enteredcardnum") && e.target != document.getElementById("deckdd")) {
             if (/\d/.test(e.key)) {
                 console.log("type " + e.key)
                 document.getElementById("enteredcardnum").value += e.key
@@ -205,24 +205,24 @@ let questions = completequestions
     }
 </script>
 <div id="container">
-    <div id="navbar">
+    <div id="navbar" class="controls">
         <a id='about' onclick='showAbout()'>About</a>
         <a id='title' onclick='showTitle()'>Title</a>
         <a id='instructions' onclick='showInstructions()'>Instructions</a>
         <a id='coderystal' onclick='showCoderystal()'>Coderystal</a>
     </div>
-    <div>
+    <div class="controls">
         <button id="resetbutton" onclick="resetDeck()">Reset History</button>
         <button id='backbtn' onclick="drawNewCard(stack.pop(), true)">Back</button>
         <button id="numviewed" onclick="popupViewed()"></button>
     </div>
     <div id="question" onclick="drawNewCard(getCardInd())"></div>
-    <div>
+    <div class="controls">
         <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
         <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+"
                 inputmode="numeric" size="4" onChange="drawNewCard(event.currentTarget.value -1)"></div>
     </div>
-    <div>
+    <div class="controls">
         <select id="deckdd">
             <option>complete</option>
             <option style="color: red;">react!</option>
@@ -249,14 +249,10 @@ let questions = completequestions
             document.getElementById("numcards").innerHTML = numqs + " cards"
             resetDeck()
         }
-        let current;
-        let viewed;
-        resetDeck()
-        document.querySelector(".coffee").style.display = 'none'
     </script>
 </div>
 
-<div id="footer">
+<div id="footer" class="controls">
     made by Crystal Wen, to present a collection of invasive questions I've selected.
     sources of truth (in regards to this deck):
     <a href="https://github.com/coderystal/questiondeck/tree/main" target="_blank"><img id="github"
@@ -265,6 +261,44 @@ let questions = completequestions
         target="_blank"><img id="youtube" src="https://img.icons8.com/color/512/google-sheets.png"></a>
 
 </div>
+<script id="start">
+    
+        let current;
+        let viewed;
+
+        resetDeck()
+        document.querySelector(".coffee").style.display = 'none'
+        
+        let demoIndexes = [110, 89, 344, 7, 534, 148, 270, 471, 222, 442, 615, 298, 282, 331, 26, 57, 514, 175, 291, 35]
+        function demoQ(demoI) {
+            if (demoI == demoIndexes.length) {
+                resetDeck()
+                document.querySelector(".coffee").style.display = 'none'
+                for (let controlElement of document.getElementsByClassName("controls")) {
+                    controlElement.style.display = ''
+                }
+                document.getElementById("question").style.width = ""
+                document.getElementById("question").style.height = ""
+                document.getElementById("question").style.marginTop = ""
+                document.getElementById("question").style.margin = ""
+            } else {
+                if (demoI == 0) {
+                    for (let controlElement of document.getElementsByClassName("controls")) {
+                        controlElement.style.display = 'none'
+                    }
+                    document.getElementById("question").style.width = "40%"
+                    document.getElementById("question").style.height = "60%"
+                    document.getElementById("question").style.margin = "auto"
+                    document.getElementById("question").style.marginTop = "130px"
+                }
+                setTimeout(function() { 
+                    drawNewCard(demoIndexes[demoI]);
+                    demoQ(demoI+1)
+                }, 50)
+            }
+        }
+
+</script>
 
 <div id="infomodal" class="modal" onclick="document.getElementById('infomodal').style.display = 'none';">
     <div class="modal-content" onclick="event.stopPropagation()">
