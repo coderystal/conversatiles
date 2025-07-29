@@ -92,11 +92,13 @@
 
     .coffee {
         position: absolute;
-        bottom: 0;
-        left: 0;
+        top: 0;
         margin: 5px;
+        padding-bottom: 5px;
         border-radius: 100px;
+        border: 1px solid black;
         font-size: max(2vh, 15px);
+        background-color: rgba(255, 255, 255, 0.5);
     }
 
     .cardatt {
