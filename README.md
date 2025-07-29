@@ -1,5 +1,5 @@
 # Coderystal's Conversatiles
-Check it out at [coderystal.github.io/conversatiles](coderystal.github.io/conversatiles)!
+Check it out at [coderystal.github.io/conversatiles](https://coderystal.github.io/conversatiles/)!
 
 Deck display of selected deep questions from different sources
 * questions and categorized decks
