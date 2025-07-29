@@ -1,4 +1,5 @@
-# Coderystal's Question Deck
+# Coderystal's Conversatiles
+Check it out at [coderystal.github.io/conversatiles](coderystal.github.io/conversatiles)!
 
 Deck display of selected deep questions from different sources
 * questions and categorized decks
@@ -12,10 +13,10 @@ Features
 
 Details
 * Languages: plain HTML, JS, CSS
-* Structure: single HTML file, sharing through an HTML preview service [html-preview.github.io](https://github.com/html-preview/html-preview.github.io) using [tinyurl.com/questiondeckv1](https://tinyurl.com/questiondeckv1)
 * Data: JS Arrays
   * completequestions
   * states: questions, viewedIndex
 
-This Version
-* Work duration: November 2, 2024 (approx. 4 hours)
+Timeline
+* Started: November 2, 2024
+* Promoting: July 29, 2025
