@@ -31,7 +31,7 @@ function fullScreen() {
             }, 50)
         }
     }
-    reduceScreenToggleOpacityTo0(0.5)
+    // reduceScreenToggleOpacityTo0(0.5)
 }
 
 function toggleScreen() {
@@ -40,4 +40,5 @@ function toggleScreen() {
     } else {
         exitFullScreen()
     }
+
 }
