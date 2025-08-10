@@ -10,6 +10,7 @@ function exitFullScreen() {
     document.getElementById("container").style.maxHeight = ""
     document.getElementById("screentoggleimg").src = "fullscreen.png"
     document.getElementById("screentoggle").style.opacity = "0.5"
+    clearTimeout(screenToggleFadeTimeout)
 }
 
 function fullScreen() {
@@ -24,7 +25,7 @@ function fullScreen() {
     document.getElementById("screentoggleimg").src = "exitFullscreen.png"
     function reduceScreenToggleOpacityTo0(opacity) {
         if (opacity > 0) {
-            setTimeout(function () {
+            screenToggleFadeTimeout = setTimeout(function () {
                 document.getElementById("screentoggle").style.opacity = opacity
                 reduceScreenToggleOpacityTo0(opacity - 0.05)
             }, 50)
@@ -40,3 +41,5 @@ function toggleScreen() {
         exitFullScreen()
     }
 }
+
+let screenToggleFadeTimeout;
