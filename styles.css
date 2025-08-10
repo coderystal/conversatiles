@@ -11,6 +11,16 @@
         user-select: none;
     }
 
+    
+    #screentoggle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        filter: invert(1);
+        opacity: .5;
+    }
 
     #navbar * {
         margin-left: 10px;
@@ -24,7 +34,7 @@
         padding-bottom: 30px;
     }
 
-    button:not(.coffee),
+    button:not(.coffee):not(.screentoggle),
     input,
     select {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -32,7 +42,7 @@
         height: max(5%, 25px);
     }
 
-    button:not(.coffee),
+    button:not(.coffee):not(.screentoggle),
     select {
         padding-top: 5px;
         padding-bottom: 5px;
