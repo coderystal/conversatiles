@@ -11,7 +11,7 @@ function exitFullScreen() {
     document.getElementById("container").style.height = ""
     document.getElementById("container").style.maxHeight = ""
     document.getElementById("screentoggleimg").src = "fullscreen.png"
-    document.getElementById("screentoggle").style.opacity = "0.5"
+    // document.getElementById("screentoggle").style.opacity = "0.5"
 }
 function fullScreen() {
     for (let controlElement of document.getElementsByClassName("controls")) {
@@ -42,3 +42,4 @@ function toggleScreen() {
     }
 
 }
+
