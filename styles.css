@@ -104,7 +104,7 @@
         position: absolute;
         top: 0;
         margin: 5px;
-        padding-bottom: 5px;
+        padding: 5px;
         border-radius: 100px;
         border: 1px solid black;
         font-size: max(2vh, 15px);

@@ -1,7 +1,5 @@
 
 function exitFullScreen() {
-    if (document.querySelector(".coffee") != null)
-        document.querySelector(".coffee").style.display = 'none'
     for (let controlElement of document.getElementsByClassName("controls")) {
         controlElement.style.display = ''
     }
@@ -12,8 +10,8 @@ function exitFullScreen() {
     document.getElementById("container").style.maxHeight = ""
     document.getElementById("screentoggleimg").src = "fullscreen.png"
     document.getElementById("screentoggle").style.opacity = "0.5"
-
 }
+
 function fullScreen() {
     for (let controlElement of document.getElementsByClassName("controls")) {
         controlElement.style.display = 'none'
