@@ -10,7 +10,7 @@ function exitFullScreen() {
     document.getElementById("container").style.alignContent = ""
     document.getElementById("container").style.height = ""
     document.getElementById("container").style.maxHeight = ""
-    document.getElementById("screentoggleimg").src = "fullscreen.png"
+    // document.getElementById("screentoggleimg").src = "fullscreen.png"
     // document.getElementById("screentoggle").style.opacity = "0.5"
 }
 function fullScreen() {
@@ -22,7 +22,7 @@ function fullScreen() {
     document.getElementById("container").style.alignContent = "center"
     document.getElementById("container").style.height = "100%"
     document.getElementById("container").style.maxHeight = "100%"
-    document.getElementById("screentoggleimg").src = "exitFullscreen.png"
+    // document.getElementById("screentoggleimg").src = "exitFullscreen.png"
     function reduceScreenToggleOpacityTo0(opacity) {
         if (opacity > 0) {
             setTimeout(function () {
