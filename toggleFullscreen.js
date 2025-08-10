@@ -3,11 +3,8 @@ function exitFullScreen() {
     for (let controlElement of document.getElementsByClassName("controls")) {
         controlElement.style.display = ''
     }
-    document.getElementById("question").style.height = ""
-    document.getElementById("question").style.margin = ""
-    document.getElementById("container").style.alignContent = ""
-    document.getElementById("container").style.height = ""
-    document.getElementById("container").style.maxHeight = ""
+    document.getElementById("question").classList.remove("questionFullscreen")
+    document.getElementById("container").classList.remove("containerFullscreen")
     document.getElementById("screentoggleimg").src = "fullscreen.png"
     document.getElementById("screentoggle").style.opacity = "0.5"
     clearTimeout(screenToggleFadeTimeout)
@@ -17,11 +14,8 @@ function fullScreen() {
     for (let controlElement of document.getElementsByClassName("controls")) {
         controlElement.style.display = 'none'
     }
-    document.getElementById("question").style.height = "70%"
-    document.getElementById("question").style.margin = "auto"
-    document.getElementById("container").style.alignContent = "center"
-    document.getElementById("container").style.height = "100%"
-    document.getElementById("container").style.maxHeight = "100%"
+    document.getElementById("question").classList.add("questionFullscreen")
+    document.getElementById("container").classList.add("containerFullscreen")
     document.getElementById("screentoggleimg").src = "exitFullscreen.png"
     function reduceScreenToggleOpacityTo0(opacity) {
         if (opacity > 0) {
