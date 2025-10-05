@@ -59,7 +59,7 @@
                     document.getElementById("resetbutton").disabled = false;
                 if (viewed == numqs)
                     document.getElementById("drawbutton").disabled = true;
-                document.cookie = 'qnum='+cardind;
+                document.cookie = "deck="+deck+"; question="+cardnum;
             }
             document.getElementById("backbtn").disabled = stack.length <= 1;
             document.getElementById("enteredcardnum").value = cardnum
@@ -67,11 +67,18 @@
     }
     
     function resumeCard(event) {
-        let qnumcookie = document.cookie.split('; ')[0]
-        if (qnumcookie != "") {
-            // store and read deck
-            let qnum = qnumcookie.split('=')[1]
-            drawNewCard(qnum, true);
+        let cookie = document.cookie
+        console.log("resume cookie" + document.cookie)
+        if(document.cookie) {
+            deck = document.cookie.split(";")[0].split("=")[1]
+            questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
+            numqs = questions.length
+            document.getElementById("deckdd").value = deck
+            document.getElementById("numcards").innerHTML = numqs + " cards"
+            resetDeck()
+            
+            let cookieqnum = cookie.split(";")[1].split("=")[1]
+            drawNewCard(parseInt(cookieqnum)-1)
             if (event)
                 event.stopPropagation()
         }
