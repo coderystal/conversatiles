@@ -113,19 +113,14 @@
         background-color: rgba(255, 255, 255, 0.5);
     }
 
-    .cardsrc {
-        font-size: max(2vh, 15px);
-        opacity: .2;
-    }
-    #question.questionFullscreen .cardsrc{
-        display: none;
-    }
-
     .cardatt {
         position: absolute;
         bottom: 0;
         margin: 5px;
         font-size: max(2vh, 15px);
+    }
+    #question.questionFullscreen .cardatt{
+        display: none;
     }
 
     input:invalid {
