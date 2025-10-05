@@ -46,3 +46,34 @@ function popupAll() {
     modalcontent.innerHTML = ""
     modalcontent.appendChild(table)
 }
+
+async function send(event) {
+    console.log("SENDDSDDDDDDDDDDDDDDDDDDDDDD")
+    event.stopPropagation();
+    const shareData = {
+        title: "Conversatiles",
+        text: "Send this question to a friend!",
+        url: "https://coderystal.github.io/conversatiles/?deck="+deck+"&question="+(current+1)
+    };
+
+    // Share must be triggered by "user activation"
+    try {
+        await navigator.share(shareData);
+        console.log("MDN shared successfully");
+    } catch (err) {
+        let modalcontent = popup()
+        modalcontent.innerHTML = "<b>Send this question to a friend!</b>"+
+            "<button id='copyToClipboardButton' onclick='copyToClipboard(\""+shareData.url+"\")' style='margin: 10px;'>Copy</button>"+
+            "<br><div style='border: 1px solid black'>"+shareData.url+"</div>"
+    }
+}
+
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyToClipboardButton").innerHTML = "Copied!"
+        setTimeout(()=>{document.getElementById("copyToClipboardButton").innerHTML = "Copy"}, 1000)
+    } catch (err) {
+        document.getElementById("copyToClipboardButton").innerHTML = "Copy failed :("
+    }
+}

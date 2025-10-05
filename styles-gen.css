@@ -21,10 +21,20 @@
     select {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
-    
-    img {
-        width: min(4vw, 30px);
-        height: min(4vw, 30px);
+
+    /* mobile */
+    @media (min-height: 1000px) {    
+        img {
+            width: 8vw;
+            height: 8vw;
+        }
+    }
+    /* desktop */
+    @media (max-height: 1000px) {
+        img {
+            width: 25px;
+            height: 25px;
+        }
     }
 
     .dislikes {

@@ -63,6 +63,9 @@
         function explainSource() {
             document.getElementById("explain").innerHTML = "each question was sourced from one of the following authors:" + worksCited
         }
+        function explainAuthor() {
+            document.getElementById("explain").innerHTML = "this question was " + authorDict[qust[3]]
+        }
     </script>
     <div id="cardcontainer">
         
@@ -70,7 +73,7 @@
         <div id="questiontext"></div>
         <div><a onclick='explainCat()'>category</a>: <span id="questioncat"></span></div>
         <div id="questionreact">purposefully vague, just react</div>
-        <div><a onclick='explainSource()'>source</a>: <span id="questionsrc"></span></div>
+        <div><a onclick='explainSource()'>source</a>: <a onclick='explainAuthor()'><span id="questionsrc"></span></a></div>
         <button id="resumebutton">resume <img src="images/resume.png"></button>
 
 
@@ -84,8 +87,6 @@
             let questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
         
             let qust = questions[parseInt(qnum)-1]
-            console.log(qust)
-            console.log(document.referrer == "")
         
             document.getElementById("questiondeck").innerHTML = deck
             document.getElementById("questionnum").innerHTML = qnum
