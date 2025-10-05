@@ -48,11 +48,10 @@ function popupAll() {
 }
 
 async function send(event) {
-    console.log("SENDDSDDDDDDDDDDDDDDDDDDDDDD")
     event.stopPropagation();
     const shareData = {
         title: "Conversatiles",
-        text: "Send this question to a friend!",
+        text: "but think about this...",
         url: "https://coderystal.github.io/conversatiles/?deck="+deck+"&question="+(current+1)
     };
 
