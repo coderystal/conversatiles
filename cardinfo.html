@@ -8,9 +8,15 @@
             height: 90%;
         }
         #cardcontainer {
+            position: relative;
+            padding: 5%;
+            border: 5px solid black;
+            border-radius: 25px;
+            overflow: auto;
             background-color: lightblue;
             color: black;
-            padding: 20px;
+            justify-content: center;
+
             text-align: center;
             margin: auto;
 
@@ -71,6 +77,7 @@
         
         <div><a id="questiondeck" onclick="explainDeck()"></a> deck: question #<span id="questionnum"></span></div>
         <div id="questiontext"></div>
+        <div id="questionnote"></div>
         <div><a onclick='explainCat()'>category</a>: <span id="questioncat"></span></div>
         <div id="questionreact">purposefully vague, just react</div>
         <div><a onclick='explainSource()'>source</a>: <a onclick='explainAuthor()'><span id="questionsrc"></span></a></div>
@@ -91,6 +98,7 @@
             document.getElementById("questiondeck").innerHTML = deck
             document.getElementById("questionnum").innerHTML = qnum
             document.getElementById("questiontext").innerHTML = qust[0]
+            document.getElementById("questionnote").innerHTML = qust[5] + "<br>"
             document.getElementById("questioncat").innerHTML = qust[1]
             document.getElementById("questioncat").classList.add(qust[1])
             document.getElementById("questionreact").style.display = (qust[2]) ? "" : "none"

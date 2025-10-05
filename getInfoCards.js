@@ -52,9 +52,9 @@ function showInstructions() {
         "<b>Skim them all!</b> See the full list of everything in the deck.<br>" +
         "If you're on your computer, each button can be selected using the keyboard, click any key to see." +
         "<br><br>" +
-        "When you can, make the most of each question - explain, qualify, and don't hold back.<br>" +
+        "When you can, make the most of each question - explain, qualify, contextualize, and don't hold back.<br>" +
         "<b style='color:red'>Some cards are purposely vague - see how you react, share what comes to mind!</b><br>" +
-        "To relax a bit, try answering with just one word!" +
+        "To mix it up, try guessing your friends' answers, or answering with just one word!" +
         "<br><br>" +
         "Be kind and have fun!"
     "</div>"
