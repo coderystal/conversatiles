@@ -12,6 +12,9 @@
         top: 20;
         right: 20;
     }
+    #question.questionFullscreen .cardAction{
+        display: none;
+    }
 
     #navbar * {
         margin-left: 10px;
