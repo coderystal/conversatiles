@@ -2,7 +2,7 @@ function infoCardCleanup() {
     document.getElementById("question").style.color = "black"
 
     let resume = document.createElement("img")
-    resume.src = "resume.png"
+    resume.src = "images/resume.png"
     resume.classList.add("cardAction")
     resume.onclick = resumeCard
     document.getElementById("question").appendChild(resume)

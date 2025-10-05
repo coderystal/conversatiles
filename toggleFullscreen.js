@@ -5,7 +5,7 @@ function exitFullScreen() {
     }
     document.getElementById("question").classList.remove("questionFullscreen")
     document.getElementById("container").classList.remove("containerFullscreen")
-    document.getElementById("screentoggleimg").src = "fullscreen.png"
+    document.getElementById("screentoggleimg").src = "images/fullscreen.png"
     document.getElementById("screentoggle").style.opacity = "1"
     clearTimeout(screenToggleFadeTimeout)
 }
@@ -16,7 +16,7 @@ function fullScreen() {
     }
     document.getElementById("question").classList.add("questionFullscreen")
     document.getElementById("container").classList.add("containerFullscreen")
-    document.getElementById("screentoggleimg").src = "exitFullscreen.png"
+    document.getElementById("screentoggleimg").src = "images/exitFullscreen.png"
     function reduceScreenToggleOpacityTo0(opacity) {
         if (opacity > 0) {
             screenToggleFadeTimeout = setTimeout(function () {
