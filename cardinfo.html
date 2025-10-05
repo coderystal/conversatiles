@@ -37,6 +37,7 @@
             display: flex;
             align-items: center;
             margin: auto;
+            font-size: max(2vh, 15px);
         }
         img {
             margin-left: 5px;
@@ -79,7 +80,7 @@
         <script>
             let deck = window.location.search.split("&")[0].split("=")[1]
             let qnum = window.location.search.split("&")[1].split("=")[1]
-            
+
             let questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
         
             let qust = questions[parseInt(qnum)-1]
