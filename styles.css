@@ -19,7 +19,14 @@
         display: flex;
         align-items: center;
         filter: invert(1);
-        opacity: .5;
+    }
+
+    .cardAction {
+        position: absolute;
+        top: 20;
+        right: 20;
+        width: 3%;
+        height: auto;
     }
 
     #navbar * {
@@ -28,6 +35,10 @@
         text-decoration: underline;
         font-size: max(1.5vh, 15px);
         opacity: 70%;
+    }
+
+    a {
+        text-decoration: underline;
     }
 
     #navbar {
@@ -119,6 +130,14 @@
         border: 1px solid black;
         font-size: max(2vh, 15px);
         background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .cardsrc {
+        font-size: max(2vh, 15px);
+        opacity: .2;
+    }
+    #question.questionFullscreen .cardsrc{
+        display: none;
     }
 
     .cardatt {

@@ -17,13 +17,14 @@ document.onkeydown = function (e) {
             switch (e.key.toLowerCase()) {
                 case 'r': resetDeck(); break;
                 case ' ': drawNewCard(getCardInd()); break; //don't use enter, expected behaviors
-                case 'b': drawNewCard(stack.pop(), true); break;
+                case 'b': case 'arrowleft': drawNewCard(stack.pop(), true); break;
                 case 'h': popupViewed(); break;
                 case 'd': popupAll(); break;
                 case 'a': showAbout(); break;
                 case 't': showTitle(); break;
                 case 'i': showInstructions(); break;
                 case 'c': showCoderystal(); break;
+                case 's': showSource(); break;
                 case 'f11': toggleScreen(); break;
                 default: console.log(e.key, "is not a designated shortcut"); showA11y();
             }

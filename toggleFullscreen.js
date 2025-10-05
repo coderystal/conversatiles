@@ -6,7 +6,7 @@ function exitFullScreen() {
     document.getElementById("question").classList.remove("questionFullscreen")
     document.getElementById("container").classList.remove("containerFullscreen")
     document.getElementById("screentoggleimg").src = "fullscreen.png"
-    document.getElementById("screentoggle").style.opacity = "0.5"
+    document.getElementById("screentoggle").style.opacity = "1"
     clearTimeout(screenToggleFadeTimeout)
 }
 
@@ -25,7 +25,7 @@ function fullScreen() {
             }, 50)
         }
     }
-    reduceScreenToggleOpacityTo0(0.5)
+    reduceScreenToggleOpacityTo0(1)
 }
 
 function toggleScreen() {

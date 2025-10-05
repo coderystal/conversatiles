@@ -1,10 +1,20 @@
+function infoCardCleanup() {
+    document.getElementById("question").style.color = "black"
+
+    let resume = document.createElement("img")
+    resume.src = "resume.png"
+    resume.classList.add("cardAction")
+    resume.onclick = resumeCard
+    document.getElementById("question").appendChild(resume)
+}
+
 function showTitle() {
     document.getElementById("question").innerHTML = "<button class='coffee' onclick='event.stopPropagation()' style='display: none'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>Buy me a coffee</a></button>" +
         "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:5vh'><b>" +
         "Conversatiles</b><div style='font-size:2.5vh'>by coderystal</div>" +
         "</div>" +
         "<span class='cardatt'>" + document.getElementById("deckdd").value + " deck<span>"
-    document.getElementById("question").style.color = "black"
+    infoCardCleanup()
 }
 
 function showAbout() {
@@ -18,7 +28,7 @@ function showAbout() {
         "<p style='text-align: left;margin:0;'>For the task of getting to know a person, even yourself, I've found that pre-written questions, presented as an activity, make things less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of these questions I've gathered. Good luck!" + "<br>" +
         "I've got more features in mind... Find me everywhere @coderystal for updates and new projects!" + "</p>" +
         "</div>"
-    document.getElementById("question").style.color = "black"
+    infoCardCleanup()
 }
 function showCoderystal() {
     document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 14px);'>" +
@@ -31,7 +41,7 @@ function showCoderystal() {
         "<a onclick='event.stopPropagation();' href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)" +
         "<p style='text-align: left;margin:0;'>The contents of this site were organized and decided upon here, because I prefer formulas to paragraphs.</p>" +
         "</div>"
-    document.getElementById("question").style.color = "black"
+    infoCardCleanup()
 }
 
 function showInstructions() {
@@ -48,5 +58,52 @@ function showInstructions() {
         "<br><br>" +
         "Be kind and have fun!"
     "</div>"
-    document.getElementById("question").style.color = "black"
+    infoCardCleanup()
+}
+
+let worksCited = "error..."
+let authorDict = {
+    "coderystal": "written for Conversatiles by <b>Coderystal</b>, probably still inspired by something else",
+    "phillip": "gathered by <b>Phillip</b> Hoang from conferences and personal use",
+    "toastmasters": "provided by <b>Toastmasters</b> for Table Topics",
+    "strangers": "crafted by We're Not Really <b>Strangers</b> for card games"
+}
+function calcSources() {
+    let srcsArr = completequestions.map(qust=>qust[3])
+    let srcs = new Set(srcsArr)
+    let unqSrcs = new Set()
+    srcs.forEach((src) => {
+        if (src.includes(",")) {
+            src.split(",").forEach((dupSrc)=> {
+                unqSrcs.add(dupSrc.trim())
+            })
+        } else {
+            unqSrcs.add(src)
+        }
+
+    })
+    let srcCts = new Array()
+
+    unqSrcs.forEach((src) => {
+        let ct = srcsArr.filter((ele) => ele == src).length
+        let partialArr = srcsArr.filter(ele => (ele.includes(src) && ele != src)).map(ele => 1/ele.split(",").length)
+        if (partialArr.length > 0)
+            ct += (partialArr.reduce((acc, cur)=>acc+cur))
+        srcCts.push(ct+" - "+(src in authorDict ? authorDict[src] : ("attributed to <b>" + src + "</b>")))
+    })
+    srcCts.sort((a, b) => {
+        return parseInt(b.split("-")[0]) - parseInt(a.split("-")[0])
+    })
+
+    worksCited = srcCts.reduce((acc,cur)=>acc+"<br>"+cur,"")
+}
+calcSources()
+
+function showSource() {
+    document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 15px);text-align: left;'>" +
+        "To be clear, I only came up with a handful of these questions. The rest were shared with me or ones I came across, included to form one intentional deck.<br><br>" +
+        "<b>Where did my questions come from? (note some sources may share credit)</b>" + worksCited + "<br>"+
+        "Any questions that I've significantly rephrased are marked as edited with <b>ed. coderystal</b>.<br>"+
+    "</div>"
+    infoCardCleanup()
 }
