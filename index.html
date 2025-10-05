@@ -76,25 +76,29 @@
         }
     }
     
-    function readCookieAsDict() {
-        let cookie = document.cookie
-        if (!document.cookie)
+    function readStringAsDict(str, pairSep) {
+        if (!str)
             return null
-        let cookieDict = {}
-        cookie.split("; ").forEach(cookiePair => {
-            let cookieTuple = cookiePair.split("=")
-            cookieDict[cookieTuple[0]] = cookieTuple[1]
+        let dictionary = {}
+        str.split(pairSep).forEach(pairstr => {
+            let keyvalTuple = pairstr.split("=")
+            dictionary[keyvalTuple[0]] = keyvalTuple[1]
         })
-        return cookieDict
+        return dictionary
+    }
+    function readCookieAsDict() {
+        return readStringAsDict(document.cookie, "; ")
+    }
+    function readQueryParamsAsDict() {
+        return readStringAsDict(window.location.search.replace("?", ""), "&")
     }
 
-    function resumeCard(event) {
-        let cookies = readCookieAsDict()
-        if(cookies) {
-            deck = cookies.deck
+    function resumeCardInternal(dictionary) {
+        if(dictionary) {
+            deck = dictionary.deck
             questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
             numqs = questions.length
-            if (numqs == 0) { //invalid cookie
+            if (numqs == 0) { //invalid deck read
                 deck = "complete"
                 questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
                 numqs = questions.length
@@ -103,11 +107,15 @@
             document.getElementById("numcards").innerHTML = numqs + " cards"
             resetDeck()
             
-            let cookieqnum = cookies.question
-            drawNewCard(parseInt(cookieqnum)-1)
-            if (event)
-                event.stopPropagation()
+            let qnum = dictionary.question
+            drawNewCard(parseInt(qnum)-1)
         }
+    }
+
+    function resumeCard(event) {
+        resumeCardInternal(readCookieAsDict())
+        if (event)
+            event.stopPropagation()
     }
     
     let resetDeck = () => {
@@ -216,17 +224,8 @@
     exitFullScreen()
     document.querySelector(".coffee").style.display = 'none'
     //demoQ(0) for a quick flip through selected cards, focused on the card element
-    if(window.location.search.split("&")[0].split("=")[1]) {
-        deck = window.location.search.split("&")[0].split("=")[1]
-        questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
-        numqs = questions.length
-        document.getElementById("deckdd").value = deck
-        document.getElementById("numcards").innerHTML = numqs + " cards"
-        resetDeck()
-        
-        let queryqnum = window.location.search.split("&")[1].split("=")[1]
-        drawNewCard(parseInt(queryqnum)-1)
-    }
+    resumeCardInternal(readQueryParamsAsDict())
+
 </script>
 
 </html>
