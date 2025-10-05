@@ -660,3 +660,43 @@ let completequestions = [
 ["What would it take?", "fantasy", true,"coderystal", true],
 ["What mistakes do you make over and over again?", "tendencies", false,"phillip", false],
 ["What did you want to be when you grew up?", "fantasy", false,"toastmasters", false]]
+
+let decks = [...new Set(completequestions.map((val) => val[1]))].sort()
+
+let worksCited = "error..."
+let authorDict = {
+    "coderystal": "written for Conversatiles by <b>Coderystal</b>, probably still inspired by something else",
+    "phillip": "gathered by <b>Phillip</b> Hoang from conferences and personal use",
+    "toastmasters": "provided by <b>Toastmasters</b> for Table Topics",
+    "strangers": "crafted by We're Not Really <b>Strangers</b> for card games"
+}
+function calcSources() {
+    let srcsArr = completequestions.map(qust=>qust[3])
+    let srcs = new Set(srcsArr)
+    let unqSrcs = new Set()
+    srcs.forEach((src) => {
+        if (src.includes(",")) {
+            src.split(",").forEach((dupSrc)=> {
+                unqSrcs.add(dupSrc.trim())
+            })
+        } else {
+            unqSrcs.add(src)
+        }
+
+    })
+    let srcCts = new Array()
+
+    unqSrcs.forEach((src) => {
+        let ct = srcsArr.filter((ele) => ele == src).length
+        let partialArr = srcsArr.filter(ele => (ele.includes(src) && ele != src)).map(ele => 1/ele.split(",").length)
+        if (partialArr.length > 0)
+            ct += (partialArr.reduce((acc, cur)=>acc+cur))
+        srcCts.push(ct+" - "+(src in authorDict ? authorDict[src] : ("attributed to <b>" + src + "</b>")))
+    })
+    srcCts.sort((a, b) => {
+        return parseInt(b.split("-")[0]) - parseInt(a.split("-")[0])
+    })
+
+    worksCited = srcCts.reduce((acc,cur)=>acc+"<br>"+cur,"")
+}
+calcSources()

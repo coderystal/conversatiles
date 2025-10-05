@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            height: 90%;
+        }
+        #cardcontainer {
+            background-color: lightblue;
+            color: black;
+            padding: 20px;
+            text-align: center;
+            margin: auto;
+
+            min-width: 80%;
+            max-width: 900px;
+        }
+        #cardcontainer > * {
+            margin: 5px;
+        }
+
+        #questiontext {
+            font-size: 3vh;
+            font-weight: bold;
+            margin: 25px;
+        }
+
+        #questionreact {
+            color: red;
+        }
+
+        #resumebutton {
+            padding: 5px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            margin: auto;
+        }
+        img {
+            margin-left: 5px;
+        }
+
+        #explain {
+            font-style: italic;
+        }
+
+    </style>
+    <link rel="stylesheet" href="styles-gen.css">
+    <script src="questionArray.js"></script>
+</head>
+
+<body>
+    <script>
+        function explainDeck() {
+            document.getElementById("explain").innerHTML = "questions can be played from the complete deck, the react deck, or a <a onclick='explainCat()'>categorized</a> deck"
+        }
+        function explainCat() {
+            document.getElementById("explain").innerHTML = "each question is organized into one of the following categories:<br>" + decks.join(", ")
+        }
+        function explainSource() {
+            document.getElementById("explain").innerHTML = "each question was sourced from one of the following authors:" + worksCited
+        }
+    </script>
+    <div id="cardcontainer">
+        
+        <div><a id="questiondeck" onclick="explainDeck()"></a> deck: question #<span id="questionnum"></span></div>
+        <div id="questiontext"></div>
+        <div><a onclick='explainCat()'>category</a>: <span id="questioncat"></span></div>
+        <div id="questionreact">purposefully vague, just react</div>
+        <div><a onclick='explainSource()'>source</a>: <span id="questionsrc"></span></div>
+        <button id="resumebutton">resume <img src="images/resume.png"></button>
+
+
+        <div id="explain"></div>
+
+
+        <script>
+            let deck = window.location.search.split("&")[0].split("=")[1]
+            let qnum = window.location.search.split("&")[1].split("=")[1]
+            
+            let questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
+        
+            let qust = questions[parseInt(qnum)-1]
+            console.log(qust)
+            console.log(document.referrer == "")
+        
+            document.getElementById("questiondeck").innerHTML = deck
+            document.getElementById("questionnum").innerHTML = qnum
+            document.getElementById("questiontext").innerHTML = qust[0]
+            document.getElementById("questioncat").innerHTML = qust[1]
+            document.getElementById("questioncat").classList.add(qust[1])
+            document.getElementById("questionreact").style.display = (qust[2]) ? "" : "none"
+            document.getElementById("questionsrc").innerHTML = qust[3]+(qust[3] != "coderystal" && qust[4] ? ", ed. coderystal":"")
+            document.getElementById("resumebutton").onclick = () => {
+                if (document.referrer=='')
+                    window.location.href="index.html?deck="+deck+"&question="+qnum
+                else
+                    history.back();
+            }
+        </script>
+    </div>
+</body>
+
+</html>

@@ -25,7 +25,7 @@ function showAbout() {
         "<b>Know what you need?</b> Find your way in with our neatly browsable library." + "<br>" +
         "<b>Ready for anything?</b> Jump right in with our inviting, no-nonsense cards." + "<br><br>" +
         "<b>A note from coderystal</b>" +
-        "<p style='text-align: left;margin:0;'>For the task of getting to know a person, even yourself, I've found that pre-written questions, presented as an activity, make things less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of these questions I've gathered. Good luck!" + "<br>" +
+        "<p style='text-align: left;margin:0;'>For the task of getting to know a person, even yourself, I've found that pre-written questions, presented as an activity, make things less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of <a onclick='showSource(); event.stopPropagation()'>these questions I've gathered</a>. Good luck!" + "<br>" +
         "I've got more features in mind... Find me everywhere @coderystal for updates and new projects!" + "</p>" +
         "</div>"
     infoCardCleanup()
@@ -60,44 +60,6 @@ function showInstructions() {
     "</div>"
     infoCardCleanup()
 }
-
-let worksCited = "error..."
-let authorDict = {
-    "coderystal": "written for Conversatiles by <b>Coderystal</b>, probably still inspired by something else",
-    "phillip": "gathered by <b>Phillip</b> Hoang from conferences and personal use",
-    "toastmasters": "provided by <b>Toastmasters</b> for Table Topics",
-    "strangers": "crafted by We're Not Really <b>Strangers</b> for card games"
-}
-function calcSources() {
-    let srcsArr = completequestions.map(qust=>qust[3])
-    let srcs = new Set(srcsArr)
-    let unqSrcs = new Set()
-    srcs.forEach((src) => {
-        if (src.includes(",")) {
-            src.split(",").forEach((dupSrc)=> {
-                unqSrcs.add(dupSrc.trim())
-            })
-        } else {
-            unqSrcs.add(src)
-        }
-
-    })
-    let srcCts = new Array()
-
-    unqSrcs.forEach((src) => {
-        let ct = srcsArr.filter((ele) => ele == src).length
-        let partialArr = srcsArr.filter(ele => (ele.includes(src) && ele != src)).map(ele => 1/ele.split(",").length)
-        if (partialArr.length > 0)
-            ct += (partialArr.reduce((acc, cur)=>acc+cur))
-        srcCts.push(ct+" - "+(src in authorDict ? authorDict[src] : ("attributed to <b>" + src + "</b>")))
-    })
-    srcCts.sort((a, b) => {
-        return parseInt(b.split("-")[0]) - parseInt(a.split("-")[0])
-    })
-
-    worksCited = srcCts.reduce((acc,cur)=>acc+"<br>"+cur,"")
-}
-calcSources()
 
 function showSource() {
     document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 15px);text-align: left;'>" +

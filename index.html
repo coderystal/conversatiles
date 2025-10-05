@@ -3,6 +3,7 @@
     onmouseleave="document.getElementById('screentoggle').style.opacity = document.getElementById('screentoggleimg').src.endsWith('fullscreen.png') ? 1 : 0"
     onclick="exitFullScreen()"
     >
+<link rel="stylesheet" href="styles-gen.css">
 <link rel="stylesheet" href="styles.css">
 <script src="questionArray.js"></script>
 <script src="getInfoCards.js"></script>
@@ -23,6 +24,7 @@
 
 <script>
     let questions = completequestions
+    let deck = "complete"
     let viewedIndex;
     let numqs = questions.length
     let getCardInd = () => {
@@ -44,10 +46,11 @@
                 if (!back)
                     stack.push(current)
                 current = cardind
+                cardnum = parseInt(cardind) + 1
                 let qust = questions[current]
-                document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + (parseInt(current) + 1) + "</span>" +
+                document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + cardnum + "</span>" +
                     "<div class='cardq' style='color:" + ((qust[2]) ? "red" : "black") + "'><b>" + qust[0] +
-                    "</b><br><span class='cardsrc'><a onclick='showSource(); event.stopPropagation()'>source</a>: "+qust[3]+(qust[3] != "coderystal" && qust[4] ? ", ed. coderystal":"")+"</span></div><span class = 'cardatt " + qust[1] + "'>" + qust[1] + "<span>"
+                    "</b></div><span class = 'cardatt'><a href='cardinfo.html?deck="+deck+"&question="+cardnum+"' onclick='event.stopPropagation()'><img src='images/info.png'></a><span>"
                 if (!viewedIndex[current][0])
                     viewed++
                 viewedIndex[current][0] = true
@@ -59,13 +62,14 @@
                 document.cookie = 'qnum='+cardind;
             }
             document.getElementById("backbtn").disabled = stack.length <= 1;
-            document.getElementById("enteredcardnum").value = parseInt(cardind) + 1
+            document.getElementById("enteredcardnum").value = cardnum
         }
     }
     
     function resumeCard(event) {
         let qnumcookie = document.cookie.split('; ')[0]
         if (qnumcookie != "") {
+            // store and read deck
             let qnum = qnumcookie.split('=')[1]
             drawNewCard(qnum, true);
             if (event)
@@ -121,7 +125,6 @@
 
     <script>
         document.getElementById("numcards").innerHTML = numqs + " cards"
-        let decks = [...new Set(questions.map((val) => val[1]))].sort()
         let deckdd = document.getElementById("deckdd")
         let stack = []
         for (let i in decks) {
@@ -131,7 +134,7 @@
             deckdd.appendChild(opt)
         }
         deckdd.onchange = (e) => {
-            let deck = e.currentTarget.value
+            deck = e.currentTarget.value
             questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
             numqs = questions.length
             document.getElementById("numcards").innerHTML = numqs + " cards"
@@ -180,7 +183,17 @@
     exitFullScreen()
     document.querySelector(".coffee").style.display = 'none'
     //demoQ(0) for a quick flip through selected cards, focused on the card element
-    
+    if(window.location.search.split("&")[0].split("=")[1]) {
+        deck = window.location.search.split("&")[0].split("=")[1]
+        questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
+        numqs = questions.length
+        document.getElementById("deckdd").value = deck
+        document.getElementById("numcards").innerHTML = numqs + " cards"
+        resetDeck()
+        
+        let queryqnum = window.location.search.split("&")[1].split("=")[1]
+        drawNewCard(parseInt(queryqnum)-1)
+    }
 </script>
 
 </html>

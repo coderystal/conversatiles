@@ -1,0 +1,56 @@
+    html {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        background-color: black;
+        color: grey;
+        font-size: max(2vh, 15px);
+
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+
+    button:not(.coffee):not(.screentoggle),
+    input,
+    select {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dislikes {
+        color: #8F3001;
+    }
+    .experience {
+        color: #025C73;
+    }
+    .fantasy {
+        color: #73026F;
+    }
+    .goals {
+        color: #027337;
+    }
+    .identity {
+        color: #590273;
+    }
+    .likes {
+        color: #730251;
+    }
+    .people {
+        color: #736402;
+    }
+    .tendencies {
+        color: #734802;
+    }
+    .worldview {
+        color: #026073;
+    }
