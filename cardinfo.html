@@ -70,7 +70,8 @@
             document.getElementById("explain").innerHTML = "each question was sourced from one of the following authors:" + worksCited
         }
         function explainAuthor() {
-            document.getElementById("explain").innerHTML = "this question was " + authorDict[qust[3]]
+            let src = qust[3]
+            document.getElementById("explain").innerHTML = "this question " + (src in authorDict ? ("was " + authorDict[src]) : ("is attributed to <b>" + src + "</b>"))
         }
     </script>
     <div id="cardcontainer">
