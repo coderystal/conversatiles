@@ -168,10 +168,10 @@
         document.getElementById("numcards").innerHTML = numqs + " cards"
         let deckdd = document.getElementById("deckdd")
         let stack = []
-        for (let i in decks) {
+        for (let i in cats) {
             let opt = document.createElement("option")
-            opt.innerHTML = decks[i]
-            opt.classList.add(decks[i])
+            opt.innerHTML = cats[i]
+            opt.classList.add(cats[i])
             deckdd.appendChild(opt)
         }
         deckdd.onchange = (e) => {
@@ -226,6 +226,7 @@
     fullScreen()
     document.querySelector(".coffee").style.display = 'none'
 
+    // popupDeckCustomizer(unqSrcs)
 </script>
 
 </html>

@@ -78,7 +78,7 @@ let completequestions = [
 ["What's your proof?", "experience", true,"coderystal", true,""],
 ["Who are you thankful to have met or reconnected with recently?", "people", false,"phillip", false,""],
 ["Think of a person you met recently that improved your experience, what would you like to say to them?", "people", false,"phillip", false,""],
-["What is your most magical and unforgettable moment?", "experience", false,"phillip", false,""],
+["What is your most unforgettably magical moment?", "experience", false,"phillip", true,""],
 ["If you walked into a room with everyone you have ever met, who would you go looking for first?", "people", false,"phillip", false,""],
 ["Tell us about how something that happened recently will continue to affect your life.", "experience", false,"phillip", true,""],
 ["When did you not speak up when you should have?", "worldview", false,"phillip, toastmasters", false,""],
@@ -198,7 +198,7 @@ let completequestions = [
 ["Do you have healthy boundaries? What is allowing or preventing you from having the courage to hold that space?", "tendencies", false,"phillip", false,""],
 ["What makes you feel empty? How do you tend to fill that void?", "tendencies", false,"phillip", false,""],
 ["Who has the most influence over you? Is that healthy?", "people", false,"phillip", false,""],
-["Who has hurt you the most in your life? What would you say to them now?", "people", false,"phillip", false,""],
+["Is there anything you would want to say now to someone who once significantly hurt you?", "people", false,"phillip", true,""],
 ["What memories bring you shame? What led to your behavior?", "identity", false,"phillip", true,""],
 ["With whom or in what situations do you find yourself putting on a mask or a different persona? What do you think will happen if you expose your true self?", "identity", false,"phillip", false,""],
 ["What are your negative traits and how do you think they developed? Do you think they were useful for you in the past?", "tendencies", false,"phillip", true,""],
@@ -661,13 +661,13 @@ let completequestions = [
 ["What mistakes do you make over and over again?", "tendencies", false,"phillip", false,""],
 ["What did you want to be when you grew up?", "fantasy", false,"toastmasters", false,""],
 ["What are you 100% sure of right now?", "worldview", false,"hannah", false,""],
-["How do you know what you want?", "goals", false,"", false,""],
+["How do you know what you want?", "goals", false,"coderystal", false,""],
 ["When was the last time you were happy about a red light?", "experience", false,"coderystal", true,""],
 ["Who do you think you are?", "identity", false,"coderystal", true,""],
 ["What gives you the right?", "identity", false,"coderystal", true,""],
-["What's one way you can treat yourself today? Would you do it?", "likes", false,"", false,"Treat yo self - Tom and Donna"],
+["What's one way you can treat yourself today? Would you do it?", "likes", false,"coderystal", false,"Treat yo self - Tom and Donna"],
 ["What's the difference between loving someone, and loving who you are to each other?", "people", false,"SarahLee", true,"Do you love me, or do you love us?"],
-["What's something you once really wanted, that you've since outgrown?", "identity", false,"", false,""],
+["What's something you once really wanted, that you've since outgrown?", "identity", false,"coderystal", false,""],
 ["How much do you trust those who protect you?", "people", false,"jon.quadrillionaire", true,"20250809 reel - The house plant doesn't need to worry about weeds taking its water, but it does need someone to water it"],
 ["When was the last time you screamed?", "experience", false,"flamingo", true,""],
 ["If someone you loved lost their memory, what's the first thing you would tell them about your relationship?", "people", false,"flamingo", true,""],
@@ -675,9 +675,52 @@ let completequestions = [
 ["How many people from your past would be able to recognize you by your character today?", "identity", false,"flamingo", true,"What's the biggest way I've changed since we met?"],
 ["How many of your friends would you say are categorically different from you?", "people", false,"coderystal", true,"Think of a scatterplot, or distribution graph."],
 ["What would be a simple way to make life too easy?", "worldview", false,"coderystal", true,""],
-["When was the last time you appreciated someone's unique perspective?", "people", false,"coderystal", true,""]]
+["When was the last time you appreciated someone's unique perspective?", "people", false,"coderystal", true,""],
+["What do you deserve?", "identity", true,"coderystal", true,""],
+["What do you want to forget?", "worldview", false,"insidethenout", false,"prompt from guided journal ad"],
+["Have you forgiven yourself?", "identity", true,"insidethenout", false,"prompt from guided journal ad"],
+["Are you settling?", "worldview", true,"insidethenout", true,"prompt from guided journal ad, 'Are you settling for less than you are worth?'"],
+["What are you running from at the moment?", "tendencies", false,"insidethenout", false,"prompt from guided journal ad"],
+["Who hurt you?", "experience", false,"coderystal", true,""],
+["Would you go?", "worldview", true,"coderystal", true,"eg, if you were invited (to that event, that wedding - knowing what you know or they know), or in general, how do you respond to opportunity?"],
+["When was the last time you were surprised?", "experience", false,"coderystal", true,""],
+["When was the last time you were brave?", "experience", false,"coderystal", true,""],
+["What's the best case scenario?", "worldview", true,"coderystal", true,""],
+["What's the worst case scneario?", "worldview", true,"coderystal", true,""],
+["What more do you need?", "goals", true,"coderystal", true,""],
+["What are you trying to avoid?", "tendencies", true,"coderystal", true,""],
+["What kind of influence do you have?", "people", false,"coderystal", true,""],
+["What are your responsibilities?", "identity", true,"coderystal", true,""],
+["What do you wish were not true?", "dislikes", false,"coderystal", true,""],
+["Is there anything keeping you from realizing how good you have it?", "worldview", false,"coderystal", true,"words of wisdom from Talia Turner, a friend, paraphrased, regarding something you miss - you might not ever find anything that's exactly the same, or replicate what you lost, but there will be other things that have the potential to be just as good, maybe better, in different ways. I just so wanted exactly what that was."],
+["Will it ever be the same?", "experience", true,"coderystal", true,"Is there anything that's changed forever, that you want to talk about?"],
+["If someone started a sentence with 'between you and I', what would you be expecting?", "people", false,"HelloHayes", true,"alexandrahayesrobinson reel from 20251113, regarding the phrase 'between you and I'"],
+["How do you imagine the people closest to you talk about you when you're not around?", "people", false,"coderystal", true,"if played in a group, how do you imagine we talk ..., then let the group respond"],
+["How often do you mention people in your life in conversation?", "people", false,"coderystal", true,"There's someone I haven't met."],
+["How do you feel about the idea of going to a concert by yourself?", "tendencies", false,"coderystal", true,"I went alone to Maisie Peters 202510, and to Henrik 202511. I made friends there! It was cool."],
+["When was the last time you willingly did something at your own expense?", "experience", false,"coderystal", true,"ie out of responsibility, commitment, something greater"],
+["What do we owe to each other?", "worldview", false,"TheGoodPlace", false,""],
+["What's something that's not your concern?", "worldview", false,"coderystal", true,"I have to tell someone, I'm not your problem."],
+["When's the last time you were so confident that you made a careless mistake?", "experience", false,"coderystal", true,"kitchen mishap 20251113"],
+["Who are you no longer willing to be?", "identity", false,"insidethenout", false,"prompt from Dig Deeper guided journal ad"],
+["What drains your energy?", "tendencies", false,"insidethenout", false,"prompt from Dig Deeper guided journal ad"],
+["What is something you are tolerating that you do not want to be?", "dislikes", false,"insidethenout", false,"prompt from Dig Deeper guided journal ad"],
+["What do you love most about your life right now?", "likes", false,"insidethenout", false,"prompt from Dig Deeper guided journal ad"],
+["If you knew for sure that you would never be found out, would you?", "worldview", true,"EmmaStone", false,"Amazing Spider Man 2 2014 promo on Unscripted, Emma Stone's question - never ever ever, would you would you?"],
+["If you had everything you ever wanted in the palm of your hand, what would you do next?", "fantasy", false,"EmmaStone", true,"Amazing Spider Man 2 2014 promo on Unscripted, Emma Stone's question (she didn't finish her sentence)"],
+["Which of your birthdays was your favorite?", "experience", false,"phillip", false,"Phillip asked me on my birthday, leads to thoughts on birthdays generally"],
+["What's one of your good habits?", "tendencies", false,"coderystal", true,"brag and encourage"],
+["What would it take for you to try to stop a wedding?", "worldview", false,"coderystal", true,"Gilmore Girls season 4 episode 4 - what would you have done? also, if you had feelings for someone"],
+["If you could dispense 5 liquids from your fingers, infinitely, and for free, what would you choose?", "fantasy", false,"KatieWood", true,"katiewood____ reel 20251208 dispense 5 liquids from your fingertips"],
+["If you could survive forever but never be rescued, how long would you float around in space before you took your helmet off?", "fantasy", false,"KatieWood", false,"katiewood____ reel 20251208"],
+["If you could remove one minor inconvenience forever, what would it be?", "fantasy", false,"KatieWood", false,"katiewood____ reel 20251208"],
+["If you could take one body part out of your body, clean or repair it, then put it back, what would it be and what would you do to it?", "fantasy", false,"KatieWood", false,"katiewood____ reel 20251208"],
+["How do you feel about never seeing some of the most important people in your life ever again?", "worldview", false,"coderystal", true,"thoughts about the afterlife premises in The Good Place and Eternity"],
+["Are you sure?", "tendencies", true,"coderystal", true,"My hairdresser asked me this many times"],
+["Is this what you wanted?", "goals", true,"coderystal", true,"song: Everything You Wanted, by Henrik"],
+["What are some things you're saving up money for?", "goals", true,"coderystal", true,""]]
 
-let decks = [...new Set(completequestions.map((val) => val[1]))].sort()
+let cats = [...new Set(completequestions.map((val) => val[1]))].sort()
 
 let worksCited = "error..."
 let authorDict = {
@@ -688,10 +731,10 @@ let authorDict = {
     "hannah": "directed at me by <b>Hannah</b> Hsu",
     "flamingo": "designed by Tipsy <b>Flamingo</b> LLC for couple convos"
 }
+let unqSrcs = new Set()
 function calcSources() {
     let srcsArr = completequestions.map(qust=>qust[3])
     let srcs = new Set(srcsArr)
-    let unqSrcs = new Set()
     srcs.forEach((src) => {
         if (src.includes(",")) {
             src.split(",").forEach((dupSrc)=> {

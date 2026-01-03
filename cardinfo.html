@@ -64,7 +64,7 @@
             document.getElementById("explain").innerHTML = "questions can be played from the complete deck, the react deck, or a <a onclick='explainCat()'>categorized</a> deck"
         }
         function explainCat() {
-            document.getElementById("explain").innerHTML = "each question is organized into one of the following categories:<br>" + decks.join(", ")
+            document.getElementById("explain").innerHTML = "each question is organized into one of the following categories:<br>" + cats.join(", ")
         }
         function explainSource() {
             document.getElementById("explain").innerHTML = "each question was sourced from one of the following authors:" + worksCited
