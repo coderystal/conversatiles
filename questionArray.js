@@ -172,7 +172,7 @@ let completequestions = [
 ["What family patterns do you fear repeating?", "worldview", false,"phillip", false,""],
 ["In what situations do you feel less than others, equal to others, and better than others? Why do you feel this way?", "people", false,"phillip", false,""],
 ["Tell us about a time you opened up to someone and felt rejected? A time you felt accepted?", "people", false,"phillip", false,""],
-["When were you last jealous of someone? What did you want to have? What do you want?", "likes", false,"phillip", true,""],
+["When were you last jealous of someone? What did you want to have?", "likes", false,"phillip", true,""],
 ["What behaviors in others upset you the most?", "dislikes", false,"phillip", true,""],
 ["Which dreams of yours feel possible? Which feel impossible?", "goals", false,"phillip", true,""],
 ["Which past version of yourself do you hope no one ever sees?", "dislikes", false,"phillip", false,""],
@@ -718,7 +718,17 @@ let completequestions = [
 ["How do you feel about never seeing some of the most important people in your life ever again?", "worldview", false,"coderystal", true,"thoughts about the afterlife premises in The Good Place and Eternity"],
 ["Are you sure?", "tendencies", true,"coderystal", true,"My hairdresser asked me this many times"],
 ["Is this what you wanted?", "goals", true,"coderystal", true,"song: Everything You Wanted, by Henrik"],
-["What are some things you're saving up money for?", "goals", true,"coderystal", true,""]]
+["What are some things you're saving up money for?", "goals", false,"coderystal", true,""],
+["Why would you do that?", "tendencies", true,"coderystal", true,""],
+["How did this happen?", "worldview", true,"coderystal", true,""],
+["What now?", "worldview", true,"coderystal", true,""],
+["What do you want?", "likes", true,"coderystal", true,""],
+["How can you be reached?", "tendencies", false,"coderystal", true,"platform, or how generally someone can get your attention / stay in your life"],
+["How is that possible?", "worldview", true,"coderystal", true,""],
+["How can it be?", "worldview", true,"coderystal", true,""],
+["Do you think you are (or would be) a better parent or sibling?", "people", false,"EdenWen", true,"asked our mom at family dinner if she would rather have herself as a mom or a sister; can also consider other roles (eg friend, classmate, community member)"],
+["Do you think your life is more affected by your parents or siblings?", "people", false,"EdenWen", true,"asked us all at family dinner if we would rather have our parent as a sibling or our sibling as a parent (etc, various combinations); I wondered if it should be an obvious answer, but hesitated"],
+["Would you rather be able to run at 40 miles per hour, or fly at a jogging pace?", "fantasy", false,"EdenWen", false,"asked us all at family dinner; I think there's an easy answer; can add layers by setting further restrictions (eg only in 1 direction, or if not able to jog)"]]
 
 let cats = [...new Set(completequestions.map((val) => val[1]))].sort()
 
@@ -729,7 +739,8 @@ let authorDict = {
     "toastmasters": "provided by <b>Toastmasters</b> for Table Topics",
     "strangers": "crafted by We're Not Really <b>Strangers</b> for card games",
     "hannah": "directed at me by <b>Hannah</b> Hsu",
-    "flamingo": "designed by Tipsy <b>Flamingo</b> LLC for couple convos"
+    "flamingo": "designed by Tipsy <b>Flamingo</b> LLC for couple convos",
+    "EdenWen": "asked by Eden Wen, a passionate psychology relevant critical thinking leader communication team worker (coderystal's little sister)"
 }
 let unqSrcs = new Set()
 function calcSources() {
