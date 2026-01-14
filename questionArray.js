@@ -728,7 +728,8 @@ let completequestions = [
 ["How can it be?", "worldview", true,"coderystal", true,""],
 ["Do you think you are (or would be) a better parent or sibling?", "people", false,"EdenWen", true,"asked our mom at family dinner if she would rather have herself as a mom or a sister; can also consider other roles (eg friend, classmate, community member)"],
 ["Do you think your life is more affected by your parents or siblings?", "people", false,"EdenWen", true,"asked us all at family dinner if we would rather have our parent as a sibling or our sibling as a parent (etc, various combinations); I wondered if it should be an obvious answer, but hesitated"],
-["Would you rather be able to run at 40 miles per hour, or fly at a jogging pace?", "fantasy", false,"EdenWen", false,"asked us all at family dinner; I think there's an easy answer; can add layers by setting further restrictions (eg only in 1 direction, or if not able to jog)"]]
+["Would you rather be able to run at 40 miles per hour, or fly at a jogging pace?", "fantasy", false,"EdenWen", false,"asked us all at family dinner; I think there's an easy answer; can add layers by setting further restrictions (eg only in 1 direction, or if not able to jog)"],
+["Who do you support?", "people", false,"coderystal", true,"eg family, friends, public figures (celebrities, politicians)"]]
 
 let cats = [...new Set(completequestions.map((val) => val[1]))].sort()
 
