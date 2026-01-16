@@ -28,7 +28,7 @@
         }
 
         #questiontext {
-            font-size: 3vh;
+            font-size: max(15px, 3vh);
             font-weight: bold;
             margin: 25px;
         }
@@ -73,6 +73,14 @@
             let src = qust[3]
             document.getElementById("explain").innerHTML = "this question " + (src in authorDict ? ("was " + authorDict[src]) : ("is attributed to <b>" + src + "</b>"))
         }
+        function explainIntensity() {
+            document.getElementById("explain").innerHTML = "each question was ranked for intensity on a scale of 1 to 7"
+        }
+        function explainIntensityRating() {
+            let intensity = qust[6]
+            let intensityText = intensityDict[intensity]
+            document.getElementById("explain").innerHTML = "this question was given an intensity ranking of " + intensity + " out of 7, inviting you to share a" + (intensityText[0]=='i' ? 'n ' : ' ') + intensityText
+        }
     </script>
     <div id="cardcontainer">
         
@@ -82,6 +90,7 @@
         <div><a onclick='explainCat()'>category</a>: <span id="questioncat"></span></div>
         <div id="questionreact">purposefully vague, just react</div>
         <div><a onclick='explainSource()'>source</a>: <a onclick='explainAuthor()'><span id="questionsrc"></span></a></div>
+        <div><a onclick='explainIntensity()'>intensity</a>: <a onclick='explainIntensityRating()'><span id="questionint"></span></a></div>
         <button id="resumebutton">resume <img src="images/resume.png"></button>
 
 
@@ -95,6 +104,7 @@
             let questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
         
             let qust = questions[parseInt(qnum)-1]
+            //qust = [0-text, 1-cat, 2-react, 3-author, 4-edited, 5-note, 6-intensity]
         
             document.getElementById("questiondeck").innerHTML = deck
             document.getElementById("questionnum").innerHTML = qnum
@@ -104,6 +114,7 @@
             document.getElementById("questioncat").classList.add(qust[1])
             document.getElementById("questionreact").style.display = (qust[2]) ? "" : "none"
             document.getElementById("questionsrc").innerHTML = qust[3]+(qust[3] != "coderystal" && qust[4] ? ", ed. coderystal":"")
+            document.getElementById("questionint").innerHTML = qust[6]
             document.getElementById("resumebutton").onclick = () => {
                 if (document.referrer=='')
                     window.location.href="index.html?deck="+deck+"&question="+qnum
