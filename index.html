@@ -95,17 +95,11 @@
 
     function resumeCardInternal(dictionary) {
         if(dictionary) {
-            deck = dictionary.deck
-            questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
-            numqs = questions.length
+            filterDeckByCategory(dictionary.deck)
             if (numqs == 0) { //invalid deck read
-                deck = "complete"
-                questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
-                numqs = questions.length
+                filterDeckByCategory("complete")
             }
             document.getElementById("deckdd").value = deck
-            document.getElementById("numcards").innerHTML = numqs + " cards"
-            resetDeck()
             
             let qnum = dictionary.question
             drawNewCard(parseInt(qnum)-1)
@@ -156,7 +150,7 @@
                 inputmode="numeric" size="4" onChange="drawNewCard(event.currentTarget.value -1)"></div>
     </div>
     <div class="controls">
-        <select id="deckdd">
+        <select id="deckdd" onchange="filterDeckByCategory(event.currentTarget.value)">
             <option>complete</option>
             <option style="color: red;">react!</option>
         </select> deck:
@@ -174,8 +168,8 @@
             opt.classList.add(cats[i])
             deckdd.appendChild(opt)
         }
-        deckdd.onchange = (e) => {
-            deck = e.currentTarget.value
+        function filterDeckByCategory(d) {
+            deck = d
             questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
             numqs = questions.length
             document.getElementById("numcards").innerHTML = numqs + " cards"
