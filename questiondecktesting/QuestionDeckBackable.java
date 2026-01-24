@@ -20,10 +20,12 @@ public class QuestionDeckBackable {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		
 		
-		driver.get("https://htmlpreview.github.io/?https://github.com/coderystal/questiondeck/blob/main/v1/index.html");
+		driver.get("https://coderystal.github.io/conversatiles/");
 		System.out.println("got");
 		driver.manage().window().maximize();
 		System.out.println("maximized");
+		driver.findElement(new ById("screentoggle")).click();
+		System.out.println("screentoggled");
 		wait.until(ExpectedConditions.presenceOfElementLocated(new ById("question")));		
 
 		//check back 10x *********************************************************************************BACK
