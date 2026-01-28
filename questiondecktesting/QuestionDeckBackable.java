@@ -1,17 +1,6 @@
 package questiondecktesting;
 
-import static org.junit.Assert.assertEquals;
-
-import java.time.Duration;
 import java.util.Random;
-
-import org.openqa.selenium.By.ById;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class QuestionDeckBackable {
 	public static void main(String[] args) {
@@ -41,6 +30,7 @@ public class QuestionDeckBackable {
 				conversatileSteps.validateBackButtonEnabledStatus(backable != 0);
 				if (backable == 0) {
 			    	System.out.println("actually backed " + (backed+1));
+					conversatileSteps.validateBackButtonEnabledStatus(false);
 					break;
 				}
 			}
@@ -49,6 +39,7 @@ public class QuestionDeckBackable {
     	System.out.println("backing remaining " + backable);
 		for (int backed = 0; backed < backable; backed++) {
 			//click back
+			conversatileSteps.validateBackButtonEnabledStatus(true);
 			conversatileSteps.clickBack();
 		}
 		conversatileSteps.validateBackButtonEnabledStatus(false);
