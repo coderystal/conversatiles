@@ -50,7 +50,7 @@
                 current = cardind
             }
             else {
-                if (!back)
+                if (!back && current != cardind)
                     stack.push(current)
                 current = cardind
                 cardnum = parseInt(subdeckIndexes[current]) + 1
