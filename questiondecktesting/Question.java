@@ -20,7 +20,7 @@ public class Question implements Comparable<Question>{
 	}
 	@Override
 	public String toString() {
-		return num + " - " + text;
+		return num + " " + text;
 	}
 	@Override
 	public boolean equals(Object other) {

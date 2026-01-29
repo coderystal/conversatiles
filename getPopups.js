@@ -7,13 +7,13 @@ function popup() {
     return modalcontent
 }
 
-function createTr(question, i) {
+function createTr(questionIndex) {
     let tr = document.createElement("tr")
     let ind = document.createElement("td")
-    ind.innerHTML = i + 1
+    ind.innerHTML = questionIndex + 1
     let qust = document.createElement("td")
-    qust.innerHTML = question[0]
-    qust.classList.add(question[1])
+    qust.innerHTML = completequestions[questionIndex][0]
+    qust.classList.add(completequestions[questionIndex][1])
     tr.appendChild(ind)
     tr.appendChild(qust)
     return tr
@@ -28,7 +28,7 @@ function popupViewed() {
     table.innerHTML = "<tr><th colspan='2'>" + (history.length == 0 ? "No deck history." : "Deck history") + "</th></tr>"
 
     history.forEach(
-        (viewedI) => { table.appendChild(createTr(questions[viewedI], viewedI)) }
+        (viewedI) => { table.appendChild(createTr(subdeckIndexes[viewedI])) }
     )
     modalcontent.innerHTML = ""
     modalcontent.appendChild(table)
@@ -39,9 +39,9 @@ function popupAll() {
     let table = document.createElement("table")
     let deck = document.getElementById("deckdd").value
     upperDeck = deck.charAt(0).toUpperCase() + deck.slice(1)
-    table.innerHTML = "<tr><th colspan='2' class='" + deck + "'>" + (questions.length == 0 ? "No cards in deck." : upperDeck + " Deck") + "</th></tr>"
-    questions.forEach(
-        (question, i) => { table.appendChild(createTr(question, i)) }
+    table.innerHTML = "<tr><th colspan='2' class='" + deck + "'>" + (subdeckIndexes.length == 0 ? "No cards in deck." : upperDeck + " Deck") + "</th></tr>"
+    subdeckIndexes.forEach(
+        (questionIndex) => { table.appendChild(createTr(questionIndex)) }
     )
     modalcontent.innerHTML = ""
     modalcontent.appendChild(table)

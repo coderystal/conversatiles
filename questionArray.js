@@ -731,6 +731,8 @@ let completequestions = [
 ["Would you rather be able to run at 40 miles per hour, or fly at a jogging pace?", "fantasy", false,"EdenWen", false,"asked us all at family dinner; I think there's an easy answer; can add layers by setting further restrictions (eg only in 1 direction, or if not able to jog)",2],
 ["Who do you support?", "people", false,"coderystal", true,"eg family, friends, public figures (celebrities, politicians)",4]]
 
+let totalnum = completequestions.length
+
 let cats = [...new Set(completequestions.map((val) => val[1]))].sort()
 
 //invites an answer that is a(n) ...
