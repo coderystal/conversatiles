@@ -1,5 +1,5 @@
 document.onkeydown = function (e) {
-    if (e.target != document.getElementById("enteredcardnum") && e.target != document.getElementById("deckdd")) {
+    if (e.target != document.getElementById("enteredcardnum")) {
         if (/\d/.test(e.key) && !e.key.startsWith("F")) {
             console.log("type " + e.key)
             document.getElementById("enteredcardnum").value += e.key

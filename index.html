@@ -45,7 +45,7 @@
             if (cardind < 0 || cardind >= numqs) {
                 document.getElementById("question").innerHTML = "<br><div class='cardq'>#" +
                     document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
-                    "There are only " + numqs + " cards in the " + document.getElementById("deckdd").value + " deck."
+                    "There are only " + numqs + " cards in the " + document.getElementById("decktext").innerHTML + " deck."
                 document.getElementById("question").style.color = "black"
                 current = cardind
             }
@@ -58,7 +58,7 @@
                 document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + cardnum + "</span>" +
                     "<div class='cardq' style='color:" + ((qust[2]) ? "red" : "black") + "'><b>" + qust[0] +
                     "</b></div><span class = 'cardatt'>"+
-                        "<a href='cardinfo.html?deck="+deck+"&question="+cardnum+"' onclick='event.stopPropagation()'><img src='images/info.png'></a>"+
+                        "<a href='cardinfo.html?deck="+deck+"&question="+(current+1)+"' onclick='event.stopPropagation()'><img src='images/info.png'></a>"+
                         "<a onclick='send(event)'><img src='images/send.png'></a>"+
                         "<span>"
                 if (!viewedIndex[current][0])
@@ -100,7 +100,7 @@
             if (numqs == 0) { //invalid deck read
                 filterDeckByCategory("complete")
             }
-            document.getElementById("deckdd").value = deck
+            document.getElementById("decktext").innerHTML = deck
             
             let qnum = dictionary.question
             drawNewCard(parseInt(qnum)-1)
@@ -149,31 +149,77 @@
         <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
     </div>
     <div class="controls">
-        <select id="deckdd" onchange="filterDeckByCategory(event.currentTarget.value)">
-            <option>complete</option>
-            <option style="color: red;">react!</option>
-        </select> deck:
+        <span id="decktext">!!!!!!!!!</span> deck:
         <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+"
                 inputmode="numeric" size="4" onChange="drawNewCard(event.currentTarget.value -1)"></div> /
         <button id="numcards" onclick="popupAll()"></button>
+        <br><br>
+        <button id="deckbutton">customize deck</button>
     </div>
 
 
     <script>
         document.getElementById("numcards").innerHTML = numqs + " cards"
-        let deckdd = document.getElementById("deckdd")
         let stack = []
-        for (let i in cats) {
-            let opt = document.createElement("option")
-            opt.innerHTML = cats[i]
-            opt.classList.add(cats[i])
-            deckdd.appendChild(opt)
+        
+        function popupDeckCustomizer(unqSrcs) {
+            let modalcontent = popup()    
+
+            modalcontent.innerHTML = ""
+            
+            let presets = ["default", "-", "react!", "complete", "-"]
+            //arr[1]
+            for (let i in cats) {
+                presets.push(cats[i])
+            }
+
+            for (let i in presets) {
+                let text = presets[i]
+                if (text == "-") {
+                    modalcontent.appendChild(document.createElement("br"))
+                    modalcontent.appendChild(document.createElement("br"))
+                } else {
+                    let presetButton = document.createElement("button")
+                    presetButton.innerHTML = text
+                    presetButton.onclick=(event)=>{
+                        console.log(text)
+                        filterDeckByCategory(text)
+                        event.currentTarget.classList.add("selectedButton")
+                        closepopup()
+                    }
+                    presetButton.classList.add(text)
+                    if (text == deck)
+                        presetButton.classList.add("selectedButton")
+                    if (text == "react!")
+                        presetButton.style.color = "red"
+                    modalcontent.appendChild(presetButton)
+                }
+            }
+
+            
+            modalcontent.appendChild(document.createElement("br"))
+            modalcontent.appendChild(document.createElement("br"))
+            let advancedButton = document.createElement("button")
+            advancedButton.innerHTML = "advanced"
+            advancedButton.id = "showAdvancedDeckCustomizer"
+
+            advancedButton.onclick=()=>{
+                modalcontent.innerHTML = getHtmlForDeckCustomizerAdvanced(unqSrcs)
+            }
+            
+            // modalcontent.appendChild(advancedButton)
+
         }
+        deckbutton.onclick= () => {popupDeckCustomizer(unqSrcs)}
         function filterDeckByCategory(d) {
+            document.getElementById("decktext").innerHTML = d
             deck = d
             subdeckIndexes = completequestions.map((val, index) => 
             {
-                if (deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
+                if ((deck == "default" && val[6] < 7) ||
+                    deck == "complete" || 
+                    (deck == "react!" && val[2]) || 
+                    val[1] == deck)
                     return index
                 else
                     return null

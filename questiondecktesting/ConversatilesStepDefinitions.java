@@ -60,11 +60,11 @@ public class ConversatilesStepDefinitions {
 	
 	public void launchConversatiles(String url) {
 		conversatilesPage.getDriver().get(url);
-		System.out.println("got " + url);
+//		System.out.println("got " + url);
 		conversatilesPage.getDriver().manage().window().maximize();
-		System.out.println("maximized");
+//		System.out.println("maximized");
 		conversatilesPage.getDriver().findElement(new ById("screentoggle")).click();
-		System.out.println("screentoggled");
+//		System.out.println("screentoggled");
 		conversatilesPage.getWait().until(ExpectedConditions.presenceOfElementLocated(new ById("question")));
 	}
 	
@@ -136,8 +136,12 @@ public class ConversatilesStepDefinitions {
 	}
 	
 	public void selectDeck(String deck) {
-		conversatilesPage.getDeckDropdown().selectByVisibleText(deck);
-		
+		conversatilesPage.getDeckDropdown().selectByVisibleText(deck);	
+	}
+	
+	public void customizeDeckByPreset(String preset) {
+		conversatilesPage.getCustomizeDeckButton().click();
+		conversatilesPage.getButtonByText(preset).click();
 	}
 	
 	public void printHistorySet() {

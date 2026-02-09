@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.By.ByClassName;
 import org.openqa.selenium.By.ById;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -49,6 +50,12 @@ public class ConversatilesPOM {
 	}
 	public Select getDeckDropdown() {
 		return new Select(driver.findElement(new ById("deckdd")));
+	}
+	public WebElement getCustomizeDeckButton() {
+		return driver.findElement(new ById("deckbutton"));
+	}
+	public WebElement getButtonByText(String text) {
+		return driver.findElement(new By.ByXPath("//button[text()='"+text+"']"));
 	}
 	public WebDriver getDriver() {
 		return driver;

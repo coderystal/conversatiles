@@ -37,7 +37,7 @@ function popupAll() {
     let modalcontent = popup()
 
     let table = document.createElement("table")
-    let deck = document.getElementById("deckdd").value
+    let deck = document.getElementById("decktext").innerHTML
     upperDeck = deck.charAt(0).toUpperCase() + deck.slice(1)
     table.innerHTML = "<tr><th colspan='2' class='" + deck + "'>" + (subdeckIndexes.length == 0 ? "No cards in deck." : upperDeck + " Deck") + "</th></tr>"
     subdeckIndexes.forEach(
@@ -48,8 +48,26 @@ function popupAll() {
 }
 
 function getHtmlForDeckCustomizerAdvanced() {
+    let html = "<b>Customize Deck</b><br><br>" +
+
+    //arr[1]
+    "Categories:"
+    for (let i in cats) {
+        html += "<input type='checkbox'> " + cats[i]
+    }
+    html += "<br><button>select all</button><button>deselect all</button>"
+
+    //arr[2]
+    html += "<br><br>Specificity: <input type='checkbox'> purposefully vague <input type='checkbox'> generally unambiguous<br>"
+
+    //arr[0]
+    html += "<br><br>contains text: <input>"
+
+    //arr[5]
+    html += "<br><br>Details: <input type='checkbox'> includes comments/suggestions<input type='checkbox'> question only<br>"
+
     //arr[3]
-    let html = "<br><br>Sources:"
+    html += "<br><br>Sources:"
     unqSrcs.forEach(src => {
         html += "<input type='checkbox'> " + src
     })
@@ -61,34 +79,6 @@ function getHtmlForDeckCustomizerAdvanced() {
     html += "<br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments"
 
     return html
-}
-
-function popupDeckCustomizer(unqSrcs) {
-    let modalcontent = popup()    
-
-    modalcontent.innerHTML = "<b>Customize Deck</b><br><br>" +
-
-    //arr[1]
-    "Categories:"
-    for (let i in cats) {
-        modalcontent.innerHTML += "<input type='checkbox'> " + cats[i]
-    }
-    modalcontent.innerHTML += "<br><button>select all</button><button>deselect all</button>"
-
-    //arr[2]
-    modalcontent.innerHTML += "<br><br>Specificity: <input type='checkbox'> purposefully vague <input type='checkbox'> generally unambiguous<br>"
-
-    //arr[0]
-    modalcontent.innerHTML += "<br><br>contains text: <input>"
-
-    //arr[5]
-    modalcontent.innerHTML += "<br><br>Details: <input type='checkbox'> includes comments/suggestions<input type='checkbox'> question only<br>"
-
-    modalcontent.innerHTML += "<br><br><button id='showAdvancedDeckCustomizer'>advanced</button>"
-    document.getElementById("showAdvancedDeckCustomizer").onclick = () => {
-        modalcontent.innerHTML += getHtmlForDeckCustomizerAdvanced(unqSrcs)
-    }
-
 }
 
 async function send(event) {

@@ -6,6 +6,15 @@ public class ConversatilesCompareLinks {
 		compareLinks("dislikes", true);
 		compareLinks("experience", false);
 		compareLinks("goals", true);
+		
+		compareLinks("fantasy", false);
+		compareLinks("identity", true);
+		compareLinks("people", false);
+		compareLinks("tendencies", true);
+		
+		compareLinks("worldview", false);
+		compareLinks("react!", true);
+		compareLinks("complete", false);
 	}
 	
 	private static void compareLinks(String deck, boolean checkLocalDirectLinks) {
@@ -28,7 +37,10 @@ public class ConversatilesCompareLinks {
 		
 		//open other link, select likes, click through all, and compare history table to history set (saved in java from first)
 		conversatileSteps.launchConversatiles(historyUrl);
-		conversatileSteps.selectDeck(deck);
+		if (checkLocalDirectLinks)
+			conversatileSteps.selectDeck(deck);
+		else
+			conversatileSteps.customizeDeckByPreset(deck);
 		qnum = 0;
 		do {
 			conversatileSteps.clickCardOrDraw();

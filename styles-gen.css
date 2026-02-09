@@ -64,3 +64,12 @@
     .worldview {
         color: #026073;
     }
+    .react {
+        color: red;
+    }
+
+    .selectedButton {
+        font-weight: bold;
+        box-sizing: border-box;
+        background-color: white;
+    }
