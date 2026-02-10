@@ -30,7 +30,7 @@
 
 <script>
     let subdeckIndexes = completequestions
-    let deck = "complete"
+    let deck = "default"
     let viewedIndex;
     let numqs = subdeckIndexes.length
     let getCardInd = () => {
@@ -98,7 +98,7 @@
         if(dictionary) {
             filterDeckByCategory(dictionary.deck)
             if (numqs == 0) { //invalid deck read
-                filterDeckByCategory("complete")
+                filterDeckByCategory("default")
             }
             document.getElementById("decktext").innerHTML = deck
             
