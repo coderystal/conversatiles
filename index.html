@@ -150,12 +150,12 @@
         <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
     </div>
     <div class="controls">
-        <span id="decktext"><span id="deckmodtext">...</span> <span id="deckcattext">...</span></span> deck:
         <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+"
                 inputmode="numeric" size="4" onChange="drawNewCard(event.currentTarget.value -1)"></div> /
         <button id="numcards" onclick="popupAll()"></button>
         <br><br>
-        <button id="deckbutton">customize deck</button>
+        <span id="decktext"><span id="deckmodtext">...</span> <span id="deckcattext">...</span></span> deck<br>
+        <button id="deckbutton">customize</button>
     </div>
 
 
@@ -174,7 +174,10 @@
 
             modalcontent.innerHTML = ""            
 
-            modalcontent.appendChild(createElement("span", "highest intensity questions: "))
+            let intensitydiv = document.createElement("div")
+            intensitydiv.style.display = "flex"
+            intensitydiv.style.alignItems = "center";
+            intensitydiv.appendChild(createElement("span", "highest intensity questions: "))
             let inclIntensInput = document.createElement("input")
             inclIntensInput.id = "inclIntensInput"
             inclIntensInput.type = "checkbox"
@@ -182,10 +185,10 @@
             inclIntensInput.onchange = (event) => {
                 document.getElementById("swapIntensButton").innerHTML = (event.currentTarget.checked ? "exclude" : "include") + " and apply"
             }
-            modalcontent.appendChild(inclIntensInput)
+            intensitydiv.appendChild(inclIntensInput)
             let inclIntensSpan = document.createElement("span")
             inclIntensSpan.innerHTML = "include upon deck selection"
-            modalcontent.appendChild(inclIntensSpan)
+            intensitydiv.appendChild(inclIntensSpan)
             let swapIntensButton = document.createElement("button")
             swapIntensButton.id = "swapIntensButton"
             swapIntensButton.innerHTML = (complete ? "exclude" : "include") + " and apply"
@@ -194,7 +197,8 @@
                 filterDeckByCategory(deck, inclIntensSelection)
                 closepopup()
             }
-            modalcontent.appendChild(swapIntensButton)
+            intensitydiv.appendChild(swapIntensButton)
+            modalcontent.appendChild(intensitydiv)
             modalcontent.appendChild(document.createElement("br"))
             modalcontent.appendChild(document.createElement("br"))
             

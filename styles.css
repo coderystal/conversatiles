@@ -43,6 +43,11 @@
         padding-right: 4%;
     }
 
+    #inclIntensInput {
+        transform: scale(2);
+        margin: 10px;
+    }
+
     #swapIntensButton {
         padding: 1px;
         margin-left: 5px;
