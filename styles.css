@@ -43,6 +43,11 @@
         padding-right: 4%;
     }
 
+    #swapIntensButton {
+        padding: 1px;
+        margin-left: 5px;
+    }
+
     #container {
         max-width: 80%;
         max-width: 900px;

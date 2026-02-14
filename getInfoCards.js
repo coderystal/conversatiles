@@ -9,12 +9,13 @@ function infoCardCleanup() {
 }
 
 function showTitle() {
-    let thisdeck = document.getElementById("decktext").innerHTML.replace("!","")
+    let thisdeck = document.getElementById("decktext").innerText
+    let cat = document.getElementById("deckcattext").innerHTML.replace("!","")
     document.getElementById("question").innerHTML = "<button class='coffee' onclick='event.stopPropagation()' style='display: none'><a href='https://buymeacoffee.com/jeyc35gujd' target='_blank' style='text-decoration: none;'>Buy me a coffee</a></button>" +
         "<div class='cardq' style='width:100%;line-height:100%;margin:auto;font-size:5vh'><b>" +
         "Conversatiles</b><div style='font-size:2.5vh'>by coderystal</div>" +
         "</div>" +
-        "<span id='titledecktext' class='"+thisdeck+"'><b>" + thisdeck + " deck</b><span>"
+        "<span id='titledecktext' class='"+cat+"'><b>" + thisdeck + " deck</b><span>"
     infoCardCleanup()
 }
 

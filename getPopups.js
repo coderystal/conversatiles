@@ -33,13 +33,19 @@ function popupViewed() {
     modalcontent.innerHTML = ""
     modalcontent.appendChild(table)
 }
+
+function upperCase(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 function popupAll() {
     let modalcontent = popup()
 
     let table = document.createElement("table")
-    let deck = document.getElementById("decktext").innerHTML
-    upperDeck = deck.charAt(0).toUpperCase() + deck.slice(1)
-    table.innerHTML = "<tr><th colspan='2' class='" + deck + "'>" + (subdeckIndexes.length == 0 ? "No cards in deck." : upperDeck + " Deck") + "</th></tr>"
+    let mod = document.getElementById("deckmodtext").innerHTML
+    let cat = document.getElementById("deckcattext").innerHTML
+    upperDeck = (mod=="" ? "" : (upperCase(mod) + " ")) + upperCase(cat)
+    table.innerHTML = "<tr><th colspan='2' class='" + cat + "'>" + (subdeckIndexes.length == 0 ? "No cards in deck." : upperDeck + " Deck") + "</th></tr>"
     subdeckIndexes.forEach(
         (questionIndex) => { table.appendChild(createTr(questionIndex)) }
     )
@@ -86,7 +92,7 @@ async function send(event) {
     const shareData = {
         title: "Conversatiles",
         text: "but think about this...",
-        url: "https://coderystal.github.io/conversatiles/?deck="+deck+"&question="+(current+1)
+        url: "https://coderystal.github.io/conversatiles/?deck="+deck+"&question="+(current+1)+"&complete="+complete
     };
 
     // Share must be triggered by "user activation"

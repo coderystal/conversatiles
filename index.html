@@ -30,7 +30,8 @@
 
 <script>
     let subdeckIndexes = completequestions
-    let deck = "default"
+    let deck = "complete"
+    let complete = false
     let viewedIndex;
     let numqs = subdeckIndexes.length
     let getCardInd = () => {
@@ -45,7 +46,7 @@
             if (cardind < 0 || cardind >= numqs) {
                 document.getElementById("question").innerHTML = "<br><div class='cardq'>#" +
                     document.getElementById("enteredcardnum").value + "<br><b>does not exist</b><br>" +
-                    "There are only " + numqs + " cards in the " + document.getElementById("decktext").innerHTML + " deck."
+                    "There are only " + numqs + " cards in the " + document.getElementById("decktext").innerText + " deck."
                 document.getElementById("question").style.color = "black"
                 current = cardind
             }
@@ -58,7 +59,7 @@
                 document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + cardnum + "</span>" +
                     "<div class='cardq' style='color:" + ((qust[2]) ? "red" : "black") + "'><b>" + qust[0] +
                     "</b></div><span class = 'cardatt'>"+
-                        "<a href='cardinfo.html?deck="+deck+"&question="+(current+1)+"' onclick='event.stopPropagation()'><img src='images/info.png'></a>"+
+                        "<a href='cardinfo.html?deck="+deck+"&question="+(current+1)+"&complete="+complete+"' onclick='event.stopPropagation()'><img src='images/info.png'></a>"+
                         "<a onclick='send(event)'><img src='images/send.png'></a>"+
                         "<span>"
                 if (!viewedIndex[current][0])
@@ -71,6 +72,7 @@
                     document.getElementById("drawbutton").disabled = true;
                 document.cookie = "deck="+deck
                 document.cookie = "question="+cardnum;
+                document.cookie = "complete="+complete
             }
             document.getElementById("backbtn").disabled = stack.length <= 1;
             document.getElementById("enteredcardnum").value = (current+1)
@@ -96,11 +98,10 @@
 
     function resumeCardInternal(dictionary) {
         if(dictionary) {
-            filterDeckByCategory(dictionary.deck)
+            filterDeckByCategory(dictionary.deck, dictionary.complete=="true")
             if (numqs == 0) { //invalid deck read
-                filterDeckByCategory("default")
+                filterDeckByCategory("complete", false)
             }
-            document.getElementById("decktext").innerHTML = deck
             
             let qnum = dictionary.question
             drawNewCard(parseInt(qnum)-1)
@@ -149,7 +150,7 @@
         <button id="drawbutton" onclick="drawNewCard(getCardInd())">Draw New Card</button>
     </div>
     <div class="controls">
-        <span id="decktext">!!!!!!!!!</span> deck:
+        <span id="decktext"><span id="deckmodtext">...</span> <span id="deckcattext">...</span></span> deck:
         <div style="display: inline-block; right: 0"># <input id="enteredcardnum" type="text" pattern="[0-9]+"
                 inputmode="numeric" size="4" onChange="drawNewCard(event.currentTarget.value -1)"></div> /
         <button id="numcards" onclick="popupAll()"></button>
@@ -162,12 +163,42 @@
         document.getElementById("numcards").innerHTML = numqs + " cards"
         let stack = []
         
+        function createElement(tag, html) {
+            let ele = document.createElement(tag)
+            ele.innerHTML = html
+            return ele
+        }
+
         function popupDeckCustomizer(unqSrcs) {
             let modalcontent = popup()    
 
-            modalcontent.innerHTML = ""
+            modalcontent.innerHTML = ""            
+
+            modalcontent.appendChild(createElement("span", "highest intensity questions: "))
+            let inclIntensInput = document.createElement("input")
+            inclIntensInput.id = "inclIntensInput"
+            inclIntensInput.type = "checkbox"
+            inclIntensInput.checked = complete == true
+            inclIntensInput.onchange = (event) => {
+                document.getElementById("swapIntensButton").innerHTML = (event.currentTarget.checked ? "exclude" : "include") + " and apply"
+            }
+            modalcontent.appendChild(inclIntensInput)
+            let inclIntensSpan = document.createElement("span")
+            inclIntensSpan.innerHTML = "include upon deck selection"
+            modalcontent.appendChild(inclIntensSpan)
+            let swapIntensButton = document.createElement("button")
+            swapIntensButton.id = "swapIntensButton"
+            swapIntensButton.innerHTML = (complete ? "exclude" : "include") + " and apply"
+            swapIntensButton.onclick = () => {
+                let inclIntensSelection = !document.getElementById("inclIntensInput").checked
+                filterDeckByCategory(deck, inclIntensSelection)
+                closepopup()
+            }
+            modalcontent.appendChild(swapIntensButton)
+            modalcontent.appendChild(document.createElement("br"))
+            modalcontent.appendChild(document.createElement("br"))
             
-            let presets = ["default", "-", "react!", "complete", "-"]
+            let presets = ["react!", "complete", "-"]
             //arr[1]
             for (let i in cats) {
                 presets.push(cats[i])
@@ -182,8 +213,8 @@
                     let presetButton = document.createElement("button")
                     presetButton.innerHTML = text
                     presetButton.onclick=(event)=>{
-                        console.log(text)
-                        filterDeckByCategory(text)
+                        let inclIntensSelection = document.getElementById("inclIntensInput").checked
+                        filterDeckByCategory(text, inclIntensSelection)
                         event.currentTarget.classList.add("selectedButton")
                         closepopup()
                     }
@@ -196,9 +227,8 @@
                 }
             }
 
-            
-            modalcontent.appendChild(document.createElement("br"))
-            modalcontent.appendChild(document.createElement("br"))
+            // modalcontent.appendChild(document.createElement("br"))
+            // modalcontent.appendChild(document.createElement("br"))
             let advancedButton = document.createElement("button")
             advancedButton.innerHTML = "advanced"
             advancedButton.id = "showAdvancedDeckCustomizer"
@@ -211,20 +241,23 @@
 
         }
         deckbutton.onclick= () => {popupDeckCustomizer(unqSrcs)}
-        function filterDeckByCategory(d) {
-            document.getElementById("decktext").innerHTML = d
+        function filterDeckByCategory(d, inclIntensSelection) {
+            document.getElementById("deckmodtext").innerHTML = inclIntensSelection ? "" : "modified"
+            document.getElementById("deckcattext").innerHTML = d
             deck = d
+            complete = inclIntensSelection
             subdeckIndexes = completequestions.map((val, index) => 
             {
-                if ((deck == "default" && val[6] < 7) ||
-                    deck == "complete" || 
-                    (deck == "react!" && val[2]) || 
-                    val[1] == deck)
+                if ((inclIntensSelection || val[6] < 7) && (
+                        // (deck == "default" && val[6] < 7) ||
+                        deck == "complete" || 
+                        (deck == "react!" && val[2]) || 
+                        val[1] == deck
+                    ))
                     return index
                 else
                     return null
             }).filter(val => val != null)
-            console.log(subdeckIndexes)
             
             numqs = subdeckIndexes.length
             document.getElementById("numcards").innerHTML = numqs + " cards"
@@ -247,7 +280,7 @@
     let current;
     let viewed;
 
-    filterDeckByCategory("default")
+    filterDeckByCategory("complete", false)
     document.querySelector(".coffee").style.display = 'none'
 
 
