@@ -29,7 +29,7 @@
     }
 
     button:not(.coffee):not(.screentoggle),
-    input,
+    input:not(#inclIntensInput),
     select {
         font-size: max(2vh, 15px);
         height: max(5%, 25px);
