@@ -208,3 +208,7 @@
         top: -20px; /*matches modal-content padding*/
         border-bottom: 5px solid black;
     }
+    
+    #urltocopy {
+        font-size: max(1.5vh, 10px);
+    }

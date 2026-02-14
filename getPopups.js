@@ -101,9 +101,11 @@ async function send(event) {
         console.log("MDN shared successfully");
     } catch (err) {
         let modalcontent = popup()
+        let questiontext = question.innerText.split("\n")[1]
         modalcontent.innerHTML = "<b>Send this question to a friend!</b>"+
-            "<button id='copyToClipboardButton' onclick='copyToClipboard(\""+shareData.url+"\")' style='margin: 10px;'>Copy</button>"+
-            "<br><div style='border: 1px solid black'>"+shareData.url+"</div>"
+            "<button id='copyToClipboardButton' onclick='copyToClipboard(\""+shareData.url+"\\n"+questiontext+"\")' style='margin: 10px;'>Copy</button>"+
+            "<br><div style='border: 1px solid black; padding: 5px;'>"+
+            questiontext + "<br><span id='urltocopy'>" + shareData.url+"</span></div>"
     }
 }
 
