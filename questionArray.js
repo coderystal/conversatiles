@@ -786,3 +786,37 @@ function calcSources() {
     worksCited = srcCts.reduce((acc,cur)=>acc+"<br>"+cur,"")
 }
 calcSources()
+
+
+function getSubdeckIndexesByCategory(d, inclIntensSelection) {
+    subdeckIndexes = completequestions.map((val, index) => 
+    {
+        if ((inclIntensSelection || val[6] < 7) && (
+                // (deck == "default" && val[6] < 7) ||
+                d == "complete" || 
+                (d == "react!" && val[2]) || 
+                val[1] == d
+            ))
+            return index
+        else
+            return null
+    }).filter(val => val != null)
+    return subdeckIndexes
+}
+
+function readStringAsDict(str, pairSep) {
+    if (!str)
+        return null
+    let dictionary = {}
+    str.split(pairSep).forEach(pairstr => {
+        let [key, val] = pairstr.split("=")
+        dictionary[key] = val
+    })
+    return dictionary
+}
+function readCookieAsDict() {
+    return readStringAsDict(document.cookie, "; ")
+}
+function readQueryParamsAsDict() {
+    return readStringAsDict(window.location.search.replace("?", ""), "&")
+}

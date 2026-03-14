@@ -61,7 +61,7 @@
 <body>
     <script>
         function explainDeck() {
-            document.getElementById("explain").innerHTML = "questions can be played from the complete deck, the react deck, or a <a onclick='explainCat()'>categorized</a> deck"
+            document.getElementById("explain").innerHTML = "questions can be played from the complete deck, the react deck, a <a onclick='explainCat()'>categorized</a> deck, or a custom deck"
         }
         function explainCat() {
             document.getElementById("explain").innerHTML = "each question is organized into one of the following categories:<br>" + cats.join(", ")
@@ -98,15 +98,16 @@
 
 
         <script>
-            let deck = window.location.search.split("&")[0].split("=")[1]
-            let qnum = window.location.search.split("&")[1].split("=")[1]
+            let dictionary = readQueryParamsAsDict()
+            let deck = dictionary.deck
+            let qnum = dictionary.question
+            let complete = dictionary.complete
+            let questions = getSubdeckIndexesByCategory(deck, complete=="true")
 
-            let questions = completequestions.filter((val) => deck == "complete" || (deck == "react!" && val[2]) || val[1] == deck)
-        
-            let qust = questions[parseInt(qnum)-1]
+            let qust = completequestions[questions[parseInt(qnum)-1]]
             //qust = [0-text, 1-cat, 2-react, 3-author, 4-edited, 5-note, 6-intensity]
         
-            document.getElementById("questiondeck").innerHTML = deck
+            document.getElementById("questiondeck").innerHTML = (complete=="true" ? "" : "modified ") + deck
             document.getElementById("questionnum").innerHTML = qnum
             document.getElementById("questiontext").innerHTML = qust[0]
             document.getElementById("questionnote").innerHTML = qust[5] + "<br>"
@@ -117,7 +118,7 @@
             document.getElementById("questionint").innerHTML = qust[6]
             document.getElementById("resumebutton").onclick = () => {
                 if (document.referrer=='')
-                    window.location.href="index.html?deck="+deck+"&question="+qnum
+                    window.location.href="index.html?deck="+deck+"&question="+qnum+"&complete="+complete
                 else
                     history.back();
             }
