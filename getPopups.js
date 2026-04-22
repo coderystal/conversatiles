@@ -53,15 +53,21 @@ function popupAll() {
     modalcontent.appendChild(table)
 }
 
+function getHtmlForFlexDivWithLabeledCheckboxList(label, list) {
+    let html = "<div>" + label + ": "
+    list.forEach(item => 
+        html += "<input type='checkbox'> " + item
+    )
+    html += "</div><br><button>select all</button><button>deselect all</button>"
+    console.log("html", html)
+    return html
+}
+
 function getHtmlForDeckCustomizerAdvanced() {
     let html = "<b>Customize Deck</b><br><br>" +
 
     //arr[1]
-    "Categories:"
-    for (let i in cats) {
-        html += "<input type='checkbox'> " + cats[i]
-    }
-    html += "<br><button>select all</button><button>deselect all</button>"
+    getHtmlForFlexDivWithLabeledCheckboxList("Categories", cats)
 
     //arr[2]
     html += "<br><br>Specificity: <input type='checkbox'> purposefully vague <input type='checkbox'> generally unambiguous<br>"
@@ -73,11 +79,8 @@ function getHtmlForDeckCustomizerAdvanced() {
     html += "<br><br>Details: <input type='checkbox'> includes comments/suggestions<input type='checkbox'> question only<br>"
 
     //arr[3]
-    html += "<br><br>Sources:"
-    unqSrcs.forEach(src => {
-        html += "<input type='checkbox'> " + src
-    })
-    html += "<br><button>select all</button><button>deselect all</button>"
+    html += "<br><br>" + 
+    getHtmlForFlexDivWithLabeledCheckboxList("Sources", unqSrcs)
 
     //arr[4]
     html += "<br><br>Reviewed: <input type='checkbox'> edited by coderystal<input type='checkbox'> unedited<br>"
