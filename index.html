@@ -171,7 +171,16 @@
             inclIntensInput.type = "checkbox"
             inclIntensInput.checked = complete == true
             inclIntensInput.onchange = (event) => {
-                document.getElementById("swapIntensButton").innerHTML = (event.currentTarget.checked ? "exclude" : "include") + " and apply"
+                let checked = event.currentTarget.checked
+                document.getElementById("swapIntensButton").innerHTML = (checked ? "exclude" : "include") + " and apply"
+                document.querySelectorAll(".presetbutton").forEach(button => {
+                    if (button.id != "swapIntensButton" && button.id != "showAdvancedDeckCustomizer") {
+                        let ogtext = button.innerHTML.split("<br>")[0].split("'")[0]
+                        button.innerHTML = ogtext + "<br><span style='font-size:xx-small'>("+
+                            (checked ? "complete" : "modified")+")</span>"
+                        setTimeout(()=>{button.innerHTML=ogtext+(checked ? "" : "'")}, 1000)
+                    }
+                })
             }
             intensitydiv.appendChild(inclIntensInput)
             let inclIntensSpan = document.createElement("span")
@@ -203,7 +212,8 @@
                     modalcontent.appendChild(document.createElement("br"))
                 } else {
                     let presetButton = document.createElement("button")
-                    presetButton.innerHTML = text
+                    presetButton.classList.add("presetbutton")
+                    presetButton.innerHTML = text + (inclIntensInput.checked ? "" : "'")
                     presetButton.onclick=(event)=>{
                         let inclIntensSelection = document.getElementById("inclIntensInput").checked
                         filterDeckByCategory(text, inclIntensSelection)
@@ -232,6 +242,7 @@
             // modalcontent.appendChild(advancedButton)
 
         }
+        // popupDeckCustomizer(unqSrcs)
         deckbutton.onclick= () => {popupDeckCustomizer(unqSrcs)}
         function filterDeckByCategory(d, inclIntensSelection) {
             document.getElementById("deckmodtext").innerHTML = inclIntensSelection ? "" : "modified"

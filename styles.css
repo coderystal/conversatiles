@@ -28,19 +28,24 @@
         padding-bottom: 30px;
     }
 
-    button:not(.coffee):not(.screentoggle),
+    button:not(.coffee):not(.screentoggle):not(.presetbutton),
     input:not(#inclIntensInput),
     select {
         font-size: max(2vh, 15px);
         height: max(5%, 25px);
     }
 
-    button:not(.coffee):not(.screentoggle),
+    button:not(.coffee):not(.screentoggle):not(.presetbutton),
     select {
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 4%;
         padding-right: 4%;
+    }
+
+    .presetbutton {
+        width: 150px;
+        height: 40px;
     }
 
     #inclIntensInput {
