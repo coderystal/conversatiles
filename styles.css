@@ -102,7 +102,7 @@
         margin: auto;
     }
     /* mobile */
-    @media (min-height: 1000px) {
+    @media (min-height: 1501px) {
         #question {
             height: 55%;
         }
@@ -115,6 +115,16 @@
     @media (max-height: 1000px) {
         #question {
             height: 35%;
+        }
+
+        #footer {
+            font-size: max(2vh, 15px);
+        }
+    }
+    /* desktop - large */
+    @media (min-height: 1001px), (max-height: 1500px) {
+        #question {
+            height: 45%;
         }
 
         #footer {
