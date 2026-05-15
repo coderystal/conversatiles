@@ -122,7 +122,7 @@
         }
     }
     /* desktop - large */
-    @media (min-height: 1001px), (max-height: 1500px) {
+    @media (min-height: 1001px) and (max-height: 1500px) {
         #question {
             height: 45%;
         }
