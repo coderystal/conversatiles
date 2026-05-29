@@ -54,38 +54,50 @@ function popupAll() {
 }
 
 function getHtmlForFlexDivWithLabeledCheckboxList(label, list) {
-    let html = "<div>" + label + ": "
+    let html = "<div style='display: flex; align-items: center; flex-wrap: wrap;'>" + label + ": "
     list.forEach(item => 
         html += "<input type='checkbox'> " + item
     )
-    html += "</div><br><button>select all</button><button>deselect all</button>"
+    html += "</div>"
+    // if (list.length > 2 || list.size > 2)
+    //     html += "<br><button>select all</button><button>deselect all</button>"
     console.log("html", html)
     return html
 }
 
 function getHtmlForDeckCustomizerAdvanced() {
-    let html = "<b>Customize Deck</b><br><br>" +
+    let html = "<b>Customize Deck</b><br><br><div style='width: 50%; display: inline-block;'>"
 
     //arr[1]
-    getHtmlForFlexDivWithLabeledCheckboxList("Categories", cats)
+    getHtmlForFlexDivWithLabeledCheckboxList(
+        "Categories", cats)
+        
+    //arr[6]
+    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
+        "Intensity", intensityDict.slice(1))
 
     //arr[2]
-    html += "<br><br>Specificity: <input type='checkbox'> purposefully vague <input type='checkbox'> generally unambiguous<br>"
+    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
+        "Specificity", ["purposefully vague","generally unambiguous"])
 
     //arr[0]
-    html += "<br><br>contains text: <input>"
+    html += "<br><br>contains text: <input><br>try: <a>change</a> <a>love</a> <a>family</a>"
+
+    html += "</div><div style='width: 50%; display: inline-block;'>"
 
     //arr[5]
-    html += "<br><br>Details: <input type='checkbox'> includes comments/suggestions<input type='checkbox'> question only<br>"
+    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
+        "Details",["includes comments/suggestions","question only"])
 
     //arr[3]
-    html += "<br><br>" + 
-    getHtmlForFlexDivWithLabeledCheckboxList("Sources", unqSrcs)
+    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
+        "Sources", unqSrcs)
 
     //arr[4]
-    html += "<br><br>Reviewed: <input type='checkbox'> edited by coderystal<input type='checkbox'> unedited<br>"
+    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
+        "Reviewed",["edited by coderystal","unedited"])
 
-    html += "<br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments"
+    html += "</div><br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments, 7) intensity"
 
     return html
 }

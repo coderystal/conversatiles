@@ -736,15 +736,16 @@ let totalnum = completequestions.length
 let cats = [...new Set(completequestions.map((val) => val[1]))].sort()
 
 //invites an answer that is a(n) ...
-let intensityDict = {
-    1: "comment - simple pleasantry",
-    2: "window - mild musing that hints at your life and perspective",
-    3: "introduction - safe personal description",
-    4: "factor - recurring or otherwise relevant context",
-    5: "influence - experience that directly shaped you",
-    6: "theme - foundational, impactful, or otherwise superlative thought or feeling",
-    7: "burden - potentially traumatic trigger"
-}
+let intensityDict = [
+    "error",
+    "comment - simple pleasantry",
+    "window - mild musing that hints at your life and perspective",
+    "introduction - safe personal description",
+    "factor - recurring or otherwise relevant context",
+    "influence - experience that directly shaped you",
+    "theme - foundational, impactful, or otherwise superlative thought or feeling",
+    "burden - potentially traumatic trigger"
+]
 
 let worksCited = "error..."
 let authorDict = {

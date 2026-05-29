@@ -49,6 +49,7 @@
                     "There are only " + numqs + " cards in the " + document.getElementById("decktext").innerText + " deck."
                 document.getElementById("question").style.color = "black"
                 current = cardind
+                return false
             }
             else {
                 if (!back && current != cardind)
@@ -87,7 +88,11 @@
             }
             
             let qnum = dictionary.question
-            drawNewCard(parseInt(qnum)-1)
+            if (!drawNewCard(parseInt(qnum)-1)) {
+                //qnum > # questions in modified given deck => use unmodified given deck
+                filterDeckByCategory(dictionary.deck, true)
+                drawNewCard(parseInt(qnum)-1)
+            }
         }
     }
 
@@ -240,8 +245,10 @@
             }
             
             // modalcontent.appendChild(advancedButton)
-
+            //to test:::------------------------------------
+            // modalcontent.innerHTML = getHtmlForDeckCustomizerAdvanced(unqSrcs)
         }
+        //to test:::------------------------------------
         // popupDeckCustomizer(unqSrcs)
         deckbutton.onclick= () => {popupDeckCustomizer(unqSrcs)}
         function filterDeckByCategory(d, inclIntensSelection) {
