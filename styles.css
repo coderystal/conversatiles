@@ -236,3 +236,8 @@
     #urltocopy {
         font-size: max(1.5vh, 10px);
     }
+
+    .checkboxItem {
+        display: inline-flex;
+        align-items: center;
+    }

@@ -54,48 +54,63 @@ function popupAll() {
 }
 
 function getHtmlForFlexDivWithLabeledCheckboxList(label, list) {
-    let html = "<div style='display: flex; align-items: center; flex-wrap: wrap;'>" + label + ": "
-    list.forEach(item => 
-        html += "<input type='checkbox'> " + item
+    let html = "<div style='flex-wrap: wrap;'><b>" + label + "</b>: "
+    list.forEach((item,i) => 
+        html += "<span class='checkboxItem'><input id='"+label+"-"+i+"' type='checkbox' checked> " + item + "</span>" + (label=="Intensity"?"<br>":"&emsp;")
     )
     html += "</div>"
     // if (list.length > 2 || list.size > 2)
     //     html += "<br><button>select all</button><button>deselect all</button>"
-    console.log("html", html)
     return html
+}
+
+
+let sec1CheckboxDict = [
+    ["Categories",cats],                                            //arr[1]
+    ["Intensity",intensityDict.slice(1)],                           //arr[6]
+    ["Specificity",["purposefully vague","generally unambiguous"]]  //arr[2]
+]
+let sec2CheckboxDict = [
+    ["Details",["includes comments/suggestions","question only"]],  //arr[5]
+    ["Sources", unqSrcs],                                           //arr[3]
+    ["Reviewed",["edited by coderystal","unedited"]]                //arr[4]
+]
+
+
+function submitcustomdeck() {
+    let deckDict = {}
+    sec1CheckboxDict.forEach((checkboxSetTuple)=>{
+        let label = checkboxSetTuple[0]
+        let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked)
+
+        deckDict[label] = checkboxVals
+    })
+
+    console.log(deckDict)
+
+    console.log(document.getElementById("Categories-0").checked)
 }
 
 function getHtmlForDeckCustomizerAdvanced() {
     let html = "<b>Customize Deck</b><br><br><div style='width: 50%; display: inline-block;'>"
 
-    //arr[1]
-    getHtmlForFlexDivWithLabeledCheckboxList(
-        "Categories", cats)
-        
-    //arr[6]
-    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
-        "Intensity", intensityDict.slice(1))
+    html += "<button onclick='submitcustomdeck()'>Customize</button><br><br>"
 
-    //arr[2]
-    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
-        "Specificity", ["purposefully vague","generally unambiguous"])
+    sec1CheckboxDict.forEach((checkboxSetTuple)=>{
+        html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
+            checkboxSetTuple[0], checkboxSetTuple[1])
+    })
 
     //arr[0]
     html += "<br><br>contains text: <input><br>try: <a>change</a> <a>love</a> <a>family</a>"
 
     html += "</div><div style='width: 50%; display: inline-block;'>"
 
-    //arr[5]
-    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
-        "Details",["includes comments/suggestions","question only"])
-
-    //arr[3]
-    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
-        "Sources", unqSrcs)
-
-    //arr[4]
-    html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
-        "Reviewed",["edited by coderystal","unedited"])
+    sec2CheckboxDict.forEach((checkboxSetTuple)=>{
+        html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
+            checkboxSetTuple[0], checkboxSetTuple[1])
+    })
+        
 
     html += "</div><br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments, 7) intensity"
 
