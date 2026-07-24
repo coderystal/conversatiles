@@ -181,7 +181,7 @@
                 document.querySelectorAll(".presetbutton").forEach(button => {
                     if (button.id != "swapIntensButton" && button.id != "showAdvancedDeckCustomizer") {
                         let ogtext = button.innerHTML.split("<br>")[0].split("'")[0]
-                        button.innerHTML = ogtext + "<br><span style='font-size:xx-small'>("+
+                        button.innerHTML = ogtext + "<br><span style='font-size:x-small'>("+
                             (checked ? "complete" : "modified")+")</span>"
                         setTimeout(()=>{button.innerHTML=ogtext+(checked ? "" : "'")}, 1000)
                     }
