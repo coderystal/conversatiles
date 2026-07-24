@@ -48,8 +48,9 @@
     }
 
     .presetbutton {
-        width: 150px;
-        height: 10vh;
+        height: 8vh;
+        padding: 20px;
+        margin: 10px;
     }
 
     #inclIntensInput {
