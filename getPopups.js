@@ -1,4 +1,26 @@
+function cre8ele(tag, innerHTML='', display='', width='', id='') {
+    let ele = document.createElement(tag)
+    if (innerHTML)
+        ele.innerHTML = innerHTML
+    if (display != '') {
+        ele.style.display = display
+    }
+    if (width != '') {
+        ele.style.width = width
+    } else {
+        ele.style.marginRight = "10px"
+    }
+    if (id != '') {
+        ele.id = id
+    }
+    return ele
+}
 
+function createButton(btntext, btnfunc = ()=>{}) {
+    let button = cre8ele("button", btntext)
+    button.onclick = btnfunc
+    return button
+}
 
 function popup() {
     let modalcontent = document.querySelector(".modal-content")
@@ -53,15 +75,34 @@ function popupAll() {
     modalcontent.appendChild(table)
 }
 
-function getHtmlForFlexDivWithLabeledCheckboxList(label, list) {
-    let html = "<div style='flex-wrap: wrap;'><b>" + label + "</b>: "
-    list.forEach((item,i) => 
-        html += "<span class='checkboxItem'><input id='"+label+"-"+i+"' type='checkbox' checked> " + item + "</span>" + (label=="Intensity"?"<br>":"&emsp;")
-    )
-    html += "</div>"
+
+function getFlexDivWithLabeledCheckboxList(label, list) {
+    let flexdiv = cre8ele("div", "<b>" + label + "</b>: " + (label == "Intensity" ? "<br>" : ""))
+    
+
+    flexdiv.style.flexWrap = "wrap"
+    list.forEach((item,i) => {
+        let checkboxItem = cre8ele("span")
+        let checkboxInput = cre8ele("input")
+        checkboxInput.id = label+"-"+i
+        checkboxInput.type = "checkbox"
+        checkboxInput.checked = true
+        checkboxItem.appendChild(checkboxInput)
+        checkboxItem.appendChild(cre8ele("span", item))
+        checkboxItem.classList.add('checkboxItem')
+        flexdiv.appendChild(checkboxItem) 
+
+
+        // if (label=="Intensity") {
+        //     checkboxItem.appendChild(document.createElement("br"))
+        // } else {
+        //     checkboxItem.appendChild(document.createElement("br"))
+        //     "&emsp;"
+        // }
+    })
     // if (list.length > 2 || list.size > 2)
     //     html += "<br><button>select all</button><button>deselect all</button>"
-    return html
+    return flexdiv
 }
 
 
@@ -72,49 +113,92 @@ let sec1CheckboxDict = [
 ]
 let sec2CheckboxDict = [
     ["Details",["includes comments/suggestions","question only"]],  //arr[5]
-    ["Sources", unqSrcs],                                           //arr[3]
+    ["Sources", [...unqSrcs]],                                           //arr[3]
     ["Reviewed",["edited by coderystal","unedited"]]                //arr[4]
 ]
+let commonwords = ["change", "love", "family"]
 
 
 function submitcustomdeck() {
     let deckDict = {}
-    sec1CheckboxDict.forEach((checkboxSetTuple)=>{
+    let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+    allCheckboxDict.forEach((checkboxSetTuple)=>{
         let label = checkboxSetTuple[0]
-        let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked)
+        let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked) //eg id = Categories-0
 
         deckDict[label] = checkboxVals
     })
+    deckDict["Keyword"] = document.getElementById("keywordinput").value
 
     console.log(deckDict)
 
-    console.log(document.getElementById("Categories-0").checked)
 }
 
-function getHtmlForDeckCustomizerAdvanced() {
-    let html = "<b>Customize Deck</b><br><br><div style='width: 50%; display: inline-block;'>"
-
-    html += "<button onclick='submitcustomdeck()'>Customize</button><br><br>"
-
+function setcustom(complete) {
     sec1CheckboxDict.forEach((checkboxSetTuple)=>{
-        html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
-            checkboxSetTuple[0], checkboxSetTuple[1])
+        let label = checkboxSetTuple[0]
+        
+        checkboxSetTuple[1].forEach((value, i)=>document.getElementById(label+"-"+i).checked = complete)
+    })
+
+    
+    document.getElementById("keywordinput").value=''
+
+    sec2CheckboxDict.forEach((checkboxSetTuple)=>{
+        let label = checkboxSetTuple[0]
+        
+        checkboxSetTuple[1].forEach((value, i)=>document.getElementById(label+"-"+i).checked = complete)
+    })
+
+
+}
+
+function popupAdvanced() {
+    let modalcontent = document.querySelector(".modal-content")
+    modalcontent.innerHTML = ""
+
+    modalcontent.appendChild(cre8ele("b", "Customize Deck"))
+    modalcontent.appendChild(createButton("Customize", submitcustomdeck))
+    modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
+    modalcontent.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
+    modalcontent.appendChild(document.createElement("br"))
+    
+    let div1 = cre8ele("div", "", 'inline-block', '50%')
+    sec1CheckboxDict.forEach((checkboxSetTuple)=>{
+        div1.appendChild(document.createElement("br"))
+        div1.appendChild(document.createElement("br"))
+        div1.appendChild(getFlexDivWithLabeledCheckboxList(
+            checkboxSetTuple[0], checkboxSetTuple[1]))
     })
 
     //arr[0]
-    html += "<br><br>contains text: <input><br>try: <a>change</a> <a>love</a> <a>family</a>"
-
-    html += "</div><div style='width: 50%; display: inline-block;'>"
-
-    sec2CheckboxDict.forEach((checkboxSetTuple)=>{
-        html += "<br><br>" + getHtmlForFlexDivWithLabeledCheckboxList(
-            checkboxSetTuple[0], checkboxSetTuple[1])
+    div1.appendChild(document.createElement("br"))
+    div1.appendChild(document.createElement("br"))
+    div1.appendChild(cre8ele("span", "contains text:"))
+    div1.appendChild(cre8ele("input", '', '', '', "keywordinput"))
+    div1.appendChild(document.createElement("br"))
+    div1.appendChild(cre8ele("span", "try:"))
+    commonwords.forEach((word)=>{
+        let atag = cre8ele("a", word)
+        atag.onclick = () => {
+            document.getElementById('keywordinput').value = word
+        }
+        div1.appendChild(atag)
     })
-        
 
-    html += "</div><br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments, 7) intensity"
 
-    return html
+
+    let div2 = cre8ele("div", "", 'inline-block', '50%')
+    sec2CheckboxDict.forEach((checkboxSetTuple)=>{
+        div2.appendChild(document.createElement("br"))
+        div2.appendChild(document.createElement("br"))
+        div2.appendChild(getFlexDivWithLabeledCheckboxList(
+            checkboxSetTuple[0], checkboxSetTuple[1]))
+    })
+
+    modalcontent.appendChild(div1)
+    modalcontent.appendChild(div2)
+    modalcontent.appendChild(cre8ele("span", "<br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments, 7) intensity"))
 }
 
 async function send(event) {
