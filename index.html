@@ -234,22 +234,25 @@
                 }
             }
 
-            // modalcontent.appendChild(document.createElement("br"))
-            // modalcontent.appendChild(document.createElement("br"))
+            modalcontent.appendChild(document.createElement("br"))
+            modalcontent.appendChild(document.createElement("br"))
             let advancedButton = document.createElement("button")
             advancedButton.innerHTML = "advanced"
             advancedButton.id = "showAdvancedDeckCustomizer"
 
             advancedButton.onclick=()=>{
-                popupAdvanced()
+                popupWarnAdvancedInProgress()
             }
             
-            // modalcontent.appendChild(advancedButton)
-            //to test:::------------------------------------
-            // popupAdvanced()
+            modalcontent.appendChild(advancedButton)
         }
+
         //to test:::------------------------------------
-        // popupDeckCustomizer(unqSrcs)
+        // popup()
+        // popupAdvanced()
+        //to test:::------------------------------------
+
+
         deckbutton.onclick= () => {popupDeckCustomizer(unqSrcs)}
         function filterDeckByCategory(d, inclIntensSelection) {
             document.getElementById("deckmodtext").innerHTML = inclIntensSelection ? "" : "modified"
@@ -265,19 +268,9 @@
         }
 
         function submitcustomdeck() {
-            let deckDict = {}
-            let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
-            allCheckboxDict.forEach((checkboxSetTuple)=>{
-                let label = checkboxSetTuple[0]
-                let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked) //eg id = Categories-0
-
-                deckDict[label] = checkboxVals
-            })
-            deckDict["Keyword"] = document.getElementById("keywordinput").value
-
+            let deckDict = getDeckDictFromForm()
             console.log(deckDict)
             subdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
-            // document.getElementById("customdeckfeedback").innerHTML = subdeckIndexes.length
             closepopup()
             numqs = subdeckIndexes.length
             document.getElementById("numcards").innerHTML = numqs + " cards"

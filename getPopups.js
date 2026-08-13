@@ -77,6 +77,14 @@ function popupAll() {
     modalcontent.appendChild(table)
 }
 
+function calcCustomDeckSize() {
+    let customsize = getSubdeckIndexesAdvanced(getDeckDictFromForm()).length
+    document.getElementById("customdeckfeedback").innerHTML = customsize
+    if (customsize == 0)
+        document.getElementById("applycustomdeck").disabled = true
+    else if (document.getElementById("applycustomdeck").disabled)
+        document.getElementById("applycustomdeck").disabled = false
+}
 
 function getFlexDivWithLabeledCheckboxList(label, list) {
     let flexdiv = cre8ele("div", "<b>" + label + "</b>: " + (label == "Intensity" ? "<br>" : ""))
@@ -85,10 +93,10 @@ function getFlexDivWithLabeledCheckboxList(label, list) {
     flexdiv.style.flexWrap = "wrap"
     if (list.length > 2 || list.size > 2) {
         flexdiv.appendChild(createButton("default", () => {
-            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = true)
+            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = true); calcCustomDeckSize()
         }, label+"-defaultbutton"))
         flexdiv.appendChild(createButton("clear",  () => {
-            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = false)
+            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = false); calcCustomDeckSize()
         }, label+"-clearbutton"))
         flexdiv.appendChild(cre8ele("br"))
     }
@@ -98,6 +106,7 @@ function getFlexDivWithLabeledCheckboxList(label, list) {
         checkboxInput.id = label+"-"+i
         checkboxInput.type = "checkbox"
         checkboxInput.checked = true
+        checkboxInput.onchange = calcCustomDeckSize
         checkboxItem.appendChild(checkboxInput)
         checkboxItem.appendChild(cre8ele("span", item))
         checkboxItem.classList.add('checkboxItem')
@@ -149,13 +158,27 @@ function setcustom(complete) {
 
 }
 
+function popupWarnAdvancedInProgress() {
+    let modalcontent = document.querySelector(".modal-content")
+    modalcontent.innerHTML = "<b>I would love for you to assemble the perfect deck for your current context</b><br>"+
+        "And you can... if you really want to... but please be warned...<br>"+
+        "I've enabled this feature through a very basic form... it is... barely functional...<br>"+
+        "I want those who want to manipulate this deck in all possible ways to be able to, and not have to wait until I someday make it look nice,<br>"+
+        "but if the presets suffice for you, please spare yourself, and let me save face, by not proceeding to the next page, which is in progress to become more user-friendly.<br>"+
+        "Consider yourself warned.<br>"
+    modalcontent.appendChild(createButton("Use a preset deck", popupDeckCustomizer))
+    modalcontent.appendChild(createButton("Continue to custom deck form", popupAdvanced))
+}
+
 function popupAdvanced() {
     let modalcontent = document.querySelector(".modal-content")
     modalcontent.innerHTML = ""
 
     modalcontent.appendChild(cre8ele("b", "Customize Deck"))
-    modalcontent.appendChild(createButton("Customize", submitcustomdeck))
+    modalcontent.appendChild(createButton("Use this custom deck!", submitcustomdeck, "applycustomdeck"))
+    modalcontent.appendChild(cre8ele("span", "it has"))
     modalcontent.appendChild(cre8ele("span", "", "", "", "customdeckfeedback"))
+    modalcontent.appendChild(cre8ele("span", "questions"))
     modalcontent.appendChild(document.createElement("br"))
     
     let div1 = cre8ele("div", "", 'inline-block', '50%')
@@ -170,7 +193,9 @@ function popupAdvanced() {
     div1.appendChild(document.createElement("br"))
     div1.appendChild(document.createElement("br"))
     div1.appendChild(cre8ele("span", "contains text:"))
-    div1.appendChild(cre8ele("input", '', '', '', "keywordinput"))
+    let keywordinputele = cre8ele("input", '', '', '', "keywordinput")
+    keywordinputele.oninput = calcCustomDeckSize
+    div1.appendChild(keywordinputele)
     div1.appendChild(document.createElement("br"))
     div1.appendChild(cre8ele("span", "try:"))
     commonwords.forEach((word)=>{
@@ -186,6 +211,8 @@ function popupAdvanced() {
     let div2 = cre8ele("div", "", 'inline-block', '50%')
     div2.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
     div2.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
+    for (let i = 0; i < 8; i++)
+        div2.appendChild(cre8ele("br"))
     sec2CheckboxDict.forEach((checkboxSetTuple)=>{
         div2.appendChild(document.createElement("br"))
         div2.appendChild(document.createElement("br"))
@@ -196,6 +223,20 @@ function popupAdvanced() {
     modalcontent.appendChild(div1)
     modalcontent.appendChild(div2)
     modalcontent.appendChild(cre8ele("span", "<br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments, 7) intensity"))
+    calcCustomDeckSize()
+}
+
+function getDeckDictFromForm() {
+    let deckDict = {}
+    let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+    allCheckboxDict.forEach((checkboxSetTuple)=>{
+        let label = checkboxSetTuple[0]
+        let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked) //eg id = Categories-0
+
+        deckDict[label] = checkboxVals
+    })
+    deckDict["Keyword"] = document.getElementById("keywordinput").value
+    return deckDict
 }
 
 async function send(event) {
