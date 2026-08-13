@@ -203,6 +203,7 @@ function popupAdvanced() {
         let atag = cre8ele("a", word)
         atag.onclick = () => {
             document.getElementById('keywordinput').value = word
+            calcCustomDeckSize()
         }
         div1.appendChild(atag)
     })
