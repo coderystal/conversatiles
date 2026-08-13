@@ -166,7 +166,7 @@ function popupWarnAdvancedInProgress() {
         "I want those who want to manipulate this deck in all possible ways to be able to, and not have to wait until I someday make it look nice,<br>"+
         "but if the presets suffice for you, please spare yourself, and let me save face, by not proceeding to the next page, which is in progress to become more user-friendly.<br>"+
         "Consider yourself warned.<br>" + 
-        "ok ya also it doesn't even work on mobile rn lol let me check, so don't even bother if ur on ur phone<br>"
+        "(also seems like # question count doesn't work perfectly on mobile rn lol)<br>"
     modalcontent.appendChild(createButton("Use a preset deck", popupDeckCustomizer))
     modalcontent.appendChild(createButton("Continue to custom deck form", popupAdvanced))
 }
