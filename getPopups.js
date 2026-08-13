@@ -16,9 +16,11 @@ function cre8ele(tag, innerHTML='', display='', width='', id='') {
     return ele
 }
 
-function createButton(btntext, btnfunc = ()=>{}) {
+function createButton(btntext, btnfunc = ()=>{}, btnid='') {
     let button = cre8ele("button", btntext)
     button.onclick = btnfunc
+    if (btnid != '')
+        button.id = btnid
     return button
 }
 
@@ -81,6 +83,15 @@ function getFlexDivWithLabeledCheckboxList(label, list) {
     
 
     flexdiv.style.flexWrap = "wrap"
+    if (list.length > 2 || list.size > 2) {
+        flexdiv.appendChild(createButton("default", () => {
+            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = true)
+        }, label+"-defaultbutton"))
+        flexdiv.appendChild(createButton("clear",  () => {
+            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = false)
+        }, label+"-clearbutton"))
+        flexdiv.appendChild(cre8ele("br"))
+    }
     list.forEach((item,i) => {
         let checkboxItem = cre8ele("span")
         let checkboxInput = cre8ele("input")
@@ -100,8 +111,6 @@ function getFlexDivWithLabeledCheckboxList(label, list) {
         //     "&emsp;"
         // }
     })
-    // if (list.length > 2 || list.size > 2)
-    //     html += "<br><button>select all</button><button>deselect all</button>"
     return flexdiv
 }
 
@@ -113,26 +122,13 @@ let sec1CheckboxDict = [
 ]
 let sec2CheckboxDict = [
     ["Details",["includes comments/suggestions","question only"]],  //arr[5]
-    ["Sources", [...unqSrcs]],                                           //arr[3]
+    ["Sources", unqSrcsArr],                                        //arr[3]
     ["Reviewed",["edited by coderystal","unedited"]]                //arr[4]
 ]
 let commonwords = ["change", "love", "family"]
 
 
-function submitcustomdeck() {
-    let deckDict = {}
-    let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
-    allCheckboxDict.forEach((checkboxSetTuple)=>{
-        let label = checkboxSetTuple[0]
-        let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked) //eg id = Categories-0
 
-        deckDict[label] = checkboxVals
-    })
-    deckDict["Keyword"] = document.getElementById("keywordinput").value
-
-    console.log(deckDict)
-
-}
 
 function setcustom(complete) {
     sec1CheckboxDict.forEach((checkboxSetTuple)=>{
@@ -159,8 +155,7 @@ function popupAdvanced() {
 
     modalcontent.appendChild(cre8ele("b", "Customize Deck"))
     modalcontent.appendChild(createButton("Customize", submitcustomdeck))
-    modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
-    modalcontent.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
+    modalcontent.appendChild(cre8ele("span", "", "", "", "customdeckfeedback"))
     modalcontent.appendChild(document.createElement("br"))
     
     let div1 = cre8ele("div", "", 'inline-block', '50%')
@@ -189,6 +184,8 @@ function popupAdvanced() {
 
 
     let div2 = cre8ele("div", "", 'inline-block', '50%')
+    div2.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
+    div2.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
     sec2CheckboxDict.forEach((checkboxSetTuple)=>{
         div2.appendChild(document.createElement("br"))
         div2.appendChild(document.createElement("br"))

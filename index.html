@@ -263,6 +263,26 @@
             document.getElementById("numcards").innerHTML = numqs + " cards"
             resetDeck()
         }
+
+        function submitcustomdeck() {
+            let deckDict = {}
+            let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+            allCheckboxDict.forEach((checkboxSetTuple)=>{
+                let label = checkboxSetTuple[0]
+                let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked) //eg id = Categories-0
+
+                deckDict[label] = checkboxVals
+            })
+            deckDict["Keyword"] = document.getElementById("keywordinput").value
+
+            console.log(deckDict)
+            subdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
+            // document.getElementById("customdeckfeedback").innerHTML = subdeckIndexes.length
+            closepopup()
+            numqs = subdeckIndexes.length
+            document.getElementById("numcards").innerHTML = numqs + " cards"
+            resetDeck()            
+        }
     </script>
 </div>
 

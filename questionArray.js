@@ -734,6 +734,8 @@ let completequestions = [
 let totalnum = completequestions.length
 
 let cats = [...new Set(completequestions.map((val) => val[1]))].sort()
+let catind = {}
+cats.forEach((val, ind) => catind[val] = ind)
 
 //invites an answer that is a(n) ...
 let intensityDict = [
@@ -787,6 +789,9 @@ function calcSources() {
     worksCited = srcCts.reduce((acc,cur)=>acc+"<br>"+cur,"")
 }
 calcSources()
+let unqSrcsArr = [...unqSrcs]
+let srcind = {}
+unqSrcsArr.forEach((val, ind) => srcind[val] = ind)
 
 
 function getSubdeckIndexesByCategory(d, inclIntensSelection) {
@@ -802,6 +807,30 @@ function getSubdeckIndexesByCategory(d, inclIntensSelection) {
         else
             return null
     }).filter(val => val != null)
+    return subdeckIndexes
+}
+
+function getSubdeckIndexesAdvanced(deckDict) {
+    subdeckIndexes = []
+    subdeckIndexes = completequestions.map((val, index) => 
+    {
+        if (
+            val[0].includes(deckDict["Keyword"]) &&          //arr[0] & Keyword
+            deckDict["Categories"][catind[val[1]]] &&        //arr[1] & Categories
+            deckDict["Specificity"][val[2] ? 0 : 1] &&       //arr[2] & Specificity
+            deckDict["Sources"][srcind[val[3].split(",")[0]]] &&           //arr[3] & Sources
+            deckDict["Reviewed"][val[4] ? 0 : 1] &&          //arr[4] & Reviewed
+            deckDict["Details"][val[5] == "" ? 1 : 0] &&     //arr[5] & Details
+            deckDict["Intensity"][val[6]-1]                  //arr[6] & Intensity
+
+        )
+            return index
+        else {
+            console.log(val)
+            return null
+        }
+    }).filter(val => val != null)
+    console.log(subdeckIndexes)
     return subdeckIndexes
 }
 
