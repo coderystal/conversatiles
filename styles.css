@@ -29,12 +29,12 @@
     }
 
     button:not(.coffee):not(.screentoggle),
-    input:not(#inclIntensInput),
+    input:not(#inclIntensInput):not([type="checkbox"]),
     select {
         font-size: max(2vh, 15px);
     }
     button:not(.coffee):not(.screentoggle):not(.presetbutton),
-    input:not(#inclIntensInput),
+    input:not(#inclIntensInput):not([type="checkbox"]),
     select {
         height: max(5%, 25px);
     }
