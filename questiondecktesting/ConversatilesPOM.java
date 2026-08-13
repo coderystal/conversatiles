@@ -54,6 +54,15 @@ public class ConversatilesPOM {
 	public WebElement getCustomizeDeckButton() {
 		return driver.findElement(new ById("deckbutton"));
 	}
+	public WebElement getIncludeHighIntensCheckbox() {
+		return driver.findElement(new ById("inclIntensInput"));
+	}
+	public WebElement getClearCategoriesButton() {
+		return driver.findElement(new ById("Categories-clearbutton"));
+	}
+	public WebElement getAdvancedCategoryCheckbox(String cat) {
+		return driver.findElement(new By.ByXPath("//span[text()='"+cat+"']/preceding-sibling::input"));
+	}
 	public WebElement getButtonByText(String text) {
 		return driver.findElement(new By.ByXPath("//button[text()='"+text+"']"));
 	}
