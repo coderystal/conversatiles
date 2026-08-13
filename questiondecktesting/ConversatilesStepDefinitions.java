@@ -50,7 +50,7 @@ public class ConversatilesStepDefinitions {
 		return "https://coderystal.github.io/conversatiles/";
 	}
 	public String getLocalSiteUrl() {
-		return "file:///C:/Users/cywen/OneDrive/Desktop/util/conversatiles/index.html";
+		return "file:///C:/Users/cywen/OneDrive/Desktop/coderystal/conversatiles/index.html";
 	}
 	
 //	eg launchConversatiles(getUrlToQuestion(getPublishedSiteUrl(), "likes", 10))
@@ -141,7 +141,14 @@ public class ConversatilesStepDefinitions {
 	
 	public void customizeDeckByPreset(String preset) {
 		conversatilesPage.getCustomizeDeckButton().click();
+		conversatilesPage.getIncludeHighIntensCheckbox().click();
 		conversatilesPage.getButtonByText(preset).click();
+	}
+	public void customizeDeckByAdvanced(String preset) {
+		conversatilesPage.getCustomizeDeckButton().click();
+		conversatilesPage.getClearCategoriesButton().click();
+		conversatilesPage.getAdvancedCategoryCheckbox(preset).click();
+		conversatilesPage.getButtonByText("Customize").click();
 	}
 	
 	public void printHistorySet() {
