@@ -155,7 +155,7 @@ function setcustom(complete) {
         checkboxSetTuple[1].forEach((value, i)=>document.getElementById(label+"-"+i).checked = complete)
     })
 
-
+    calcCustomDeckSize()
 }
 
 function popupWarnAdvancedInProgress() {
@@ -166,7 +166,7 @@ function popupWarnAdvancedInProgress() {
         "I want those who want to manipulate this deck in all possible ways to be able to, and not have to wait until I someday make it look nice,<br>"+
         "but if the presets suffice for you, please spare yourself, and let me save face, by not proceeding to the next page, which is in progress to become more user-friendly.<br>"+
         "Consider yourself warned.<br>" + 
-        "(also seems like # question count doesn't work perfectly on mobile rn lol)<br>"
+        "(if u can find any bugs pls let me know)<br>"
     modalcontent.appendChild(createButton("Use a preset deck", popupDeckCustomizer))
     modalcontent.appendChild(createButton("Continue to custom deck form", popupAdvanced))
 }
