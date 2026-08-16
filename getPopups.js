@@ -134,7 +134,7 @@ let sec2CheckboxDict = [
     ["Sources", unqSrcsArr],                                        //arr[3]
     ["Reviewed",["edited by coderystal","unedited"]]                //arr[4]
 ]
-let commonwords = ["change", "love", "family"]
+let commonwords = ["change", "love", "family", "favorite"]
 
 
 
