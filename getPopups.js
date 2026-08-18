@@ -282,7 +282,10 @@ async function send(event) {
     const shareData = {
         title: "Conversatiles",
         text: "but think about this...",
-        url: "https://coderystal.github.io/conversatiles/?deck="+deck+"&question="+(current+1)+"&complete="+complete
+        url: "https://coderystal.github.io/conversatiles/?"+
+            deck == "custom" ? 
+                ("deck=complete&question="+(cardnum)+"&complete=true") :
+                ("deck="+deck+"&question="+(current+1)+"&complete="+complete)
     };
 
     // Share must be triggered by "user activation"
