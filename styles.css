@@ -240,4 +240,6 @@
     .checkboxItem {
         display: inline-flex;
         align-items: center;
+        background-color: floralwhite;
+        border-radius: 20px;
     }

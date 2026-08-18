@@ -763,7 +763,7 @@ let completequestions = [
 ["Would you rather be hated or forgotten?", "people", false,"MaisiePeters", false,"20260217 - Song: Say My Name in Your Sleep by Maisie Peters (by someone, and what do u see for the future of your relationship)",2],
 ["Would you try it again?", "worldview", true,"coderystal", true,"20260217 - Song: Dead Branches by Harrison Boe",5],
 ["Do you regret it?", "worldview", true,"coderystal", true,"20260217 - Song: Dead Branches by Harrison Boe",7],
-["What's something you’ve accepted as true that you want to understand as false?", "worldview", false,"coderystal", true,"20260217 - I started making a list of things to stop thinking",7],
+["What's something you've accepted as true that you want to understand as false?", "worldview", false,"coderystal", true,"20260217 - I started making a list of things to stop thinking",7],
 ["Can you live like this?", "worldview", true,"coderystal", true,"20260217 - I started making a list of things to stop thinking",7],
 ["Can you live with this?", "tendencies", true,"coderystal", true,"20260217 - I started making a list of things to stop thinking",7],
 ["Do you want to live like this?", "goals", true,"coderystal", true,"20260217 - I started making a list of things to stop thinking",7],
@@ -867,11 +867,9 @@ function getSubdeckIndexesAdvanced(deckDict) {
         )
             return index
         else {
-            console.log(val)
             return null
         }
     }).filter(val => val != null)
-    console.log(subdeckIndexes)
     return subdeckIndexes
 }
 

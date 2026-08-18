@@ -144,11 +144,13 @@ public class ConversatilesStepDefinitions {
 		conversatilesPage.getIncludeHighIntensCheckbox().click();
 		conversatilesPage.getButtonByText(preset).click();
 	}
-	public void customizeDeckByAdvanced(String preset) {
+	public void customizeDeckByAdvanced(String category) {
 		conversatilesPage.getCustomizeDeckButton().click();
+		conversatilesPage.getButtonByText("advanced").click();
+		conversatilesPage.getButtonByText("Continue to custom deck form").click();
 		conversatilesPage.getClearCategoriesButton().click();
-		conversatilesPage.getAdvancedCategoryCheckbox(preset).click();
-		conversatilesPage.getButtonByText("Customize").click();
+		conversatilesPage.getAdvancedCategoryCheckbox(category).click();
+		conversatilesPage.getButtonByText("Use this custom deck!").click();
 	}
 	
 	public void printHistorySet() {

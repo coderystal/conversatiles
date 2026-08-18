@@ -77,8 +77,11 @@ function popupAll() {
     modalcontent.appendChild(table)
 }
 
+let deckDict
+
 function calcCustomDeckSize() {
-    let customsize = getSubdeckIndexesAdvanced(getDeckDictFromForm()).length
+    deckDict = getDeckDictFromForm()
+    let customsize = getSubdeckIndexesAdvanced(deckDict).length
     document.getElementById("customdeckfeedback").innerHTML = customsize
     if (customsize == 0)
         document.getElementById("applycustomdeck").disabled = true
@@ -110,11 +113,21 @@ function getFlexDivWithLabeledCheckboxList(label, list) {
         checkboxItem.appendChild(checkboxInput)
         checkboxItem.appendChild(cre8ele("span", item))
         checkboxItem.classList.add('checkboxItem')
+        checkboxItem.onclick = (event) => {
+            if (event.target != checkboxInput) {
+                checkboxInput.checked = !checkboxInput.checked
+                calcCustomDeckSize()
+                event.stopPropagation();
+            }
+        }
         flexdiv.appendChild(checkboxItem) 
 
 
-        // if (label=="Intensity") {
-        //     checkboxItem.appendChild(document.createElement("br"))
+        if (label=="Intensity") {
+            checkboxItem.style.marginBottom = "8px"
+            // flexdiv.appendChild(document.createElement("br"))
+            // flexdiv.appendChild(document.createElement("br"))
+        }
         // } else {
         //     checkboxItem.appendChild(document.createElement("br"))
         //     "&emsp;"
@@ -238,6 +251,29 @@ function getDeckDictFromForm() {
         deckDict[label] = checkboxVals
     })
     deckDict["Keyword"] = document.getElementById("keywordinput").value
+
+    if (deckDict["Categories"].filter(x => x===true).length == 1) {
+        for (let i = 0; i < cats.length; i++) {
+            if (deckDict.Categories[i]) {
+                document.getElementById("deckmodtext").innerHTML = (
+                    deckDict.Intensity.filter(x => x===false).length > 0 ||
+                    deckDict.Specificity.filter(x => x===false).length > 0 ||
+                    deckDict.Details.filter(x => x===false).length > 0 ||
+                    deckDict.Sources.filter(x => x===false).length > 0 ||
+                    deckDict.Reviewed.filter(x => x===false).length > 0 ||
+                    deckDict.Keyword != ""
+                ) ? "modified" : ""
+                document.getElementById("deckcattext").innerHTML = cats[i]
+                deck = cats[i]
+                break;
+            }
+        }
+    } else {
+        document.getElementById("deckmodtext").innerHTML = ""
+        document.getElementById("deckcattext").innerHTML = "custom"
+        deck = "custom"
+    }
+
     return deckDict
 }
 
