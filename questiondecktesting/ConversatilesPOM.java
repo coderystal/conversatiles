@@ -22,7 +22,10 @@ public class ConversatilesPOM {
 		driver = new ChromeDriver();
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
-	
+
+	public WebElement getScreenToggle() {
+		return driver.findElement(new ById("screentoggle"));
+	}
 	public WebElement getNumViewedButton() {
 		return driver.findElement(new ById("numviewed"));
 	}
@@ -40,6 +43,18 @@ public class ConversatilesPOM {
 	}
 	public WebElement getCard() {
 		return driver.findElement(new ById("question"));
+	}
+	public WebElement getCardQuestion() {
+		return driver.findElement(new ByClassName("cardq"));
+	}
+	public WebElement getInfoButton() {
+		return driver.findElement(new By.ByCssSelector(".cardAtt>a:nth-child(1)>img"));
+	}
+	public WebElement getInfoQuestion() {
+		return driver.findElement(new ById("questiontext"));
+	}
+	public WebElement getResumeButton() {
+		return driver.findElement(new ById("resumebutton"));
 	}
 	public WebElement getModalContent() {
 		return driver.findElement(new ByClassName("modal-content"));
@@ -60,8 +75,8 @@ public class ConversatilesPOM {
 	public WebElement getClearCategoriesButton() {
 		return driver.findElement(new ById("Categories-clearbutton"));
 	}
-	public WebElement getAdvancedCategoryCheckbox(String cat) {
-		return driver.findElement(new By.ByXPath("//span[text()='"+cat+"']/preceding-sibling::input"));
+	public WebElement getAdvancedCheckbox(String option) {
+		return driver.findElement(new By.ByXPath("//span[text()='"+option+"']/preceding-sibling::input"));
 	}
 	public WebElement getButtonByText(String text) {
 		return driver.findElement(new By.ByXPath("//button[text()='"+text+"']"));

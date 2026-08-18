@@ -63,7 +63,7 @@ public class ConversatilesStepDefinitions {
 //		System.out.println("got " + url);
 		conversatilesPage.getDriver().manage().window().maximize();
 //		System.out.println("maximized");
-		conversatilesPage.getDriver().findElement(new ById("screentoggle")).click();
+		conversatilesPage.getScreenToggle().click();
 //		System.out.println("screentoggled");
 		conversatilesPage.getWait().until(ExpectedConditions.presenceOfElementLocated(new ById("question")));
 	}
@@ -141,7 +141,8 @@ public class ConversatilesStepDefinitions {
 	
 	public void customizeDeckByPreset(String preset) {
 		conversatilesPage.getCustomizeDeckButton().click();
-		conversatilesPage.getIncludeHighIntensCheckbox().click();
+		if (!conversatilesPage.getIncludeHighIntensCheckbox().isSelected())
+			conversatilesPage.getIncludeHighIntensCheckbox().click();
 		conversatilesPage.getButtonByText(preset).click();
 	}
 	public void customizeDeckByAdvanced(String category) {
@@ -149,7 +150,34 @@ public class ConversatilesStepDefinitions {
 		conversatilesPage.getButtonByText("advanced").click();
 		conversatilesPage.getButtonByText("Continue to custom deck form").click();
 		conversatilesPage.getClearCategoriesButton().click();
-		conversatilesPage.getAdvancedCategoryCheckbox(category).click();
+		conversatilesPage.getAdvancedCheckbox(category).click();
+		conversatilesPage.getButtonByText("Use this custom deck!").click();
+	}
+	
+	public void selectRandomAdvancedDeck() {
+		conversatilesPage.getCustomizeDeckButton().click();
+		conversatilesPage.getButtonByText("advanced").click();
+		conversatilesPage.getButtonByText("Continue to custom deck form").click();
+		
+		
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("dislikes").click();
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("tendencies").click();
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("worldview").click();
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("factor - recurring or otherwise relevant context").click();
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("generally unambiguous").click();
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("includes comments/suggestions").click();
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("toastmasters").click();
+		if ((new Random()).nextInt(2) == 0)
+			conversatilesPage.getAdvancedCheckbox("edited by coderystal").click();
+		
+
 		conversatilesPage.getButtonByText("Use this custom deck!").click();
 	}
 	
@@ -212,5 +240,14 @@ public class ConversatilesStepDefinitions {
 	
 	public void validateNumTotalCards() {
 		assertEquals("total cards", totQs+" cards", conversatilesPage.getNumCardsButton().getText());
+	}
+	
+	public void clickInfoCompareQuestionTextAndResume() {
+		String cardq = conversatilesPage.getCardQuestion().getText();
+		conversatilesPage.getInfoButton().click();
+		assertEquals("card question and info question", cardq, conversatilesPage.getInfoQuestion().getText());
+		conversatilesPage.getResumeButton().click();
+		assertEquals("card question and info question", cardq, conversatilesPage.getCardQuestion().getText());
+		conversatilesPage.getScreenToggle().click();
 	}
 }

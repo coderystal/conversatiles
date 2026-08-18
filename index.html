@@ -57,10 +57,13 @@
                 current = cardind
                 cardnum = parseInt(subdeckIndexes[current]) + 1
                 let qust = completequestions[subdeckIndexes[current]]
+                let params = deck == "custom" ? 
+                    ("deck=complete&question="+(cardnum)+"&complete=true") :
+                    ("deck="+deck+"&question="+(current+1)+"&complete="+complete)
                 document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + cardnum + "</span>" +
                     "<div class='cardq' style='color:" + ((qust[2]) ? "red" : "black") + "'><b>" + qust[0] +
                     "</b></div><span class = 'cardatt'>"+
-                        "<a href='cardinfo.html?deck="+deck+"&question="+(current+1)+"&complete="+complete+"' onclick='event.stopPropagation()'><img src='images/info.png'></a>"+
+                        "<a href='cardinfo.html?"+params+"' onclick='event.stopPropagation()'><img src='images/info.png'></a>"+
                         "<a onclick='send(event)'><img src='images/send.png'></a>"+
                         "<span>"
                 if (!viewedIndex[current][0])
