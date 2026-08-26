@@ -857,10 +857,10 @@ function getSubdeckIndexesAdvanced(deckDict) {
     {
         if (
             val[0].includes(deckDict["Keyword"]) &&          //arr[0] & Keyword
-            deckDict["Categories"][catind[val[1]]] &&        //arr[1] & Categories
+            deckDict["Category"][catind[val[1]]] &&        //arr[1] & Categories
             deckDict["Specificity"][val[2] ? 0 : 1] &&       //arr[2] & Specificity
-            deckDict["Sources"][srcind[val[3].split(",")[0]]] &&           //arr[3] & Sources
-            deckDict["Reviewed"][val[4] ? 0 : 1] &&          //arr[4] & Reviewed
+            deckDict["Source"][srcind[val[3].split(",")[0]]] &&           //arr[3] & Sources
+            deckDict["Conversatility"][val[4] ? 0 : 1] &&          //arr[4] & Reviewed
             deckDict["Details"][val[5] == "" ? 1 : 0] &&     //arr[5] & Details
             deckDict["Intensity"][val[6]-1]                  //arr[6] & Intensity
 

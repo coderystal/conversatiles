@@ -89,20 +89,32 @@ function calcCustomDeckSize() {
         document.getElementById("applycustomdeck").disabled = false
 }
 
+function updateCustomDeckKeyword(newkeyword) {
+    deckDict.Keyword = newkeyword
+    let customsize = getSubdeckIndexesAdvanced(deckDict).length
+    document.getElementById("customdeckfeedback").innerHTML = customsize
+    if (customsize == 0)
+        document.getElementById("applycustomdeck").disabled = true
+    else if (document.getElementById("applycustomdeck").disabled)
+        document.getElementById("applycustomdeck").disabled = false
+}
+
 function getFlexDivWithLabeledCheckboxList(label, list) {
-    let flexdiv = cre8ele("div", "<b>" + label + "</b>: " + (label == "Intensity" ? "<br>" : ""))
+    let selectedstate = cre8ele("div", "<b>" + label + "</b>: <span id='"+label+"selectedval'>any</span>")
+    selectedstate.id = label+"selectedstate"
+    selectedstate.style.padding = "5px"
+    let flexdiv = cre8ele("div", "<b>" + label + "</b><br>")
     
 
     flexdiv.style.flexWrap = "wrap"
-    if (list.length > 2 || list.size > 2) {
-        flexdiv.appendChild(createButton("default", () => {
-            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = true); calcCustomDeckSize()
-        }, label+"-defaultbutton"))
-        flexdiv.appendChild(createButton("clear",  () => {
-            list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = false); calcCustomDeckSize()
-        }, label+"-clearbutton"))
-        flexdiv.appendChild(cre8ele("br"))
-    }
+    flexdiv.appendChild(createButton(((list.length > 2 || list.size > 2) ? "default" : "both"), () => {
+        list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = true); calcCustomDeckSize(); document.getElementById(label+"selectedval").innerHTML = "any"
+    }, label+"-defaultbutton"))
+    flexdiv.appendChild(createButton(((list.length > 2 || list.size > 2) ? "clear" : "neither"),  () => {
+        list.forEach((value, i)=>document.getElementById(label+"-"+i).checked = false); calcCustomDeckSize(); document.getElementById(label+"selectedval").innerHTML = "none"
+    }, label+"-clearbutton"))
+    flexdiv.appendChild(cre8ele("br"))
+
     list.forEach((item,i) => {
         let checkboxItem = cre8ele("span")
         let checkboxInput = cre8ele("input")
@@ -111,7 +123,7 @@ function getFlexDivWithLabeledCheckboxList(label, list) {
         checkboxInput.checked = true
         checkboxInput.onchange = calcCustomDeckSize
         checkboxItem.appendChild(checkboxInput)
-        checkboxItem.appendChild(cre8ele("span", item))
+        checkboxItem.appendChild(cre8ele("span", item, "", "", label+"-"+i+"val"))
         checkboxItem.classList.add('checkboxItem')
         checkboxItem.onclick = (event) => {
             if (event.target != checkboxInput) {
@@ -133,19 +145,84 @@ function getFlexDivWithLabeledCheckboxList(label, list) {
         //     "&emsp;"
         // }
     })
-    return flexdiv
+
+    selectedstate.onclick = () => {
+        document.getElementById("customizedetaildiv").innerHTML = ""
+        document.getElementById("customizedetaildiv").appendChild(flexdiv)
+
+        let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+        allCheckboxDict.forEach((checkboxSetTuple)=>{
+            let labelitr = checkboxSetTuple[0]
+            if (labelitr == label) {
+                selectedstate.style.border = "3px solid blue"
+            }
+            else
+                document.getElementById(labelitr+"selectedstate").style.border = "0px"
+        })
+        document.getElementById("Keywordselectedstate").style.border = "0px"
+
+    }
+    return selectedstate
+}
+
+function createKeywordDiv() {
+    let selectedstate = cre8ele("div", "<b>Keyword</b>: <span id='Keywordselectedval'><i>any</i></span>")
+    selectedstate.id = "Keywordselectedstate"
+    selectedstate.style.padding = "5px"
+
+    let keyworddiv = document.createElement("div")
+    keyworddiv.appendChild(cre8ele("span", "<b>Keyword</b><br>"))
+    keyworddiv.appendChild(createButton("clear",  () => {
+        document.getElementById('keywordinput').value = ""
+        document.getElementById("Keywordselectedval").innerHTML = "<i>any<i>"
+        calcCustomDeckSize()
+    }, "Keyword-clearbutton"))
+    keyworddiv.appendChild(cre8ele("span", "<br>contains text:"))
+    let keywordinputele = cre8ele("input", '', '', '', "keywordinput")
+    keywordinputele.oninput = () => {
+        let newkeyword = keywordinputele.value
+        updateCustomDeckKeyword(newkeyword)
+        document.getElementById("Keywordselectedval").innerHTML = (newkeyword == "") ? "<i>any<i>" : newkeyword
+    }
+    keyworddiv.appendChild(keywordinputele)
+    keyworddiv.appendChild(cre8ele("span", "<br>try:"))
+    commonwords.forEach((word)=>{
+        let atag = cre8ele("a", word)
+        atag.onclick = () => {
+            document.getElementById('keywordinput').value = word
+            document.getElementById("Keywordselectedval").innerHTML = word
+            calcCustomDeckSize()
+        }
+        atag.style.color = "blue"
+        keyworddiv.appendChild(atag)
+    })
+    
+    selectedstate.onclick = () => {
+        document.getElementById("customizedetaildiv").innerHTML = ""
+        document.getElementById("customizedetaildiv").appendChild(keyworddiv)
+
+        let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+        allCheckboxDict.forEach((checkboxSetTuple)=>{
+            let labelitr = checkboxSetTuple[0]
+            document.getElementById(labelitr+"selectedstate").style.border = "0px"
+        })
+        selectedstate.style.border = "3px solid blue"
+
+    }
+
+    return selectedstate
 }
 
 
 let sec1CheckboxDict = [
-    ["Categories",cats],                                            //arr[1]
+    ["Category",cats],                                              //arr[1]
     ["Intensity",intensityDict.slice(1)],                           //arr[6]
     ["Specificity",["purposefully vague","generally unambiguous"]]  //arr[2]
 ]
 let sec2CheckboxDict = [
     ["Details",["includes comments/suggestions","question only"]],  //arr[5]
-    ["Sources", unqSrcsArr],                                        //arr[3]
-    ["Reviewed",["edited by coderystal","unedited"]]                //arr[4]
+    ["Source", unqSrcsArr],                                         //arr[3]
+    ["Conversatility",["edited by coderystal","unedited"]]          //arr[4]
 ]
 let commonwords = ["change", "love", "family", "favorite"]
 
@@ -153,35 +230,25 @@ let commonwords = ["change", "love", "family", "favorite"]
 
 
 function setcustom(complete) {
-    sec1CheckboxDict.forEach((checkboxSetTuple)=>{
+    let curlabel = document.getElementById("customizedetaildiv").innerText.split("\n")[0]
+
+    let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+
+    allCheckboxDict.forEach((checkboxSetTuple)=>{
         let label = checkboxSetTuple[0]
-        
+        document.getElementById(label+"selectedstate").click()
         checkboxSetTuple[1].forEach((value, i)=>document.getElementById(label+"-"+i).checked = complete)
+        document.getElementById(label+"selectedval").innerHTML = (complete ? "any" : "none")
     })
 
     
+    document.getElementById("Keywordselectedstate").click()
     document.getElementById("keywordinput").value=''
+    document.getElementById("Keywordselectedval").innerHTML = ("<i>any</i>")
 
-    sec2CheckboxDict.forEach((checkboxSetTuple)=>{
-        let label = checkboxSetTuple[0]
-        
-        checkboxSetTuple[1].forEach((value, i)=>document.getElementById(label+"-"+i).checked = complete)
-    })
-
+    if (curlabel)
+        document.getElementById(curlabel+"selectedstate").click()
     calcCustomDeckSize()
-}
-
-function popupWarnAdvancedInProgress() {
-    let modalcontent = document.querySelector(".modal-content")
-    modalcontent.innerHTML = "<b>I would love for you to assemble the perfect deck for your current context</b><br>"+
-        "And you can... if you really want to... but please be warned...<br>"+
-        "I've enabled this feature through a very basic form... it is... barely functional...<br>"+
-        "I want those who want to manipulate this deck in all possible ways to be able to, and not have to wait until I someday make it look nice,<br>"+
-        "but if the presets suffice for you, please spare yourself, and let me save face, by not proceeding to the next page, which is in progress to become more user-friendly.<br>"+
-        "Consider yourself warned.<br>" + 
-        "(if u can find any bugs pls let me know)<br>"
-    modalcontent.appendChild(createButton("Use a preset deck", popupDeckCustomizer))
-    modalcontent.appendChild(createButton("Continue to custom deck form", popupAdvanced))
 }
 
 function popupAdvanced() {
@@ -194,73 +261,86 @@ function popupAdvanced() {
     modalcontent.appendChild(cre8ele("span", "", "", "", "customdeckfeedback"))
     modalcontent.appendChild(cre8ele("span", "questions"))
     modalcontent.appendChild(document.createElement("br"))
+
+    modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
+    modalcontent.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
+    modalcontent.appendChild(cre8ele("span", "or select cards based on the questions'..."))
     
     let div1 = cre8ele("div", "", 'inline-block', '50%')
+
+    
     sec1CheckboxDict.forEach((checkboxSetTuple)=>{
-        div1.appendChild(document.createElement("br"))
-        div1.appendChild(document.createElement("br"))
         div1.appendChild(getFlexDivWithLabeledCheckboxList(
             checkboxSetTuple[0], checkboxSetTuple[1]))
     })
 
     //arr[0]
-    div1.appendChild(document.createElement("br"))
-    div1.appendChild(document.createElement("br"))
-    div1.appendChild(cre8ele("span", "contains text:"))
-    let keywordinputele = cre8ele("input", '', '', '', "keywordinput")
-    keywordinputele.oninput = calcCustomDeckSize
-    div1.appendChild(keywordinputele)
-    div1.appendChild(document.createElement("br"))
-    div1.appendChild(cre8ele("span", "try:"))
-    commonwords.forEach((word)=>{
-        let atag = cre8ele("a", word)
-        atag.onclick = () => {
-            document.getElementById('keywordinput').value = word
-            calcCustomDeckSize()
-        }
-        div1.appendChild(atag)
-    })
+    div1.appendChild(createKeywordDiv())
 
-
-
-    let div2 = cre8ele("div", "", 'inline-block', '50%')
-    div2.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
-    div2.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
-    for (let i = 0; i < 8; i++)
-        div2.appendChild(cre8ele("br"))
     sec2CheckboxDict.forEach((checkboxSetTuple)=>{
-        div2.appendChild(document.createElement("br"))
-        div2.appendChild(document.createElement("br"))
-        div2.appendChild(getFlexDivWithLabeledCheckboxList(
+        div1.appendChild(getFlexDivWithLabeledCheckboxList(
             checkboxSetTuple[0], checkboxSetTuple[1]))
     })
 
+
+    let div2 = cre8ele("div", "", 'inline-block', '50%', 'customizedetaildiv')
+
     modalcontent.appendChild(div1)
     modalcontent.appendChild(div2)
-    modalcontent.appendChild(cre8ele("span", "<br><br>Each question includes: 1) question, 2) category, 3) vague status, 4) source, 5) edit status, 6) comments, 7) intensity"))
     calcCustomDeckSize()
+
+    modalcontent.appendChild(cre8ele("br"))
+    modalcontent.appendChild(cre8ele("br"))
+    let returna = cre8ele("a", "discard customizations and return to preset deck selections")
+    returna.onclick = popupDeckCustomizer
+    modalcontent.appendChild(returna)
 }
 
 function getDeckDictFromForm() {
     let deckDict = {}
     let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+
+    let curlabel = document.getElementById("customizedetaildiv").innerText.split("\n")[0]
+
     allCheckboxDict.forEach((checkboxSetTuple)=>{
         let label = checkboxSetTuple[0]
+        document.getElementById(label+"selectedstate").click()
+
         let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked) //eg id = Categories-0
+
+        
+        if (checkboxVals.filter(x => x===true).length == checkboxVals.length)
+            document.getElementById(label+"selectedval").innerHTML = "any"
+        else if (checkboxVals.filter(x => x===false).length == checkboxVals.length)
+            document.getElementById(label+"selectedval").innerHTML = "none"
+        else {
+            let inclTexts = checkboxVals.map((checkval, i) => {
+                if (checkval)
+                    return document.getElementById(label+"-"+i+"val").innerText.split(" -")[0]
+                else
+                    return null
+            }).filter(x=>x!=null)
+            document.getElementById(label+"selectedval").innerHTML = inclTexts.join(", ")
+        }
 
         deckDict[label] = checkboxVals
     })
+    document.getElementById("Keywordselectedstate").click()
     deckDict["Keyword"] = document.getElementById("keywordinput").value
 
-    if (deckDict["Categories"].filter(x => x===true).length == 1) {
+    if (curlabel)
+        document.getElementById(curlabel+"selectedstate").click()
+
+
+    if (deckDict["Category"].filter(x => x===true).length == 1) {
         for (let i = 0; i < cats.length; i++) {
-            if (deckDict.Categories[i]) {
+            if (deckDict.Category[i]) {
                 document.getElementById("deckmodtext").innerHTML = (
                     deckDict.Intensity.filter(x => x===false).length > 0 ||
                     deckDict.Specificity.filter(x => x===false).length > 0 ||
                     deckDict.Details.filter(x => x===false).length > 0 ||
-                    deckDict.Sources.filter(x => x===false).length > 0 ||
-                    deckDict.Reviewed.filter(x => x===false).length > 0 ||
+                    deckDict.Source.filter(x => x===false).length > 0 ||
+                    deckDict.Conversatility.filter(x => x===false).length > 0 ||
                     deckDict.Keyword != ""
                 ) ? "modified" : ""
                 document.getElementById("deckcattext").innerHTML = cats[i]

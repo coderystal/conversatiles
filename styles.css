@@ -243,3 +243,8 @@
         background-color: floralwhite;
         border-radius: 20px;
     }
+
+    span[id*='selectedval'] {
+        color: blue;
+        text-decoration: underline dotted;
+    }
