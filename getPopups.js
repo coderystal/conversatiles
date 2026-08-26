@@ -363,9 +363,9 @@ async function send(event) {
         title: "Conversatiles",
         text: "but think about this...",
         url: "https://coderystal.github.io/conversatiles/?"+
-            deck == "custom" ? 
+            (deck == "custom" ? 
                 ("deck=complete&question="+(cardnum)+"&complete=true") :
-                ("deck="+deck+"&question="+(current+1)+"&complete="+complete)
+                ("deck="+deck+"&question="+(current+1)+"&complete="+complete))
     };
 
     // Share must be triggered by "user activation"
