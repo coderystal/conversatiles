@@ -1,4 +1,4 @@
-function cre8ele(tag, innerHTML='', display='', width='', id='') {
+function cre8ele(tag, innerHTML='', display='', width='', id='', regmargin=false) {
     let ele = document.createElement(tag)
     if (innerHTML)
         ele.innerHTML = innerHTML
@@ -7,7 +7,7 @@ function cre8ele(tag, innerHTML='', display='', width='', id='') {
     }
     if (width != '') {
         ele.style.width = width
-    } else {
+    } else if (!regmargin) {
         ele.style.marginRight = "10px"
     }
     if (id != '') {
@@ -83,6 +83,11 @@ function calcCustomDeckSize() {
     deckDict = getDeckDictFromForm()
     let customsize = getSubdeckIndexesAdvanced(deckDict).length
     document.getElementById("customdeckfeedback").innerHTML = customsize
+    if (customsize == 1)
+        document.getElementById("pluralquestionsindic").innerHTML = ""
+    else
+        document.getElementById("pluralquestionsindic").innerHTML = "s"
+
     if (customsize == 0)
         document.getElementById("applycustomdeck").disabled = true
     else if (document.getElementById("applycustomdeck").disabled)
@@ -259,7 +264,8 @@ function popupAdvanced() {
     modalcontent.appendChild(createButton("Use this custom deck!", submitcustomdeck, "applycustomdeck"))
     modalcontent.appendChild(cre8ele("span", "it has"))
     modalcontent.appendChild(cre8ele("span", "", "", "", "customdeckfeedback"))
-    modalcontent.appendChild(cre8ele("span", "questions"))
+    modalcontent.appendChild(cre8ele("span", "question", "", "", "", true))
+    modalcontent.appendChild(cre8ele("span", "s", "", "", "pluralquestionsindic"))
     modalcontent.appendChild(document.createElement("br"))
 
     modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
