@@ -834,7 +834,8 @@ let completequestions = [
 ["Do you wish things hadn't changed?", "experience", true,"TaylorSwift", true,"20260827 - Song: Question...? by Taylor Swift (do you wish you could still touch her)",4],
 ["Have you thought about what the major plots and themes of your life are, and where you are narratively right now?", "worldview", false,"coderystal", true,"jack_xqrs reel from 20260703, 10/10 cool bets to make with your friends pt3 (niche version) - Write a letter to be opened in 10 years - an honest account of who you are right now, including fears, failures, what you're running from, and what you secretly want",6],
 ["Which of your friends has seen you through the most significant changes in your life?", "people", false,"coderystal", true,"",4],
-["Who do you think will still be in your life in ten years?", "people", false,"coderystal", true,"",4]
+["Who do you think will still be in your life in ten years?", "people", false,"coderystal", true,"",4],
+["If you walked into a room with everyone you've ever met, who's the first person you're looking for?", "people", false,"AchieveYou", false,"ad seen on 251006 howdeepwillyougo by Achieve You - every question brings you closer, pov: this game changes your connection in 30 minutes",4]
 ]
 
 let totalnum = completequestions.length
