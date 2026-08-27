@@ -65,7 +65,7 @@ function showInstructions() {
 
 function showSource() {
     document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 15px);text-align: left;'>" +
-        "To be clear, I only came up with a handful of these questions. The rest were shared with me or ones I came across, included to form one intentional deck.<br><br>" +
+        "To be clear, I only came up with a fraction of these questions. The rest were shared with me or ones I came across, included to form one intentional deck.<br><br>" +
         "<b>Where did my questions come from? (note some sources may share credit)</b>" + worksCited + "<br>"+
         "Any questions that I've significantly rephrased are marked as edited with <b>ed. coderystal</b>.<br>"+
     "</div>"

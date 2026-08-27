@@ -81,12 +81,14 @@
             document.getElementById("backbtn").disabled = stack.length <= 1;
             document.getElementById("enteredcardnum").value = (current+1)
         }
+        return true
     }
 
     function resumeCardInternal(dictionary) {
         if(dictionary) {
             filterDeckByCategory(dictionary.deck, dictionary.complete=="true")
             if (numqs == 0) { //invalid deck read
+                console.log("invalid query parameters, using default deck")
                 filterDeckByCategory("complete", false)
             }
             

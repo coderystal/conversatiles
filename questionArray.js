@@ -798,7 +798,7 @@ let authorDict = {
     "strangers": "crafted by We're Not Really <b>Strangers</b> for card games",
     "hannah": "directed at me by <b>Hannah</b> Hsu",
     "flamingo": "designed by Tipsy <b>Flamingo</b> LLC for couple convos",
-    "EdenWen": "asked by Eden Wen, a passionate psychology relevant critical thinking leader communication team worker (coderystal's little sister)"
+    "EdenWen": "asked by <b>Eden Wen</b>, a passionate psychology relevant critical thinking leader communication team worker (coderystal's little sister)"
 }
 let unqSrcs = new Set()
 function calcSources() {
