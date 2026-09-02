@@ -37,17 +37,20 @@ function popup() {
 
 function createTr(questionIndex, deckIndex) {
     let tr = document.createElement("tr")
+
     let ind = document.createElement("td")
-    ind.innerHTML = questionIndex + 1
+    ind.innerHTML = "<a onclick='closepopup(); drawNewCard("+deckIndex+");'>" + (deckIndex + 1) + "</a>"
+
+    let id = document.createElement("td")
+    id.style.fontSize = "xx-small"
+    id.innerHTML = ((questionIndex == deckIndex) ? " " : (questionIndex + 1))
+
     let qust = document.createElement("td")
     qust.innerHTML = completequestions[questionIndex][0]
     qust.classList.add(completequestions[questionIndex][1])
-    let deckind = document.createElement("td")
-    deckind.innerHTML = "<a>" + (deckIndex + 1) + "</a>"
-    deckind.onclick = () => {closepopup(); drawNewCard(deckIndex)}
     tr.appendChild(ind)
+    tr.appendChild(id)
     tr.appendChild(qust)
-    tr.appendChild(deckind)
     return tr
 }
 
