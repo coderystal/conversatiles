@@ -142,6 +142,10 @@
         font-size: max(2vh, 15px);
         background-color: rgba(255, 255, 255, 0.5);
     }
+    .coffee a {
+        display: flex;
+        align-items: center;
+    }
 
     .cardatt {
         position: absolute;
