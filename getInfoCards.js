@@ -23,7 +23,7 @@ function showAbout() {
     document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 14px);'>" +
         "<b style='font-size:max(2vh, 18px);'>Conversatiles</b>" + "<br>" +
         "New insight, every click" + "<br>" +
-        "<p style='text-align: left;margin:0;'>Uncover deeper understandings, one question at a time. Never get stuck, with 600+ thought-provoking prompts across different topics to think on and talk through.</p> " + "<br>" +
+        "<p style='text-align: left;margin:0;'>Uncover deeper understandings, one question at a time. Never get stuck, with 800+ thought-provoking prompts across different topics to think on and talk through.</p> " + "<br>" +
         "<b>Know what you need?</b> Find your way in with our neatly browsable library." + "<br>" +
         "<b>Ready for anything?</b> Jump right in with our inviting, no-nonsense cards." + "<br><br>" +
         "<b>A note from coderystal</b>" +
@@ -48,7 +48,7 @@ function showCoderystal() {
 
 function showInstructions() {
     document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 15px);text-align: left;'>" +
-        "<b>Choose your deck!</b> Browse the ten sub-categories we've divided our questions into.<br>" +
+        "<b>Choose your deck!</b> Browse our presets or customize for your context.<br>" +
         "<b>Pick a card!</b> Enter a number or let us find a new question.<br>" +
         "<b>Let us keep track!</b> Review your history, or reset to put all cards back into play.<br>" +
         "<b>Skim them all!</b> See the full list of everything in the deck.<br>" +

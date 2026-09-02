@@ -858,7 +858,7 @@ let intensityDict = [
 
 let worksCited = "error..."
 let authorDict = {
-    "coderystal": "written for Conversatiles by <b>Coderystal</b>, probably still inspired by something else",
+    "coderystal": "written for Conversatiles by <b>Coderystal</b>, probably still inspired by something else (click info on any card for extra context!)",
     "phillip": "gathered by <b>Phillip</b> Hoang from conferences and personal use",
     "toastmasters": "provided by <b>Toastmasters</b> for Table Topics",
     "strangers": "crafted by We're Not Really <b>Strangers</b> for card games",
