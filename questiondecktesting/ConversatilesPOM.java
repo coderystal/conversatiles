@@ -72,8 +72,26 @@ public class ConversatilesPOM {
 	public WebElement getIncludeHighIntensCheckbox() {
 		return driver.findElement(new ById("inclIntensInput"));
 	}
+	public WebElement getCategorySelectedValLink() {
+		return driver.findElement(new ById("Categoryselectedval"));
+	}
 	public WebElement getClearCategoriesButton() {
-		return driver.findElement(new ById("Categories-clearbutton"));
+		return driver.findElement(new ById("Category-clearbutton"));
+	}
+	public WebElement getIntensitySelectedValLink() {
+		return driver.findElement(new ById("Intensityselectedval"));
+	}
+	public WebElement getSpecificitySelectedValLink() {
+		return driver.findElement(new ById("Specificityselectedval"));
+	}
+	public WebElement getDetailsSelectedValLink() {
+		return driver.findElement(new ById("Detailsselectedval"));
+	}
+	public WebElement getSourceSelectedValLink() {
+		return driver.findElement(new ById("Sourceselectedval"));
+	}
+	public WebElement getConversatilitySelectedValLink() {
+		return driver.findElement(new ById("Conversatilityselectedval"));
 	}
 	public WebElement getAdvancedCheckbox(String option) {
 		return driver.findElement(new By.ByXPath("//span[text()='"+option+"']/preceding-sibling::input"));

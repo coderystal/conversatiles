@@ -37,10 +37,7 @@ public class ConversatilesCompareLinks {
 		
 		//open other link, select likes, click through all, and compare history table to history set (saved in java from first)
 		conversatileSteps.launchConversatiles(historyUrl);
-		if (checkLocalDirectLinks)
-			conversatileSteps.selectDeck(deck);
-		else
-			conversatileSteps.customizeDeckByPreset(deck);
+		conversatileSteps.customizeDeckByPreset(deck);
 		qnum = 0;
 		do {
 			conversatileSteps.clickCardOrDraw();

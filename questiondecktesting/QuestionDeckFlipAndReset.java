@@ -5,8 +5,10 @@ import java.util.Random;
 public class QuestionDeckFlipAndReset {
 	public static void main(String[] args) {
 		ConversatilesStepDefinitions conversatileSteps = new ConversatilesStepDefinitions();
-	    
-		for (int i = 0; i < conversatileSteps.getTotQs(); i++) {
+
+		conversatileSteps.customizeDeckByPreset("complete");
+		
+		for (int i = 0; i < conversatileSteps.getTotQsComplete(); i++) {
 			//click card or draw button *************************************************************************CARD AND DRAW NEW CARD
 			conversatileSteps.clickCardOrDraw();
 

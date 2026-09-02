@@ -1,6 +1,6 @@
 package questiondecktesting;
 
-public class ConversatilesTestAdvancedCategories {
+public class ConversatilesTestAdvancedDeck {
 	public static void main(String[] args) throws InterruptedException {
 		compareLinks("likes", false);
 		compareLinks("dislikes", true);
