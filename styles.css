@@ -215,10 +215,13 @@
         font-size: max(2vh, 15px);
     }
 
-    td:nth-child(1), td:nth-child(2) {
+    td:nth-child(1) {
         vertical-align: text-top;
         color: rgb(120, 120, 120);
         text-align: right;
+    }
+    td:nth-child(1) > span {
+        color: rgb(120, 120, 120);
     }
 
     tr:nth-child(even) {
