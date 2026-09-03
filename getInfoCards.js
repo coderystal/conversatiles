@@ -42,7 +42,10 @@ function showCoderystal() {
         "<p style='text-align: left;margin:0;'>I aim to share projects that serve as demonstrations and references, of how I bring ideas to life with code." + "</p><br>" +
         "<b>Want to see the data behind this site?</b><br>" +
         "<a onclick='event.stopPropagation();' href='https://docs.google.com/spreadsheets/d/1vhKC0KtDO12IpI9UygmImvsvWaJ1RaYuBskVht1--8w/edit?usp=sharing' target='_blank'>Google Sheets</a> (workspace for this project)" +
-        "<p style='text-align: left;margin:0;'>The contents of this site were organized and decided upon here, because I prefer formulas to paragraphs.</p>" +
+        "<p style='text-align: left;margin:0;'>The contents of this site were organized and decided upon here, because I prefer formulas to paragraphs.</p><br>" +
+        "<b>Want to become a supporter?</b><br>" +
+        "<a onclick='event.stopPropagation();' href='https://buymeacoffee.com/jeyc35gujd' target='_blank'>Buy Me a Coffee</a> (audience fund platform)" +
+        "<p style='text-align: left;margin:0;'>Tips and donations are welcome if that's how you'd like to say thanks or keep it up!</p>" +
         "</div>"
     infoCardCleanup()
 }

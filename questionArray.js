@@ -922,13 +922,13 @@ function getSubdeckIndexesAdvanced(deckDict) {
     subdeckIndexes = completequestions.map((val, index) => 
     {
         if (
-            val[0].includes(deckDict["Keyword"]) &&          //arr[0] & Keyword
-            deckDict["Category"][catind[val[1]]] &&        //arr[1] & Categories
-            deckDict["Specificity"][val[2] ? 0 : 1] &&       //arr[2] & Specificity
-            deckDict["Source"][srcind[val[3].split(",")[0]]] &&           //arr[3] & Sources
-            deckDict["Conversatility"][val[4] ? 0 : 1] &&          //arr[4] & Reviewed
-            deckDict["Details"][val[5] == "" ? 1 : 0] &&     //arr[5] & Details
-            deckDict["Intensity"][val[6]-1]                  //arr[6] & Intensity
+            val[0].includes(deckDict["Keyword"]) &&             //arr[0] & Keyword
+            deckDict["Category"][catind[val[1]]] &&             //arr[1] & Categories
+            deckDict["Specificity"][val[2] ? 0 : 1] &&          //arr[2] & Specificity
+            deckDict["Source"][srcind[val[3].split(",")[0]]] && //arr[3] & Sources
+            deckDict["Conversatility"][val[4] ? 0 : 1] &&       //arr[4] & Reviewed
+            deckDict["Details"][val[5] == "" ? 1 : 0] &&        //arr[5] & Details
+            deckDict["Intensity"][val[6]-1]                     //arr[6] & Intensity
 
         )
             return index

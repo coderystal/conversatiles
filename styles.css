@@ -137,6 +137,7 @@
         top: 0;
         margin: 5px;
         padding: 5px;
+        padding-right: 10px;
         border-radius: 100px;
         border: 1px solid black;
         font-size: max(2vh, 15px);

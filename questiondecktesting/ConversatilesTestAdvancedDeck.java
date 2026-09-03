@@ -39,7 +39,7 @@ public class ConversatilesTestAdvancedDeck {
 			conversatileSteps.customizeDeckByPreset(deck);
 		else
 			conversatileSteps.customizeDeckByAdvanced(deck);
-		qnum = 0;
+		qnum = 1;
 		do {
 			conversatileSteps.clickCardOrDraw();
 			qnum++;

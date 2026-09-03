@@ -128,9 +128,9 @@ public class ConversatilesStepDefinitions {
 	
 	public void clickNumCardsAndStoreDeck() {
 		conversatilesPage.getNumCardsButton().click();
-		deck = Arrays.asList(conversatilesPage.getModalContent().getText().split("Deck\n")[1].split("\n")).stream()
-				.map(str -> getIndAndTextFromTableString(str))
+		deck = getModalQuestionStrings("Deck").stream()
 				.map(str -> str.split(" ", 2)).map(strarr -> new Question(Integer.parseInt(strarr[0]), strarr[1])).toList();
+		
 		conversatilesPage.getNumCardsButton().sendKeys(Keys.ESCAPE);
 	}
 	
@@ -140,9 +140,7 @@ public class ConversatilesStepDefinitions {
 		assertEquals("all qnums", IntStream.rangeClosed(1, (complete ? totQsComplete : totQs)).boxed().collect(Collectors.toList()).toString(), qHistorySet.stream().map(qu -> qu.num).toList().toString());
 		
 		conversatilesPage.getNumCardsButton().click();
-		List<String> deck = Arrays.asList(conversatilesPage.getModalContent().getText().split("Deck\n")[1].split("\n")).stream()
-				.map(str -> getIndAndTextFromTableString(str))
-				.toList();
+		List<String> deck = getModalQuestionStrings("Deck");
 		assertEquals("viewed", deck.toString(), qHistorySet.stream().toList().toString());
 		conversatilesPage.getNumCardsButton().sendKeys(Keys.ESCAPE);
 	}
@@ -233,31 +231,34 @@ public class ConversatilesStepDefinitions {
 		assertEquals(expsize, qHistorySet.size());
 	}
 	
+	private List<String> getModalQuestionStrings(String tabletitle) {
+		List<String> textLines = Arrays.asList(conversatilesPage.getModalContent().getText().split(tabletitle + "\n")[1].split("\n"));
+		
+		return IntStream.range(0, textLines.size())
+				.mapToObj(lineindex -> getIndAndTextFromTableString(textLines.get(lineindex), lineindex == 0 ? "" : textLines.get(lineindex-1)))
+				.filter(str -> !str.isEmpty())
+				.toList();
+	}
+	
 	public void clickNumViewedAndValidateHistory() {
 		conversatilesPage.getNumViewedButton().click();
-		List<String> deckHist = Arrays.asList(conversatilesPage.getModalContent().getText().split("Deck history\n")[1].split("\n")).stream()
-				.map(str -> getIndAndTextFromTableString(str))
-				.toList();
+		List<String> deckHist = getModalQuestionStrings("Deck history");
 		assertEquals("viewed", deckHist.toString(), qHistorySet.stream().toList().toString());
 		conversatilesPage.getNumViewedButton().sendKeys(Keys.ESCAPE);
 	}
 	
-	private String getIndAndTextFromTableString(String tablestr) {
+	private String getIndAndTextFromTableString(String tablestr, String prevstr) {
 		int tablestrlen = tablestr.length();
-		if (tablestr.charAt(tablestrlen-1) == '?')
-			return tablestr;
-		if (Character.isDigit(tablestr.charAt(tablestrlen-3)))
-			return tablestr.substring(0, tablestrlen-3).trim();
-		else if (Character.isDigit(tablestr.charAt(tablestrlen-1)))
-			return tablestr.substring(0, tablestrlen-2).trim();
-		else
-			return tablestr;
+		if (tablestrlen < 4)
+			return "";
+		if (!Character.isDigit(tablestr.charAt(0)))
+			tablestr = prevstr + " " + tablestr;
+		return tablestr;
 	}
 
 	public void clickNumViewedAndValidateHistoryWithoutNumbers() {
 		conversatilesPage.getNumViewedButton().click();
-		List<String> deckHist = Arrays.asList(conversatilesPage.getModalContent().getText().split("Deck history\n")[1].split("\n")).stream()
-				.map(str -> getIndAndTextFromTableString(str))
+		List<String> deckHist = getModalQuestionStrings("Deck history").stream()
 				.map(str -> str.split(" ", 2)[1])
 				.toList();
 		assertEquals("viewed", deckHist.toString(), qHistorySet.stream().map((Question q) -> q.toString().split(" ", 2)[1]).toList().toString());

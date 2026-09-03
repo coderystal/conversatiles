@@ -34,7 +34,7 @@
     let numqs = subdeckIndexes.length
     let getCardInd = () => {
         if (viewed == numqs)
-            return current
+            return numqs+1
         let newIndexes = viewedIndex.filter((pair) => !pair[0]).map(pair => pair[1])
         let newIndex = newIndexes[parseInt(Math.random() * newIndexes.length)]
         return newIndex
@@ -50,7 +50,7 @@
             
             let qnum = dictionary.question
             if (!drawNewCard(parseInt(qnum)-1)) {
-                //qnum > # questions in modified given deck => use unmodified given deck
+                //qnum > # questions in standard given deck => use complete given deck
                 filterDeckByCategory(dictionary.deck, true)
                 drawNewCard(parseInt(qnum)-1)
             }
@@ -68,6 +68,8 @@
             (viewed == 1? "":"s") + " seen"
     }
 
+    let startTime
+
     let resetDeck = () => {
         viewedIndex = subdeckIndexes.map((val, i) => [false, i])
         viewed = 0;
@@ -81,6 +83,7 @@
         document.getElementById('backbtn').disabled = true
         stack = []
         document.querySelector(".coffee").style.display = ''
+        startTime = new Date()
     }
 </script>
 <button id="screentoggle" onclick="toggleScreen(); event.stopPropagation();">
@@ -143,7 +146,7 @@
                     if (button.id != "swapIntensButton" && button.id != "showAdvancedDeckCustomizer") {
                         let ogtext = button.innerHTML.split("<br>")[0].split("'")[0]
                         button.innerHTML = ogtext + "<br><span style='font-size:x-small'>("+
-                            (checked ? "complete" : "modified")+")</span>"
+                            (checked ? "complete" : "standard")+")</span>"
                         setTimeout(()=>{button.innerHTML=ogtext+(checked ? "" : "'")}, 1000)
                     }
                 })
@@ -216,7 +219,7 @@
 
         deckbutton.onclick= () => {popupDeckCustomizer(unqSrcs)}
         function filterDeckByCategory(d, inclIntensSelection) {
-            document.getElementById("deckmodtext").innerHTML = inclIntensSelection ? "" : "modified"
+            document.getElementById("deckmodtext").innerHTML = inclIntensSelection ? "" : "standard"
             document.getElementById("deckcattext").innerHTML = d
             deck = d
             complete = inclIntensSelection
@@ -232,8 +235,10 @@
             subdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
             closepopup()
             numqs = subdeckIndexes.length
+            document.getElementById("deckmodtext").innerHTML = selmod
+            document.getElementById("deckcattext").innerHTML = seldeck
             document.getElementById("numcards").innerHTML = numqs + " cards"
-            resetDeck()            
+            resetDeck()
         }
     </script>
 </div>

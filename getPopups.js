@@ -84,6 +84,8 @@ function popupAll() {
 }
 
 let deckDict
+let selmod = ""
+let seldeck = ""
 
 function calcCustomDeckSize() {
     deckDict = getDeckDictFromForm()
@@ -102,6 +104,7 @@ function calcCustomDeckSize() {
 
 function updateCustomDeckKeyword(newkeyword) {
     deckDict.Keyword = newkeyword
+    selmod = ((deckDict.Keyword != "") ? "modified" : "")
     let customsize = getSubdeckIndexesAdvanced(deckDict).length
     document.getElementById("customdeckfeedback").innerHTML = customsize
     if (customsize == 0)
@@ -299,6 +302,7 @@ function popupAdvanced() {
 
     modalcontent.appendChild(div1)
     modalcontent.appendChild(div2)
+    updateFormWithDeckDict()
     calcCustomDeckSize()
 
     modalcontent.appendChild(cre8ele("br"))
@@ -319,7 +323,6 @@ function getDeckDictFromForm() {
         document.getElementById(label+"selectedstate").click()
 
         let checkboxVals = checkboxSetTuple[1].map((value, i)=>document.getElementById(label+"-"+i).checked) //eg id = Categories-0
-
         
         if (checkboxVals.filter(x => x===true).length == checkboxVals.length)
             document.getElementById(label+"selectedval").innerHTML = "any"
@@ -347,7 +350,7 @@ function getDeckDictFromForm() {
     if (deckDict["Category"].filter(x => x===true).length == 1) {
         for (let i = 0; i < cats.length; i++) {
             if (deckDict.Category[i]) {
-                document.getElementById("deckmodtext").innerHTML = (
+                selmod = (
                     deckDict.Intensity.filter(x => x===false).length > 0 ||
                     deckDict.Specificity.filter(x => x===false).length > 0 ||
                     deckDict.Details.filter(x => x===false).length > 0 ||
@@ -355,18 +358,54 @@ function getDeckDictFromForm() {
                     deckDict.Conversatility.filter(x => x===false).length > 0 ||
                     deckDict.Keyword != ""
                 ) ? "modified" : ""
-                document.getElementById("deckcattext").innerHTML = cats[i]
+                seldeck = cats[i]
                 deck = cats[i]
                 break;
             }
         }
     } else {
-        document.getElementById("deckmodtext").innerHTML = ""
-        document.getElementById("deckcattext").innerHTML = "custom"
+        selmod = ""
+        seldeck = "custom"
         deck = "custom"
     }
 
     return deckDict
+}
+
+function updateFormWithDeckDict() {
+    if (!deckDict)
+        return
+    let allCheckboxDict = [...sec1CheckboxDict, ...sec2CheckboxDict]
+
+    allCheckboxDict.forEach((checkboxSetTuple)=>{
+        let label = checkboxSetTuple[0]
+        document.getElementById(label+"selectedstate").click()
+
+        let checkboxVals = deckDict[label] //eg id = Categories-0
+        checkboxVals.forEach((checkboxVal, i) => {
+            document.getElementById(label+"-"+i).checked = checkboxVal
+        })
+        
+        if (checkboxVals.filter(x => x===true).length == checkboxVals.length)
+            document.getElementById(label+"selectedval").innerHTML = "any"
+        else if (checkboxVals.filter(x => x===false).length == checkboxVals.length)
+            document.getElementById(label+"selectedval").innerHTML = "none"
+        else {
+            let inclTexts = checkboxVals.map((checkval, i) => {
+                if (checkval)
+                    return document.getElementById(label+"-"+i+"val").innerText.split(" -")[0]
+                else
+                    return null
+            }).filter(x=>x!=null)
+            document.getElementById(label+"selectedval").innerHTML = inclTexts.join(", ")
+        }
+    })
+
+    let newkeyword = deckDict["Keyword"]
+    document.getElementById("Keywordselectedstate").click()
+    document.getElementById("keywordinput").value = newkeyword
+    document.getElementById("Keywordselectedval").innerHTML = newkeyword
+    document.getElementById("Keywordselectedval").innerHTML = (newkeyword == "") ? "<i>any<i>" : newkeyword
 }
 
 async function send(event) {
