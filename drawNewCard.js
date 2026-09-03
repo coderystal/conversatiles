@@ -15,8 +15,8 @@ function drawNewCard(cardind, back) {
             "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>" + elapsTime + "<br>Certified Conversatiler</span>" + 
             "<div class='cardq'>You've finished" +
             "<br>all <b>" + numqs + " cards</b> in the <br><b>" + document.getElementById("decktext").innerText + " deck</b>!" +
-            "<div style='font-size:2vh'><span style = 'position: absolute; bottom:20px; left:20px'>Ready for more?<br><a onclick='exitFullScreen();popup();popupAdvanced()'>New deck</a></span>"+
-            "<span style = 'position: absolute; bottom:20px; right:20px'>Have a good conversatime?<br>"+
+            "<div style='font-size:2vh'><span style = 'position: absolute; top:80%; left:20px'><span style='display: block;margin-bottom: 5px;'>Ready for more?</span><a onclick='exitFullScreen();popup();popupAdvanced()'>New deck</a></span>"+
+            "<span style = 'position: absolute; top:80%; right:20px'>Have a good conversatime?<br>"+
             "<a href='https://buymeacoffee.com/jeyc35gujd' target='_blank'><img src='images/bmacoffee.png'></a><a onclick='send(event)'><img src='images/send.png'></a><a href='instagram-stories://share' class='instagram-story-btn' target='_blank'><img src='images/instagram.png'></a>"+                    
             "</span>"
         document.getElementById("question").style.color = "black"
