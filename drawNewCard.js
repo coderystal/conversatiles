@@ -2,9 +2,9 @@ function drawNewCard(cardind, back) {
     if (cardind == (numqs+1)) {
         //finished deck end screen
 
-        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+        var options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric'};
         let endTime = new Date()
-        let elapsTime = startTime.toLocaleString("en-US", options) + " " + startTime.toLocaleString("en-US", {hour: '2-digit', minute: '2-digit', hour12: false}) + " - "
+        let elapsTime = startTime.toLocaleString("en-US", options) + ", " + startTime.toLocaleString("en-US", {hour: '2-digit', minute: '2-digit', hour12: false}) + " - "
         if (!startTime.toDateString() === endTime.toDateString()) {
             elapsTime += endTime.toLocaleString("en-US", options) + " ";
         }
@@ -15,9 +15,9 @@ function drawNewCard(cardind, back) {
             "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>" + elapsTime + "<br>Certified Conversatiler</span>" + 
             "<div class='cardq'>You've finished" +
             "<br>all <b>" + numqs + " cards</b> in the <br><b>" + document.getElementById("decktext").innerText + " deck</b>!" +
-            "<div style='font-size:2vh'><span style = 'position: absolute; bottom:20px; left:20px'>Ready for more?<br><a onclick='exitFullScreen();popup();popupAdvanced()'>Try a new deck</a></span>"+
-            "<span style = 'position: absolute; bottom:20px; right:20px'>Did you have a good conversatime?<br>"+
-            "<a href='https://buymeacoffee.com/jeyc35gujd' target='_blank'>Buy me a coffee</a> <a href='instagram-stories://share' class='instagram-story-btn' target='_blank'>Tag me on Instagram</a>" +
+            "<div style='font-size:2vh'><span style = 'position: absolute; bottom:20px; left:20px'>Ready for more?<br><a onclick='exitFullScreen();popup();popupAdvanced()'>New deck</a></span>"+
+            "<span style = 'position: absolute; bottom:20px; right:20px'>Have a good conversatime?<br>"+
+            "<a href='https://buymeacoffee.com/jeyc35gujd' target='_blank'><img src='images/bmacoffee.png'></a><a onclick='send(event)'><img src='images/send.png'></a><a href='instagram-stories://share' class='instagram-story-btn' target='_blank'><img src='images/instagram.png'></a>"+                    
             "</span>"
         document.getElementById("question").style.color = "black"
         //see questions u missed using deckDict
