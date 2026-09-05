@@ -50,7 +50,7 @@
             
             let qnum = dictionary.question
             if (!drawNewCard(parseInt(qnum)-1)) {
-                //qnum > # questions in standard given deck => use complete given deck
+                //qnum > # questions in everyday given deck => use complete given deck
                 filterDeckByCategory(dictionary.deck, true)
                 drawNewCard(parseInt(qnum)-1)
             }
@@ -146,7 +146,7 @@
                     if (button.id != "swapIntensButton" && button.id != "showAdvancedDeckCustomizer") {
                         let ogtext = button.innerHTML.split("<br>")[0].split("'")[0]
                         button.innerHTML = ogtext + "<br><span style='font-size:x-small'>("+
-                            (checked ? "complete" : "standard")+")</span>"
+                            (checked ? "complete" : "everyday")+")</span>"
                         setTimeout(()=>{button.innerHTML=ogtext+(checked ? "" : "'")}, 1000)
                     }
                 })
@@ -219,8 +219,8 @@
 
         deckbutton.onclick= () => {popupDeckCustomizer(unqSrcs)}
         function filterDeckByCategory(d, inclIntensSelection) {
-            document.getElementById("deckmodtext").innerHTML = inclIntensSelection ? "" : "standard"
-            document.getElementById("deckcattext").innerHTML = d
+            document.getElementById("deckmodtext").innerHTML = inclIntensSelection ? "" : "everyday"
+            document.getElementById("deckcattext").innerHTML = "<b>" + d + "</b>"
             deck = d
             complete = inclIntensSelection
 
@@ -236,7 +236,7 @@
             closepopup()
             numqs = subdeckIndexes.length
             document.getElementById("deckmodtext").innerHTML = selmod
-            document.getElementById("deckcattext").innerHTML = seldeck
+            document.getElementById("deckcattext").innerHTML = "<b>" + seldeck + "</b>"
             document.getElementById("numcards").innerHTML = numqs + " cards"
             resetDeck()
         }

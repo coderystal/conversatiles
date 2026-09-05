@@ -72,8 +72,8 @@ function popupAll() {
     let modalcontent = popup()
 
     let table = document.createElement("table")
-    let mod = document.getElementById("deckmodtext").innerHTML
-    let cat = document.getElementById("deckcattext").innerHTML
+    let mod = document.getElementById("deckmodtext").innerText
+    let cat = document.getElementById("deckcattext").innerText
     upperDeck = (mod=="" ? "" : (upperCase(mod) + " ")) + upperCase(cat)
     table.innerHTML = "<tr><th colspan='2' class='" + cat + "'>" + (subdeckIndexes.length == 0 ? "No cards in deck." : upperDeck + " Deck") + "</th></tr>"
     subdeckIndexes.forEach(

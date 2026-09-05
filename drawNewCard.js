@@ -39,7 +39,7 @@ function drawNewCard(cardind, back) {
             current = cardind
             cardnum = parseInt(subdeckIndexes[current]) + 1
             let qust = completequestions[subdeckIndexes[current]]
-            let params = deck == "custom" ? 
+            let params = (deck == "custom" || selmod == "modified") ? 
                 ("deck=complete&question="+(cardnum)+"&complete=true") :
                 ("deck="+deck+"&question="+(current+1)+"&complete="+complete)
             document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + cardnum + "</span>" +

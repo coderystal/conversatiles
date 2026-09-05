@@ -107,7 +107,7 @@
             let qust = completequestions[questions[parseInt(qnum)-1]]
             //qust = [0-text, 1-cat, 2-react, 3-author, 4-edited, 5-note, 6-intensity]
         
-            document.getElementById("questiondeck").innerHTML = (complete=="true" ? "" : "standard ") + deck
+            document.getElementById("questiondeck").innerHTML = (complete=="true" ? "" : "everyday ") + "<b>" + deck +"</b>"
             document.getElementById("questionnum").innerHTML = qnum
             document.getElementById("questiontext").innerHTML = qust[0]
             document.getElementById("questionnote").innerHTML = qust[5] + "<br>"
