@@ -917,12 +917,26 @@ function getSubdeckIndexesByCategory(d, inclIntensSelection) {
     return subdeckIndexes
 }
 
+let relkeyworddict = {"family": ["parent", "mother", "father", "sibling"], "love": ["loving"]}
+function containsKeywordEtc(question, keyword) {
+    if (question.toLowerCase().includes(keyword.toLowerCase()))
+        return true
+    if (Object.hasOwn(relkeyworddict, keyword.toLowerCase())) {
+        for (let otherkeyword of relkeyworddict[keyword.toLowerCase()]) {
+            if (question.toLowerCase().includes(otherkeyword.toLowerCase())) {
+                return true;
+            }
+        }
+    }
+    return false
+}
+
 function getSubdeckIndexesAdvanced(deckDict) {
     subdeckIndexes = []
     subdeckIndexes = completequestions.map((val, index) => 
     {
         if (
-            val[0].includes(deckDict["Keyword"]) &&             //arr[0] & Keyword
+            containsKeywordEtc(val[0], deckDict["Keyword"]) &&  //arr[0] & Keyword
             deckDict["Category"][catind[val[1]]] &&             //arr[1] & Categories
             deckDict["Specificity"][val[2] ? 0 : 1] &&          //arr[2] & Specificity
             deckDict["Source"][srcind[val[3].split(",")[0]]] && //arr[3] & Sources
