@@ -851,7 +851,7 @@ let completequestions = [
 ["If no one could ever know what you accomplished, would you still want the same things?", "fantasy", false,"simon.pause", false,"simon.pause reel from 20260904 10/10 questions that'll brutally expose you, want vs want to be seen having",4],
 ["What would you choose if you knew no one would be disappointed in you?", "fantasy", false,"simon.pause", false,"simon.pause reel from 20260904 10/10 questions that'll brutally expose you, expectations and judgement",4],
 ["What are you still chasing only because you've already spent years chasing it?", "goals", false,"simon.pause", false,"simon.pause reel from 20260904 10/10 questions that'll brutally expose you, unnoticed changing goals",4],
-["What are your sunk costs?", "dislikes", false,"coderystal", true,"see sunk cost fallacy",],
+["What are your sunk costs?", "dislikes", false,"coderystal", true,"see sunk cost fallacy",4],
 ["Aren't you relieved it's over?", "experience", true,"digital.olive", true,"digital.olive reel from 20260204 Thank god it wasn't your entire life. Thank god you left, even if after 10 'wasted' years - you had an experience, learned something, and moved on",6],
 ["What's something you don't think you would have learned without experiencing it?", "experience", true,"digital.olive", true,"digital.olive reel from 20260204 Thank god it wasn't your entire life. Thank god you left, even if after 10 'wasted' years - you had an experience, learned something, and moved on",5],
 ["Are you going to waste any more time?", "goals", true,"coderystal", true,"",4],
