@@ -28,7 +28,7 @@ function showAbout() {
         "<b>Know what you need?</b> Find your way in with our neatly browsable library." + "<br>" +
         "<b>Ready for anything?</b> Jump right in with our inviting, no-nonsense cards." + "<br><br>" +
         "<b>A note from coderystal</b>" +
-        "<p style='text-align: left;margin:0;'>For the task of getting to know a person, even yourself, I've found that pre-written questions, presented as an activity, make things less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of <a onclick='showSource(); event.stopPropagation()'>these questions I've gathered</a>. Good luck!" + "<br>" +
+        "<p style='text-align: left;margin:0;'>For the task of getting to know a person, even yourself, I've found that pre-written questions, presented as an activity, make things less intimidating while keeping them intentional. I hope you enjoy the abundance and quality of <a onclick='showOrganization(); event.stopPropagation()'>these questions I've organized</a>. Good luck!" + "<br>" +
         "I've got more features in mind... Find me everywhere @coderystal for updates and new projects!" + "</p>" +
         "</div>"
     infoCardCleanup()
@@ -67,8 +67,10 @@ function showInstructions() {
     infoCardCleanup()
 }
 
-function showSource() {
+function showOrganization() {
     document.getElementById("question").innerHTML = "<div class='cardq' style='width:100%;margin:auto;font-size:max(1.7vh, 15px);text-align: left;'>" +
+        // "Each question has been classified by <a onclick='chartCategory()'>category</a>, <a onclick='chartIntensity()'>intensity</a>, <a onclick='chartSpecificity()'>specificity</a>, "+
+        //     "<a onclick='chartKeyword()'>keyword</a>, <a onclick='chartDetails()'>details</a>, <a onclick='chartSource()'>source</a>, and <a onclick='chartConversatility()'>conversatility</a>"
         "To be clear, I only came up with a fraction of these questions. The rest were shared with me or ones I came across, included to form one intentional deck.<br><br>" +
         "<b>Where did my questions come from? (note some sources may share credit)</b>" + worksCited + "<br>"+
         "Any questions that I've significantly rephrased are marked as edited with <b>ed. coderystal</b>.<br>"+

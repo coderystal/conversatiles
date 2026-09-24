@@ -87,30 +87,29 @@ let deckDict
 let selmod = ""
 let seldeck = ""
 
-function calcCustomDeckSize() {
-    deckDict = getDeckDictFromForm()
+function updateCustomDeckSize() {
     let customsize = getSubdeckIndexesAdvanced(deckDict).length
-    document.getElementById("customdeckfeedback").innerHTML = customsize
+    let completecustombutton = document.getElementById("applycompletecustom")
     if (customsize == 1)
-        document.getElementById("pluralquestionsindic").innerHTML = ""
+        completecustombutton.innerHTML = "the only question"
     else
-        document.getElementById("pluralquestionsindic").innerHTML = "s"
+        completecustombutton.innerHTML = "all " + customsize + " questions"
 
     if (customsize == 0)
-        document.getElementById("applycustomdeck").disabled = true
-    else if (document.getElementById("applycustomdeck").disabled)
-        document.getElementById("applycustomdeck").disabled = false
+        completecustombutton.disabled = true
+    else if (completecustombutton.disabled)
+        completecustombutton.disabled = false
+}
+
+function calcCustomDeckSize() {
+    deckDict = getDeckDictFromForm()
+    updateCustomDeckSize()
 }
 
 function updateCustomDeckKeyword(newkeyword) {
     deckDict.Keyword = newkeyword
     selmod = ((deckDict.Keyword != "") ? "modified" : "")
-    let customsize = getSubdeckIndexesAdvanced(deckDict).length
-    document.getElementById("customdeckfeedback").innerHTML = customsize
-    if (customsize == 0)
-        document.getElementById("applycustomdeck").disabled = true
-    else if (document.getElementById("applycustomdeck").disabled)
-        document.getElementById("applycustomdeck").disabled = false
+    updateCustomDeckSize()
 }
 
 function getFlexDivWithLabeledCheckboxList(label, list) {
@@ -270,11 +269,9 @@ function popupAdvanced() {
     modalcontent.innerHTML = ""
 
     modalcontent.appendChild(cre8ele("b", "Customize Deck"))
-    modalcontent.appendChild(createButton("Use this custom deck!", submitcustomdeck, "applycustomdeck"))
-    modalcontent.appendChild(cre8ele("span", "it has"))
-    modalcontent.appendChild(cre8ele("span", "", "", "", "customdeckfeedback"))
-    modalcontent.appendChild(cre8ele("span", "question", "", "", "", true))
-    modalcontent.appendChild(cre8ele("span", "s", "", "", "pluralquestionsindic"))
+    modalcontent.appendChild(cre8ele("span", "Play with "))
+    modalcontent.appendChild(createButton("", submitcustomdeck, "applycompletecustom"))
+    modalcontent.appendChild(cre8ele("span", "from this custom deck!"))
     modalcontent.appendChild(document.createElement("br"))
 
     modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))

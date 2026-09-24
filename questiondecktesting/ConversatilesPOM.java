@@ -81,6 +81,9 @@ public class ConversatilesPOM {
 	public WebElement getIntensitySelectedValLink() {
 		return driver.findElement(new ById("Intensityselectedval"));
 	}
+	public WebElement getAdvancedHighIntensityCheckbox() {
+		return driver.findElement(new ById("Intensity-6val"));
+	}
 	public WebElement getSpecificitySelectedValLink() {
 		return driver.findElement(new ById("Specificityselectedval"));
 	}
@@ -96,8 +99,14 @@ public class ConversatilesPOM {
 	public WebElement getAdvancedCheckbox(String option) {
 		return driver.findElement(new By.ByXPath("//span[text()='"+option+"']/preceding-sibling::input"));
 	}
+	public WebElement getCompleteCustomButton() {
+		return driver.findElement(new ById("applycompletecustom"));
+	}
+	public WebElement getCustomDeckSize() {
+		return driver.findElement(new ById("customdeckfeedback"));
+	}
 	public WebElement getButtonByText(String text) {
-		return driver.findElement(new By.ByXPath("//button[text()='"+text+"']"));
+		return driver.findElement(new By.ByXPath("//button[text()=\""+text+"\"]"));
 	}
 	public WebDriver getDriver() {
 		return driver;

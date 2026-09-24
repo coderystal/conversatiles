@@ -24,11 +24,17 @@ document.onkeydown = function (e) {
                 case 't': showTitle(); break;
                 case 'i': showInstructions(); break;
                 case 'c': showCoderystal(); break;
-                case 's': showSource(); break;
+                case 'o': showOrganization(); break;
                 case 'f11': toggleScreen(); break;
                 default: console.log(e.key, "is not a designated shortcut"); showA11y();
             }
     }
+}
+
+function logA11y() {
+    console.log("If you're not trying to Reset, draw new card, go <-Back, see History, see Deck, "+
+                "show About, show Title, show Instructions, show Coderystal info, show Organization, or F11 toggle screen. "+
+                "then I have not yet implemented a keyboard shortcut for what you're trying to do. Let me know @coderystal")
 }
 
 function showA11y() {

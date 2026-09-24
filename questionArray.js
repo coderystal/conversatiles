@@ -956,18 +956,25 @@ unqSrcsArr.forEach((val, ind) => srcind[val] = ind)
 
 
 function getSubdeckIndexesByCategory(d, inclIntensSelection) {
-    subdeckIndexes = completequestions.map((val, index) => 
-    {
-        if ((inclIntensSelection || val[6] < 7) && (
-                // (deck == "default" && val[6] < 7) ||
-                d == "complete" || 
-                (d == "react!" && val[2]) || 
-                val[1] == d
-            ))
-            return index
-        else
-            return null
-    }).filter(val => val != null)
+    deckDict = {
+        Category: Array(9).fill(false), 
+        Conversatility:[true, true],
+        Details: [true, true], 
+        Intensity: Array(7).fill(true), 
+        Keyword: "",
+        Source: Array(38).fill(true),
+        Specificity: [true, true]
+    }
+    if (d == "complete")
+        deckDict["Category"] = Array(9).fill(true)
+    else if (d == "react!") {
+        deckDict["Category"] = Array(9).fill(true)
+        deckDict["Specificity"][1] = false
+    } else
+        deckDict["Category"][catind[d]] = true
+
+    deckDict["Intensity"][6] = inclIntensSelection
+    subdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
     return subdeckIndexes
 }
 
@@ -986,7 +993,6 @@ function containsKeywordEtc(question, keyword) {
 }
 
 function getSubdeckIndexesAdvanced(deckDict) {
-    subdeckIndexes = []
     subdeckIndexes = completequestions.map((val, index) => 
     {
         if (
@@ -997,7 +1003,6 @@ function getSubdeckIndexesAdvanced(deckDict) {
             deckDict["Conversatility"][val[4] ? 0 : 1] &&       //arr[4] & Reviewed
             deckDict["Details"][val[5] == "" ? 1 : 0] &&        //arr[5] & Details
             deckDict["Intensity"][val[6]-1]                     //arr[6] & Intensity
-
         )
             return index
         else {
