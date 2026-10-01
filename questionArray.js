@@ -903,7 +903,9 @@ let completequestions = [
 ["Have you crossed a line?", "worldview", true,"coderystal", true,"",6],
 ["When was the last time you confronted someone?", "people", false,"coderystal", true,"20260930 - for yourself, on someone's behalf, what would it take? don't be a bystander",4],
 ["When was the last time you intervened?", "worldview", false,"coderystal", true,"20260930 - what do you actually stand for? what has it cost you? don't be a bystander",4],
-["What's one thing you do to make people around you feel more comfortable?", "people", false,"coderystal", true,"20260930 - what else? or in general, how have you shown yourself to be trustworthy?",3]
+["What's one thing you do to make people around you feel more comfortable?", "people", false,"coderystal", true,"20260930 - what else? or in general, how have you shown yourself to be trustworthy?",3],
+["When was the last time you held someone accountable?", "people", false,"coderystal", true,"",6],
+["How do you hold yourself accountable?", "tendencies", false,"coderystal", true,"",6]
 ]
 
 let totalnum = completequestions.length
