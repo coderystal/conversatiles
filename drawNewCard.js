@@ -41,8 +41,8 @@ function drawNewCard(cardind, back) {
             cardnum = parseInt(subdeckIndexes[current]) + 1
             let qust = completequestions[subdeckIndexes[current]]
             let params = (deck == "custom" || selmod == "modified") ? 
-                ("deck=complete&question="+(cardnum)+"&complete=true") :
-                ("deck="+deck+"&question="+(current+1)+"&complete="+complete)
+                ("deck=complete&complete=true&question="+(cardnum)) :
+                ("deck="+deck+"&complete="+complete+"&question="+(current+1))
             document.getElementById("question").innerHTML = "<span style = 'position:absolute;top:0;margin:5px;font-size: 2vh;'>#" + cardnum + "</span>" +
                 "<div class='cardq' style='color:" + ((qust[2]) ? "red" : "black") + "'><b>" + qust[0] +
                 "</b></div><span class = 'cardatt'>"+
