@@ -905,7 +905,9 @@ let completequestions = [
 ["When was the last time you intervened?", "worldview", false,"coderystal", true,"20260930 - what do you actually stand for? what has it cost you? don't be a bystander",4],
 ["What's one thing you do to make people around you feel more comfortable?", "people", false,"coderystal", true,"20260930 - what else? or in general, how have you shown yourself to be trustworthy?",3],
 ["When was the last time you held someone accountable?", "people", false,"coderystal", true,"",6],
-["How do you hold yourself accountable?", "tendencies", false,"coderystal", true,"",6]
+["How do you hold yourself accountable?", "tendencies", false,"coderystal", true,"",6],
+["What is the biggest obstacle to finding the happiness that you want?", "goals", false,"phillip", false,"",4],
+["What do you think?", "tendencies", true,"coderystal", true,"",3]
 ]
 
 let totalnum = completequestions.length
