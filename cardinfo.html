@@ -118,7 +118,7 @@
             document.getElementById("questionint").innerHTML = qust[6]
             document.getElementById("resumebutton").onclick = () => {
                 if (document.referrer=='')
-                    window.location.href="index.html?deck="+deck+"&question="+qnum+"&complete="+complete
+                    window.location.href="index.html?deck="+deck+"&complete="+complete+"&question="+qnum
                 else
                     history.back();
             }
