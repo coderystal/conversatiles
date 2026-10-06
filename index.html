@@ -41,6 +41,7 @@
     }
 
     function resumeCardInternal(dictionary) {
+        console.log("resume dict ", dictionary)
         if(dictionary) {
             filterDeckByCategory(dictionary.deck, dictionary.complete=="true")
             if (numqs == 0) { //invalid deck read
@@ -129,7 +130,7 @@
         function popupDeckCustomizer(unqSrcs) {
             let modalcontent = popup()    
 
-            modalcontent.innerHTML = ""            
+            modalcontent.innerHTML = ""
 
             let intensitydiv = document.createElement("div")
             intensitydiv.style.display = "flex"
@@ -159,8 +160,13 @@
             swapIntensButton.id = "swapIntensButton"
             swapIntensButton.innerHTML = (complete ? "exclude" : "include") + " and apply"
             swapIntensButton.onclick = () => {
-                let inclIntensSelection = !document.getElementById("inclIntensInput").checked
-                filterDeckByCategory(deck, inclIntensSelection)
+                let inclIntensSelection = !document.getElementById("inclIntensInput").checked        
+                if (deck == "custom") {
+                    deckDict["Intensity"][6] = inclIntensSelection
+                    submitcustomdeck()
+                }
+                else
+                    filterDeckByCategory(deck, inclIntensSelection)
                 closepopup()
             }
             intensitydiv.appendChild(swapIntensButton)
@@ -232,11 +238,13 @@
         }
 
         function submitcustomdeck() {
-            subdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
-            closepopup()
-            numqs = subdeckIndexes.length
             document.getElementById("deckmodtext").innerHTML = selmod
             document.getElementById("deckcattext").innerHTML = "<b>" + seldeck + "</b>"
+            
+            subdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
+            closepopup()
+
+            numqs = subdeckIndexes.length
             document.getElementById("numcards").innerHTML = numqs + " cards"
             resetDeck()
         }

@@ -92,8 +92,11 @@ function updateCustomDeckSize() {
     let completecustombutton = document.getElementById("applycompletecustom")
     if (customsize == 1)
         completecustombutton.innerHTML = "the only question"
-    else
+    else {
         completecustombutton.innerHTML = "all " + customsize + " questions"
+        let decksizes = [10, 25, 50]
+        // completecustombutton.after("")
+    }
 
     if (customsize == 0)
         completecustombutton.disabled = true
@@ -101,8 +104,91 @@ function updateCustomDeckSize() {
         completecustombutton.disabled = false
 }
 
+
+
+
+function isDeckDictOnlyOneCategory() {
+    return deckDict["Category"].filter(x => x===true).length == 1
+}
+function isDeckDictAllCategories() {
+    return deckDict["Category"].filter(x => x===false).length == 0
+}
+function isDeckDictAllIntensitiesExceptMax() {
+    return deckDict.Intensity.filter(x => x===false).length == 1 && !deckDict.Intensity[6]
+}
+function isDeckDictAllIntensities() {
+    return deckDict.Intensity.filter(x => x===false).length == 0
+}
+function isDeckDictCompleteIgnoreCategoryAndIntensity() {
+    return deckDict.Specificity.filter(x => x===false).length == 0 &&
+            deckDict.Details.filter(x => x===false).length == 0 &&
+            deckDict.Source.filter(x => x===false).length == 0 &&
+            deckDict.Conversatility.filter(x => x===false).length == 0 &&
+            deckDict.Keyword == ""
+}
+function isDeckDictPresetAble() {
+    return (isDeckDictOnlyOneCategory() || isDeckDictAllCategories()) && (isDeckDictAllIntensitiesExceptMax() || isDeckDictAllIntensities()) && isDeckDictCompleteIgnoreCategoryAndIntensity()
+}
+
+function isDeckDictComplete() {
+    return isDeckDictAllCategories() && isDeckDictAllIntensities() && isDeckDictCompleteIgnoreCategoryAndIntensity()
+}
+
+function updateDeckSelections() {
+    if (isDeckDictAllCategories()) {
+        seldeck = "complete"
+        deck = "complete"
+        if (isDeckDictComplete()) {
+            complete = true
+            selmod = ""
+        } else {
+            complete = false
+            if (isDeckDictCompleteIgnoreCategoryAndIntensity() && isDeckDictAllIntensitiesExceptMax()) {
+                selmod = "everyday"
+            } else {
+                selmod = "modified"
+            }
+        }
+    } else if (isDeckDictOnlyOneCategory()) {
+        for (let i = 0; i < cats.length; i++) {
+            if (deckDict.Category[i]) {
+                seldeck = cats[i]
+                deck = cats[i]
+                break;
+            }
+        }
+        if (isDeckDictAllIntensities() && isDeckDictCompleteIgnoreCategoryAndIntensity()) {
+            complete = true
+            selmod = ""
+        } else {
+            complete = false
+            if (isDeckDictCompleteIgnoreCategoryAndIntensity() && isDeckDictAllIntensitiesExceptMax()) {
+                selmod = "everyday"
+            } else {
+                selmod = "modified"
+            }
+        }
+    } else {
+        seldeck = "custom"
+        deck = "custom"
+        if (isDeckDictAllIntensities()) {
+            selmod = ""
+            complete = true
+        } else {
+            complete = false
+            if (isDeckDictCompleteIgnoreCategoryAndIntensity() && isDeckDictAllIntensitiesExceptMax()) {        
+                selmod = "everyday"
+            } else if (isDeckDictAllIntensitiesExceptMax())
+                selmod = "modified everyday"
+            else
+                selmod = ""
+        }
+    }
+}
+
 function calcCustomDeckSize() {
     deckDict = getDeckDictFromForm()
+    updateDeckSelections()
     updateCustomDeckSize()
 }
 
@@ -264,6 +350,33 @@ function setcustom(complete) {
     calcCustomDeckSize()
 }
 
+function popupAdvanced2() {
+    let modalcontent = document.querySelector(".modal-content")
+
+    let tempSubdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
+
+    
+    let table = document.createElement("table")
+    table.innerHTML = "<tr><th colspan='2'>" + (tempSubdeckIndexes.length == 0 ? "No cards in deck." : "Custom Deck") + "</th></tr>"
+    tempSubdeckIndexes.forEach(
+        (questionIndex, i) => { 
+            let tr = document.createElement("tr")
+
+            let ind = document.createElement("td")
+            ind.innerHTML = "remove"
+
+            let qust = document.createElement("td")
+            qust.innerHTML = completequestions[questionIndex][0]
+            qust.classList.add(completequestions[questionIndex][1])
+            tr.appendChild(ind)
+            tr.appendChild(qust)
+            table.appendChild(tr) 
+        }
+    )
+    modalcontent.innerHTML = ""
+    modalcontent.appendChild(table)
+}
+
 function popupAdvanced() {
     let modalcontent = document.querySelector(".modal-content")
     modalcontent.innerHTML = ""
@@ -272,6 +385,7 @@ function popupAdvanced() {
     modalcontent.appendChild(cre8ele("span", "Play with "))
     modalcontent.appendChild(createButton("", submitcustomdeck, "applycompletecustom"))
     modalcontent.appendChild(cre8ele("span", "from this custom deck!"))
+    // modalcontent.appendChild(createButton("let me customize more!", popupAdvanced2, "advanced2button"))
     modalcontent.appendChild(document.createElement("br"))
 
     modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
@@ -342,29 +456,6 @@ function getDeckDictFromForm() {
 
     if (curlabel)
         document.getElementById(curlabel+"selectedstate").click()
-
-
-    if (deckDict["Category"].filter(x => x===true).length == 1) {
-        for (let i = 0; i < cats.length; i++) {
-            if (deckDict.Category[i]) {
-                selmod = (
-                    deckDict.Intensity.filter(x => x===false).length > 0 ||
-                    deckDict.Specificity.filter(x => x===false).length > 0 ||
-                    deckDict.Details.filter(x => x===false).length > 0 ||
-                    deckDict.Source.filter(x => x===false).length > 0 ||
-                    deckDict.Conversatility.filter(x => x===false).length > 0 ||
-                    deckDict.Keyword != ""
-                ) ? "modified" : ""
-                seldeck = cats[i]
-                deck = cats[i]
-                break;
-            }
-        }
-    } else {
-        selmod = ""
-        seldeck = "custom"
-        deck = "custom"
-    }
 
     return deckDict
 }

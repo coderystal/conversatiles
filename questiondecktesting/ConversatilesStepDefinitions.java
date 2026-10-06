@@ -35,8 +35,8 @@ public class ConversatilesStepDefinitions {
 	Set<Question> qHistorySet = new TreeSet<Question>();
 	LinkedList<Question> qHistoryLL = new LinkedList<Question>();
 
-	final static int totQs = 833;
-	final static int totQsComplete = 891;
+	final static int totQs = 850;
+	final static int totQsComplete = 909;
 	boolean complete = false;
 	
 	public int getTotQs() {
