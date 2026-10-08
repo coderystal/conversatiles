@@ -392,7 +392,7 @@ function popupAdvanced() {
     modalcontent.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
     modalcontent.appendChild(cre8ele("span", "or select cards based on the questions'..."))
     
-    let div1 = cre8ele("div", "", 'inline-block', '50%')
+    let div1 = cre8ele("div", "", 'inline-block', '', 'customizestatediv', true)
 
     
     sec1CheckboxDict.forEach((checkboxSetTuple)=>{
@@ -409,7 +409,7 @@ function popupAdvanced() {
     })
 
 
-    let div2 = cre8ele("div", "", 'inline-block', '50%', 'customizedetaildiv')
+    let div2 = cre8ele("div", "", 'inline-block', '', 'customizedetaildiv', true)
 
     modalcontent.appendChild(div1)
     modalcontent.appendChild(div2)

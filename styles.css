@@ -110,6 +110,13 @@
         #footer {
             font-size: 1.3vh;
         }
+        
+        #customizestatediv {
+            width: 100%;
+        }
+        #customizedetaildiv {
+            width: 100%;
+        }
     }
     /* desktop */
     @media (max-height: 1000px) {
@@ -120,6 +127,12 @@
         #footer {
             font-size: max(2vh, 15px);
         }
+        #customizestatediv {
+            width: 50%;
+        }
+        #customizedetaildiv {
+            width: 50%;
+        }
     }
     /* desktop - large */
     @media (min-height: 1001px) and (max-height: 1500px) {
@@ -129,6 +142,12 @@
 
         #footer {
             font-size: max(2vh, 15px);
+        }
+        #customizestatediv {
+            width: 50%;
+        }
+        #customizedetaildiv {
+            width: 50%;
         }
     }
 
