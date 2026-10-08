@@ -18,12 +18,13 @@ document.onkeydown = function (e) {
                 case 'r': resetDeck(); break;
                 case ' ': drawNewCard(getCardInd()); break; //don't use enter, expected behaviors
                 case 'b': case 'arrowleft': drawNewCard(stack.pop(), true); break;
+                case 'c': popupDeckCustomizer(); break;
                 case 'h': popupViewed(); break;
                 case 'd': popupAll(); break;
                 case 'a': showAbout(); break;
                 case 't': showTitle(); break;
                 case 'i': showInstructions(); break;
-                case 'c': showCoderystal(); break;
+                case 'm': showCoderystal(); break;
                 case 'o': showOrganization(); break;
                 case 'f11': toggleScreen(); break;
                 default: console.log(e.key, "is not a designated shortcut"); showA11y();
@@ -46,10 +47,11 @@ function showA11y() {
     document.getElementById("backbtn").innerHTML = "Back (B)"
     document.getElementById("numviewed").innerHTML = viewed + " cards seen (H)"
     document.getElementById("numcards").innerHTML = numqs + " cards (D)"
+    document.getElementById("deckbutton").innerHTML = "Contextualize (C)"
     document.getElementById("about").innerHTML = "About (A)"
     document.getElementById("title").innerHTML = "Title (T)"
     document.getElementById("instructions").innerHTML = "Instructions (I)"
-    document.getElementById("coderystal").innerHTML = "Coderystal (C)"
+    document.getElementById("coderystal").innerHTML = "More From Coderystal (M)"
     document.getElementById("screentoggleA11y").innerHTML = "F11"
     setTimeout(() => {
         if (currentlyFullscreen)
@@ -59,10 +61,11 @@ function showA11y() {
         document.getElementById("backbtn").innerHTML = "Back"
         document.getElementById("numviewed").innerHTML = viewed + " cards seen"
         document.getElementById("numcards").innerHTML = numqs + " cards"
+        document.getElementById("deckbutton").innerHTML = "Contextualize"
         document.getElementById("about").innerHTML = "About"
         document.getElementById("title").innerHTML = "Title"
         document.getElementById("instructions").innerHTML = "Instructions"
-        document.getElementById("coderystal").innerHTML = "Coderystal"
+        document.getElementById("coderystal").innerHTML = "More From Coderystal"
         document.getElementById("screentoggleA11y").innerHTML = ""
     }, 1000)
 }

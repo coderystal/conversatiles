@@ -391,6 +391,7 @@ function popupAdvanced() {
     modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
     modalcontent.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
     modalcontent.appendChild(cre8ele("span", "or select cards based on the questions'..."))
+    modalcontent.appendChild(document.createElement("br"))
     
     let div1 = cre8ele("div", "", 'inline-block', '', 'customizestatediv', true)
 
