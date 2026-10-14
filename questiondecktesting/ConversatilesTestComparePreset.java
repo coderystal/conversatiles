@@ -1,6 +1,6 @@
 package questiondecktesting;
 
-public class ConversatilesTestAdvancedDeck {
+public class ConversatilesTestComparePreset {
 	public static void main(String[] args) throws InterruptedException {
 		compareLinks("likes", false);
 		compareLinks("dislikes", true);
@@ -13,6 +13,8 @@ public class ConversatilesTestAdvancedDeck {
 		compareLinks("tendencies", true);
 		
 		compareLinks("worldview", false);
+		compareLinks("react!", true);
+		compareLinks("complete", false);
 	}
 	
 	private static void compareLinks(String deck, boolean checkLocalDirectLinks) {
@@ -35,7 +37,7 @@ public class ConversatilesTestAdvancedDeck {
 		
 		//open other link, select likes, click through all, and compare history table to history set (saved in java from first)
 		conversatileSteps.launchConversatiles(historyUrl);
-		conversatileSteps.customizeDeckByAdvanced(deck);
+		conversatileSteps.customizeDeckByPreset(deck, true);
 		qnum = 1;
 		do {
 			conversatileSteps.clickCardOrDraw();

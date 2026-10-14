@@ -116,22 +116,10 @@ public class ConversatilesPOM {
 	}
 	//contextualize - advanced - utility
 	public WebElement getCompleteCustomButton() {
-		try {
-			return driver.findElement(new ById("applycustom"));
-		} catch (Exception e) {
-			try {
-				return driver.findElement(new ById("applycompletecustom"));
-			} catch (Exception e2) {
-				return getButtonByText("Use this custom deck!");
-			}
-		}
+		return driver.findElement(new ById("applycustom"));
 	}
 	public WebElement getSetToCompleteButton() {
-		try {
-			return getLinkByText("set to complete");
-		} catch (Exception e) {
-			return getButtonByText("Set to Complete");
-		}
+		return getLinkByText("set to complete");
 	}
 	public Select getCardCountDropdown() {
 		return new Select(driver.findElement(new ById("cardcountdropdown")));
