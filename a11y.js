@@ -1,5 +1,5 @@
 document.onkeydown = function (e) {
-    if (e.target != document.getElementById("enteredcardnum") && e.target.id != "keywordinput") {
+    if (e.target != document.getElementById("enteredcardnum") && e.target.id != "keywordinput" && e.target.id != "cardcountdropdown") {
         if (/\d/.test(e.key) && !e.key.startsWith("F")) {
             console.log("type " + e.key)
             document.getElementById("enteredcardnum").value += e.key
@@ -18,7 +18,7 @@ document.onkeydown = function (e) {
                 case 'r': resetDeck(); break;
                 case ' ': drawNewCard(getCardInd()); break; //don't use enter, expected behaviors
                 case 'b': case 'arrowleft': drawNewCard(stack.pop(), true); break;
-                case 'c': popupDeckCustomizer(); break;
+                case 'c': popup(); popupAdvanced(); break;
                 case 'h': popupViewed(); break;
                 case 'd': popupAll(); break;
                 case 'a': showAbout(); break;

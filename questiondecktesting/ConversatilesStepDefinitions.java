@@ -37,6 +37,8 @@ public class ConversatilesStepDefinitions {
 
 	final static int totQs = 850;
 	final static int totQsComplete = 909;
+	final static List<String> categories = new ArrayList<String>(List.of("likes", "dislikes", "experience", "goals", "fantasy", 
+							"identity", "people", "tendencies", "worldview"));
 	boolean complete = false;
 	
 	public int getTotQs() {
@@ -155,14 +157,12 @@ public class ConversatilesStepDefinitions {
 		qHistorySet.add(q);
 	}
 	
-	//retired
-	public void selectDeck(String deck) {
-		conversatilesPage.getDeckDropdown().selectByVisibleText(deck);	
-	}
-	
-	public void customizeDeckByPreset(String preset) {
+	public void customizeDeckByPreset(String preset, boolean inclIntense) {
 		conversatilesPage.getCustomizeDeckButton().click();
-		includeIntensByPreset();
+		if (inclIntense)
+			includeIntensByPreset();
+		else
+			excludeIntensByPreset();
 		conversatilesPage.getButtonByText(preset).click();
 		if (preset.equals("complete"))
 			complete = true;
@@ -184,83 +184,181 @@ public class ConversatilesStepDefinitions {
 		}
 	}
 	
-	public void customizeDeckByAdvanced(String category) {
+	public void openAndResetContextualizeDeckForm() {
 		conversatilesPage.getCustomizeDeckButton().click();
 		conversatilesPage.getButtonByText("advanced").click();
-		conversatilesPage.getButtonByText("Set to Complete").click();
+		conversatilesPage.getSetToCompleteButton().click();
+	}
+	
+	public void customizeDeckByAdvanced(String category) {
+		openAndResetContextualizeDeckForm();
 		conversatilesPage.getCategorySelectedValLink().click();
 		conversatilesPage.getClearCategoriesButton().click();
 		conversatilesPage.getAdvancedCheckbox(category).click();
-		try {
-			conversatilesPage.getCompleteCustomButton().click();
-		} catch (Exception e) {
-			conversatilesPage.getButtonByText("Use this custom deck!").click();
-		}
+		conversatilesPage.getCompleteCustomButton().click();
 	}
 	
 	public void selectRandomAdvancedDeck() {
 		conversatilesPage.getCustomizeDeckButton().click();
 		conversatilesPage.getButtonByText("advanced").click();
+		clickSomeCustomOptions(
+				(new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0,  
+				(new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, 
+				(new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, 
+				(new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0, (new Random()).nextInt(2) == 0);
+		
+		conversatilesPage.getCompleteCustomButton().click();
+	}
+	
+	private void clickSomeCustomOptions(boolean... bs) {
 		conversatilesPage.getCategorySelectedValLink().click();
-		
-		
-		if ((new Random()).nextInt(2) == 0)
+		if (bs[0])
 			conversatilesPage.getAdvancedCheckbox("dislikes").click();
-		if ((new Random()).nextInt(2) == 0)
+		if (bs[1])
+			conversatilesPage.getAdvancedCheckbox("experience").click();
+		if (bs[2])
+			conversatilesPage.getAdvancedCheckbox("fantasy").click();
+		if (bs[3])
 			conversatilesPage.getAdvancedCheckbox("tendencies").click();
-		if ((new Random()).nextInt(2) == 0)
+		if (bs[4])
+			conversatilesPage.getAdvancedCheckbox("worldview").click();
+		if (Integer.parseInt(conversatilesPage.getNumMatch().getText()) == 0)
 			conversatilesPage.getAdvancedCheckbox("worldview").click();
 		
-		conversatilesPage.getIntensitySelectedValLink().click();
 		
-		if ((new Random()).nextInt(2) == 0)
+		conversatilesPage.getIntensitySelectedValLink().click();
+		if (bs[5])
+			conversatilesPage.getAdvancedCheckbox("comment - simple pleasantry").click();
+		if (bs[6])
+			conversatilesPage.getAdvancedCheckbox("factor - recurring or otherwise relevant context").click();
+		if (bs[7])
+			conversatilesPage.getAdvancedCheckbox("theme - foundational, impactful, or otherwise superlative thought or feeling").click();
+		if (Integer.parseInt(conversatilesPage.getNumMatch().getText()) == 0)
 			conversatilesPage.getAdvancedCheckbox("factor - recurring or otherwise relevant context").click();
 		
+		
 		conversatilesPage.getSpecificitySelectedValLink().click();
-		if ((new Random()).nextInt(2) == 0)
+		if (bs[8])
+			conversatilesPage.getAdvancedCheckbox("generally unambiguous").click();
+		if (Integer.parseInt(conversatilesPage.getNumMatch().getText()) == 0)
 			conversatilesPage.getAdvancedCheckbox("generally unambiguous").click();
 		
+		conversatilesPage.getKeywordSelectedValLink().click();
+		if (bs[9])
+			conversatilesPage.getKeywordInput().sendKeys("a");
+		if (Integer.parseInt(conversatilesPage.getNumMatch().getText()) == 0)
+			conversatilesPage.getKeywordInput().clear();
 
+		
 		conversatilesPage.getDetailsSelectedValLink().click();
-		if ((new Random()).nextInt(2) == 0)
+		if (bs[10])
+			conversatilesPage.getAdvancedCheckbox("includes comments/suggestions").click();
+		if (Integer.parseInt(conversatilesPage.getNumMatch().getText()) == 0)
 			conversatilesPage.getAdvancedCheckbox("includes comments/suggestions").click();
 		
 
 		conversatilesPage.getSourceSelectedValLink().click();
-		if ((new Random()).nextInt(2) == 0)
+		if (bs[11])
+			conversatilesPage.getAdvancedCheckbox("toastmasters").click();
+		if (bs[12])
+			conversatilesPage.getAdvancedCheckbox("GracieAbrams").click();
+		if (bs[13])
+			conversatilesPage.getAdvancedCheckbox("simon.pause").click();
+		if (Integer.parseInt(conversatilesPage.getNumMatch().getText()) == 0)
 			conversatilesPage.getAdvancedCheckbox("toastmasters").click();
 		
 
 		conversatilesPage.getConversatilitySelectedValLink().click();
-		if ((new Random()).nextInt(2) == 0)
+		if (bs[14])
+			conversatilesPage.getAdvancedCheckbox("edited by coderystal").click();
+		if (Integer.parseInt(conversatilesPage.getNumMatch().getText()) == 0)
 			conversatilesPage.getAdvancedCheckbox("edited by coderystal").click();
 		
+		System.out.println("num match = " + conversatilesPage.getNumMatch().getText());
+	}
+	
+	
+	public void compareDeckLimit() {
+		boolean[] clicks = new boolean[15];
+		for (int i = 0; i < 15; i++)
+			clicks[i] = (new Random()).nextInt(2) == 0;
 
-		try {
+		conversatilesPage.getCustomizeDeckButton().click();
+		conversatilesPage.getButtonByText("advanced").click();
+		conversatilesPage.getSetToCompleteButton().click();
+		clickSomeCustomOptions(clicks);
+		
+		int numMatch = Integer.parseInt(conversatilesPage.getNumMatch().getText());
+		System.out.println("num match = " + numMatch);
+		
+		if (5 < numMatch)
+			setDeckLimit("all " + numMatch);
+		assertEquals("all " + numMatch, conversatilesPage.getCardCountDropdown().getFirstSelectedOption().getText());
+		conversatilesPage.getCompleteCustomButton().click();
+		conversatilesPage.getNumCardsButton().click();
+		List<String> deckall = getModalQuestionStrings("Deck");
+		conversatilesPage.getNumCardsButton().sendKeys(Keys.ESCAPE);
+		System.out.println("deckall");
+		System.out.println(deckall);
+		
+		compareDeckLimit(5, numMatch, clicks, deckall);
+		compareDeckLimit(10, numMatch, clicks, deckall);
+		compareDeckLimit(15, numMatch, clicks, deckall);
+		compareDeckLimit(20, numMatch, clicks, deckall);
+		compareDeckLimit(25, numMatch, clicks, deckall);
+	}
+	public void setDeckLimit(String s) {
+		System.out.println(s);
+		conversatilesPage.getCardCountDropdown().selectByVisibleText(s);
+		
+	}
+	private void compareDeckLimit(int limit, int numMatch, boolean[] clicks, List<String> deck) {
+		if (limit < numMatch) {
+			conversatilesPage.getCustomizeDeckButton().click();
+			conversatilesPage.getButtonByText("advanced").click();
+			conversatilesPage.getSetToCompleteButton().click();
+			clickSomeCustomOptions(clicks);
+			setDeckLimit("" + limit);
 			conversatilesPage.getCompleteCustomButton().click();
-		} catch (Exception e) {
-			conversatilesPage.getButtonByText("Use this custom deck!").click();
+			conversatilesPage.getNumCardsButton().click();
+			List<String> deckLimited = getModalQuestionStrings("Deck");
+			conversatilesPage.getNumCardsButton().sendKeys(Keys.ESCAPE);
+			
+			int deckIt = 0;
+			int deckLimIt = 0;
+			while (deckLimIt < deckLimited.size()) {
+				if(deckIt >= deck.size()) {
+					System.out.println("FAILED - COULD NOT FIND NEXT ITEM IN LIMITED DECK IN DECK IN ORDER");
+					System.out.println("deck limit="+limit);
+					System.out.println(deckLimited);
+					System.out.println("deck all");
+					System.out.println(deck);
+					assertEquals("not found in order starting from limited deck position " + deckLimIt +
+							"- see comparison between last item in deck all and item we're looking for from deck limited",
+							deck.get(deck.size()-1),
+							deckLimited.get(deckLimIt));
+				}
+				if (deck.get(deckIt).equals(deckLimited.get(deckLimIt))) {
+					deckLimIt++;
+				}
+				deckIt++;
+			}
+			System.out.println("deck limited, deck limit="+limit + ", is an ordered subset of deck all");
+			System.out.println(deckLimited);
 		}
 	}
 	
-	public void comparePresetVsAdvanced() {
-		List<String> categories = new ArrayList<String>(List.of("likes", "dislikes", "experience", "goals", "fantasy", 
-								"identity", "people", "tendencies", "worldview"));
-		
+	public void comparePresetVsAdvanced() {		
 		//presets with intense ***************************************************************
 		List<Integer> presetsWithIntenseCounts = categories.stream().map((cat)-> {
-			conversatilesPage.getCustomizeDeckButton().click();
-			includeIntensByPreset();
-			conversatilesPage.getButtonByText(cat).click();
+			customizeDeckByPreset(cat, true);			
 			return getTotDeckQs();
 		}).toList();
 		System.out.println("presets with intense counts");
 		System.out.println(presetsWithIntenseCounts);
 		
 		//presets without intense *************************************************************
-		conversatilesPage.getCustomizeDeckButton().click();
-		excludeIntensByPreset();
-		conversatilesPage.getButtonByText("complete'").click();
+		customizeDeckByPreset("complete'", false);
 		List<Integer> presetsWithoutIntenseCounts = categories.stream().map((cat)-> {
 			conversatilesPage.getCustomizeDeckButton().click();
 			conversatilesPage.getButtonByText(cat+"'").click();
@@ -270,20 +368,14 @@ public class ConversatilesStepDefinitions {
 		System.out.println(presetsWithoutIntenseCounts);
 		
 		//advanced *****************************************************************************
-		conversatilesPage.getCustomizeDeckButton().click();
-		conversatilesPage.getButtonByText("advanced").click();
-		conversatilesPage.getButtonByText("Set to Complete").click();
+		openAndResetContextualizeDeckForm();
 		conversatilesPage.getCategorySelectedValLink().click();
 
 		//advanced with intense *************************************************************
 		List<Integer> advancedWithIntenseCounts = categories.stream().map((cat)-> {
 			conversatilesPage.getClearCategoriesButton().click();
 			conversatilesPage.getAdvancedCheckbox(cat).click();
-			try {
-				return Integer.parseInt(conversatilesPage.getCompleteCustomButton().getText().split(" ")[1]);
-			} catch (Exception e) {
-				return Integer.parseInt(conversatilesPage.getCustomDeckSize().getText());
-			}
+			return getCustomDeckSize();
 		}).toList();
 		System.out.println("advanced with intense counts");
 		System.out.println(advancedWithIntenseCounts);
@@ -295,11 +387,7 @@ public class ConversatilesStepDefinitions {
 		List<Integer> advancedWithoutIntenseCounts = categories.stream().map((cat)-> {
 			conversatilesPage.getClearCategoriesButton().click();
 			conversatilesPage.getAdvancedCheckbox(cat).click();
-			try {
-				return Integer.parseInt(conversatilesPage.getCompleteCustomButton().getText().split(" ")[1]);
-			} catch (Exception e) {
-				return Integer.parseInt(conversatilesPage.getCustomDeckSize().getText());
-			}
+			return getCustomDeckSize();
 		}).toList();
 		System.out.println("advanced without intense counts");
 		System.out.println(advancedWithoutIntenseCounts);
@@ -321,15 +409,18 @@ public class ConversatilesStepDefinitions {
 		}
 	}
 	
+	private int getCustomDeckSize() {
+		try {
+			return Integer.parseInt(conversatilesPage.getCompleteCustomButton().getText().split(" ")[1]);
+		} catch (Exception e) {
+			return Integer.parseInt(conversatilesPage.getCompleteCustomButton().getText().split("contextualized ")[1].split("-")[0]);
+		}
+	}
+	
 	public void comparePresetVsAdvanced(String cat, boolean incl) {
 		System.out.println(cat + " " + incl);
 		//select via preset
-		conversatilesPage.getCustomizeDeckButton().click();
-		if (incl)
-			includeIntensByPreset();
-		else
-			excludeIntensByPreset();
-		conversatilesPage.getButtonByText(cat + (incl ? "" : "'")).click();
+		customizeDeckByPreset(cat + (incl ? "" : "'"), incl);
 		//get preset count
 		int presetCount = Integer.parseInt(conversatilesPage.getNumCardsButton().getText().split(" ")[0]);
 		System.out.println("preset count " + presetCount);
@@ -340,9 +431,7 @@ public class ConversatilesStepDefinitions {
 		conversatilesPage.getNumCardsButton().sendKeys(Keys.ESCAPE);
 		
 		//select via advanced
-		conversatilesPage.getCustomizeDeckButton().click();
-		conversatilesPage.getButtonByText("advanced").click();
-		conversatilesPage.getButtonByText("Set to Complete").click();
+		openAndResetContextualizeDeckForm();
 		conversatilesPage.getIntensitySelectedValLink().click();
 		if (!incl)
 			conversatilesPage.getAdvancedHighIntensityCheckbox().click();
@@ -350,12 +439,7 @@ public class ConversatilesStepDefinitions {
 		conversatilesPage.getClearCategoriesButton().click();
 		conversatilesPage.getAdvancedCheckbox(cat).click();
 		//get advanced count
-		int advancedCount;
-		try {
-			advancedCount = Integer.parseInt(conversatilesPage.getCompleteCustomButton().getText().split(" ")[1]);
-		} catch (Exception e) {
-			advancedCount = Integer.parseInt(conversatilesPage.getCustomDeckSize().getText());
-		}
+		int advancedCount = getCustomDeckSize();
 		System.out.println("advanced count " + advancedCount);
 		//get advanced deck
 		try {
@@ -416,7 +500,7 @@ public class ConversatilesStepDefinitions {
 	}
 	
 	public void testFind() {
-		List<Integer> allQNums = IntStream.rangeClosed(1, totQs).boxed().collect(Collectors.toList());
+		List<Integer> allQNums = IntStream.rangeClosed(1, (complete ? totQsComplete : totQs)).boxed().collect(Collectors.toList());
         Collections.shuffle(allQNums);
         seenNums = new HashSet<Integer>();
 
@@ -435,6 +519,8 @@ public class ConversatilesStepDefinitions {
 	
 
 	private void findCardNumber(int qnum) {
+		if (qnum % 25 == 0)
+			System.out.println(qnum);
 		conversatilesPage.getEnteredCardNum().sendKeys((new Random()).nextInt(2) == 0 ? (Keys.chord(Keys.CONTROL, "a") + Keys.DELETE) : 
 			("" + Keys.BACK_SPACE + Keys.BACK_SPACE + Keys.BACK_SPACE));
 		

@@ -11,6 +11,7 @@ public class QuestionDeckDisabledButtons {
 			conversatileSteps.validateButtonEnabledValuesAfterReset();
 			//flip random amount of cards
 	    	int toFlip = resetNum == 0 ? conversatileSteps.getTotQs() : (new Random()).nextInt(50);
+	    	System.out.println("to flip " + toFlip);
 			for (int flipped = 0; flipped < toFlip; flipped++) {
 				conversatileSteps.clickCardOrDraw();
 

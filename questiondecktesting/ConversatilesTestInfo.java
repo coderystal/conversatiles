@@ -10,36 +10,37 @@ public class ConversatilesTestInfo {
 		conversatileSteps.customizeDeckByAdvanced("likes");
 		testInfoTwice();
 		
-		conversatileSteps.customizeDeckByPreset("dislikes");
+		conversatileSteps.customizeDeckByPreset("dislikes", true);
 		testInfoTwice();
 
 		conversatileSteps.customizeDeckByAdvanced("goals");
 		testInfoTwice();		
 		
-		conversatileSteps.customizeDeckByPreset("experience");
+		conversatileSteps.customizeDeckByPreset("experience", true);
 		testInfoTwice();
 
 		conversatileSteps.customizeDeckByAdvanced("fantasy");
 		testInfoTwice();	
 		
-		conversatileSteps.customizeDeckByPreset("identity");
+		conversatileSteps.customizeDeckByPreset("identity", true);
 		testInfoTwice();
 		
 		conversatileSteps.customizeDeckByAdvanced("tendencies");
 		testInfoTwice();	
 		
-		conversatileSteps.customizeDeckByPreset("people");
+		conversatileSteps.customizeDeckByPreset("people", true);
 		testInfoTwice();
 		
-		conversatileSteps.customizeDeckByPreset("react!");
+		conversatileSteps.customizeDeckByPreset("react!", true);
 		testInfoTwice();
 		
 		conversatileSteps.customizeDeckByAdvanced("worldview");
 		testInfoTwice();		
 		
-		conversatileSteps.customizeDeckByPreset("complete");
+		conversatileSteps.customizeDeckByPreset("complete", true);
 		
 		for (int i = 0; i < 20; i++) {
+			System.out.println(i);
 			conversatileSteps.selectRandomAdvancedDeck();
 			testInfoTwice();
 		}

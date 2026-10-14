@@ -27,6 +27,7 @@ public class QuestionDeckBackable {
 				//click back
 				conversatileSteps.clickBack();
 				backable--;
+				System.out.println(backable);
 				conversatileSteps.validateBackButtonEnabledStatus(backable != 0);
 				if (backable == 0) {
 			    	System.out.println("actually backed " + (backed+1));

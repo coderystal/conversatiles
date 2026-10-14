@@ -23,15 +23,20 @@ public class ConversatilesPOM {
 		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 
+	//general controls
 	public WebElement getScreenToggle() {
 		return driver.findElement(new ById("screentoggle"));
 	}
+	
+	//table buttons
 	public WebElement getNumViewedButton() {
 		return driver.findElement(new ById("numviewed"));
 	}
 	public WebElement getNumCardsButton() {
 		return driver.findElement(new ById("numcards"));
 	}
+	
+	//deck navigation
 	public WebElement getResetButton() {
 		return driver.findElement(new ById("resetbutton"));
 	}
@@ -41,6 +46,11 @@ public class ConversatilesPOM {
 	public WebElement getDrawButton() {
 		return driver.findElement(new ById("drawbutton"));
 	}
+	public WebElement getEnteredCardNum() {
+		return driver.findElement(new ById("enteredcardnum"));
+	}
+	
+	//card
 	public WebElement getCard() {
 		return driver.findElement(new ById("question"));
 	}
@@ -56,22 +66,21 @@ public class ConversatilesPOM {
 	public WebElement getResumeButton() {
 		return driver.findElement(new ById("resumebutton"));
 	}
+	
+	//popup
 	public WebElement getModalContent() {
 		return driver.findElement(new ByClassName("modal-content"));
 	}
 	
-	public WebElement getEnteredCardNum() {
-		return driver.findElement(new ById("enteredcardnum"));
-	}
-	public Select getDeckDropdown() {
-		return new Select(driver.findElement(new ById("deckdd")));
-	}
+	//contextualize
 	public WebElement getCustomizeDeckButton() {
 		return driver.findElement(new ById("deckbutton"));
 	}
+	//contextualize - preset
 	public WebElement getIncludeHighIntensCheckbox() {
 		return driver.findElement(new ById("inclIntensInput"));
 	}
+	//contextualize - advanced - customize
 	public WebElement getCategorySelectedValLink() {
 		return driver.findElement(new ById("Categoryselectedval"));
 	}
@@ -87,6 +96,12 @@ public class ConversatilesPOM {
 	public WebElement getSpecificitySelectedValLink() {
 		return driver.findElement(new ById("Specificityselectedval"));
 	}
+	public WebElement getKeywordSelectedValLink() {
+		return driver.findElement(new ById("Keywordselectedval"));
+	}
+	public WebElement getKeywordInput() {
+		return driver.findElement(new ById("keywordinput"));
+	}
 	public WebElement getDetailsSelectedValLink() {
 		return driver.findElement(new ById("Detailsselectedval"));
 	}
@@ -99,14 +114,38 @@ public class ConversatilesPOM {
 	public WebElement getAdvancedCheckbox(String option) {
 		return driver.findElement(new By.ByXPath("//span[text()='"+option+"']/preceding-sibling::input"));
 	}
+	//contextualize - advanced - utility
 	public WebElement getCompleteCustomButton() {
-		return driver.findElement(new ById("applycompletecustom"));
+		try {
+			return driver.findElement(new ById("applycustom"));
+		} catch (Exception e) {
+			try {
+				return driver.findElement(new ById("applycompletecustom"));
+			} catch (Exception e2) {
+				return getButtonByText("Use this custom deck!");
+			}
+		}
 	}
-	public WebElement getCustomDeckSize() {
-		return driver.findElement(new ById("customdeckfeedback"));
+	public WebElement getSetToCompleteButton() {
+		try {
+			return getLinkByText("set to complete");
+		} catch (Exception e) {
+			return getButtonByText("Set to Complete");
+		}
 	}
+	public Select getCardCountDropdown() {
+		return new Select(driver.findElement(new ById("cardcountdropdown")));
+	}
+	public WebElement getNumMatch() {
+		return driver.findElement(new ById("completesizefeedback"));
+	}
+	
+	//utility
 	public WebElement getButtonByText(String text) {
 		return driver.findElement(new By.ByXPath("//button[text()=\""+text+"\"]"));
+	}
+	public WebElement getLinkByText(String text) {
+		return driver.findElement(new By.ByXPath("//a[text()=\""+text+"\"]"));
 	}
 	public WebDriver getDriver() {
 		return driver;

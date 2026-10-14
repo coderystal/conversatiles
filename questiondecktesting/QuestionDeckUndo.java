@@ -25,16 +25,19 @@ public class QuestionDeckUndo {
 		
 		//check undo 10x *********************************************************************************UNDO
 		int totFlipped = 0;
-		for (int undoRounds = 0; undoRounds < 20; undoRounds++) {	
+		int backable = 0;
+		for (int undoRounds = 0; undoRounds < 20; undoRounds++) {
 			System.out.println("\nundo round " + undoRounds);
 			//flip random amount of cards
-	    	int toFlip = (new Random()).nextInt(50);
+	    	int toFlip = (new Random()).nextInt(100);
 			System.out.println("to flip " + toFlip);
-			for (int flipped = 0; flipped < toFlip; flipped++) {
+			for (int flipped = 0; flipped < toFlip && totFlipped < conversatileSteps.getTotQs(); flipped++) {
 				//click card or draw button
 				conversatileSteps.clickCardOrDraw();
 				totFlipped++;
-	
+
+				backable = totFlipped == 1 ? 0 : backable+1;
+				
 				//check m/n button counts
 				conversatileSteps.validateNumViewedCards(totFlipped);
 				
@@ -43,10 +46,26 @@ public class QuestionDeckUndo {
 			
 
 	    	int toUndo = (new Random()).nextInt(totFlipped + 1);
+	    	conversatileSteps.validateNumViewedCards(totFlipped);
 			System.out.println("to undo " + toUndo);
+			System.out.println(backable);
 			for (int undone = 0; undone < toUndo; undone++) {
 				//click undo
 				conversatileSteps.clickBack();
+				backable--;
+
+				if (backable < 1) {
+					backable = 0;
+					if (undone > 20) {
+						System.out.println("backable" + backable + " undone " + undone);
+						conversatileSteps.validateBackButtonEnabledStatus(false);
+						break;
+					}
+				} else {
+					conversatileSteps.validateBackButtonEnabledStatus(true);
+				}
+
+				
 				
 				//check history
 				conversatileSteps.clickNumViewedAndValidateHistory();
@@ -61,7 +80,8 @@ public class QuestionDeckUndo {
 				
 				//tot check
 				conversatileSteps.validateNumTotalCards();
-			}			
+			}
+			System.out.println(backable);	
 		}
 
 		conversatileSteps.close();

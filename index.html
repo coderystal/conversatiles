@@ -242,6 +242,22 @@
             document.getElementById("deckcattext").innerHTML = "<b>" + seldeck + "</b>"
             
             subdeckIndexes = getSubdeckIndexesAdvanced(deckDict)
+            if (deckDict.limit) {
+                let inclArray = Array(subdeckIndexes.length).fill(true)
+                for (let i = 0; i < (subdeckIndexes.length - deckDict.limit); i++) {
+                    let loserIndex
+                    do {
+                        loserIndex = parseInt(Math.random() * subdeckIndexes.length)
+                    } while (!inclArray[loserIndex])
+                    inclArray[loserIndex] = false
+                }
+                let limitedSubdeckIndexes = inclArray.map((val, index)=>{
+                    if (val) return subdeckIndexes[index]
+                    return null
+                }).filter((val)=>val != null)
+                
+                subdeckIndexes = limitedSubdeckIndexes
+            }
             closepopup()
 
             numqs = subdeckIndexes.length

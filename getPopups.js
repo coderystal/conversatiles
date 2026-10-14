@@ -89,19 +89,46 @@ let seldeck = ""
 
 function updateCustomDeckSize() {
     let customsize = getSubdeckIndexesAdvanced(deckDict).length
-    let completecustombutton = document.getElementById("applycompletecustom")
-    if (customsize == 1)
-        completecustombutton.innerHTML = "the only question"
-    else {
-        completecustombutton.innerHTML = "all " + customsize + " questions"
-        let decksizes = [10, 25, 50]
-        // completecustombutton.after("")
+    document.getElementById("completesizefeedback").innerHTML = customsize
+    let applycustombutton = document.getElementById("applycustom")
+    let cardcountdropdown = document.getElementById("cardcountdropdown")
+    let pluralindic = document.getElementById("pluralindic")
+    cardcountdropdown.innerHTML = ""
+    if (customsize == 1) {
+        let option = cre8ele("option", "the only")
+        option.value = 1
+        cardcountdropdown.appendChild(option)
+        pluralindic.innerHTML = ""
+    } else {
+        let decksizes = [5, 6,7,8,9,10,12,15,20, 25]
+        // applycustombutton.after("")
+        cardcountdropdown.disabled = true
+        let optionall = cre8ele("option", "all " + customsize)
+        optionall.value = customsize
+        cardcountdropdown.appendChild(optionall)
+        for (let i in decksizes) {
+            if (decksizes[i] < getSubdeckIndexesAdvanced(deckDict).length) {
+                cardcountdropdown.appendChild(cre8ele("option", decksizes[i]))
+                cardcountdropdown.disabled = false
+                
+                if (deckDict.limit == decksizes[i]) {
+                    cardcountdropdown.value = deckDict.limit
+                    customsize = deckDict.limit
+                }
+            } else
+                break
+        }
+        pluralindic.innerHTML = "s"
     }
 
     if (customsize == 0)
-        completecustombutton.disabled = true
-    else if (completecustombutton.disabled)
-        completecustombutton.disabled = false
+        applycustombutton.disabled = true
+    else if (applycustombutton.disabled)
+        applycustombutton.disabled = false
+    
+    applycustombutton.innerHTML = "Use this contextualized " + customsize + "-card deck!"
+    deckDict.limit = customsize
+
 }
 
 
@@ -377,20 +404,30 @@ function popupAdvanced2() {
     modalcontent.appendChild(table)
 }
 
+function limitDeckSize(event) {
+    let selectedSize = parseInt(document.getElementById("cardcountdropdown").value)
+    document.getElementById("applycustom").innerHTML = "Use this contextualized " + selectedSize + "-card deck!"
+    deckDict["limit"] = selectedSize
+}
+
 function popupAdvanced() {
     let modalcontent = document.querySelector(".modal-content")
     modalcontent.innerHTML = ""
 
-    modalcontent.appendChild(cre8ele("b", "Customize Deck"))
-    modalcontent.appendChild(cre8ele("span", "Play with "))
-    modalcontent.appendChild(createButton("", submitcustomdeck, "applycompletecustom"))
-    modalcontent.appendChild(cre8ele("span", "from this custom deck!"))
+    modalcontent.appendChild(createButton("", submitcustomdeck, "applycustom"))
     // modalcontent.appendChild(createButton("let me customize more!", popupAdvanced2, "advanced2button"))
     modalcontent.appendChild(document.createElement("br"))
 
-    modalcontent.appendChild(createButton("Set to Complete", () => {setcustom(true)}))
-    modalcontent.appendChild(createButton("Set to Empty", () => {setcustom(false)}))
-    modalcontent.appendChild(cre8ele("span", "or select cards based on the questions'..."))
+    modalcontent.appendChild(document.createElement("br"))
+    modalcontent.appendChild(cre8ele("span", "Pull "))
+    let cardcountdropdown = cre8ele("select", "", "", "", "cardcountdropdown")
+    cardcountdropdown.onchange = limitDeckSize
+    modalcontent.appendChild(cardcountdropdown)
+    modalcontent.appendChild(cre8ele("span", "of "))
+    modalcontent.appendChild(cre8ele("span", "", "", "", "completesizefeedback"))
+    modalcontent.appendChild(cre8ele("span", " matching card", "", "", "", true))
+    modalcontent.appendChild(cre8ele("span", "s", "", "", "pluralindic"))
+    modalcontent.appendChild(cre8ele("span", "according to the questions'..."))
     modalcontent.appendChild(document.createElement("br"))
     
     let div1 = cre8ele("div", "", 'inline-block', '', 'customizestatediv', true)
@@ -419,7 +456,14 @@ function popupAdvanced() {
 
     modalcontent.appendChild(cre8ele("br"))
     modalcontent.appendChild(cre8ele("br"))
-    let returna = cre8ele("a", "discard customizations and return to preset deck selections")
+    modalcontent.appendChild(cre8ele("span", "discard customizations? "))
+    let completecontexta = cre8ele("a", "set to complete")
+    completecontexta.onclick = () => {setcustom(true)}
+    modalcontent.appendChild(completecontexta)
+    let nocontexta = cre8ele("a", "set to empty")
+    nocontexta.onclick = () => {setcustom(false)}
+    modalcontent.appendChild(nocontexta)
+    let returna = cre8ele("a", "return to preset deck selections")
     returna.onclick = popupDeckCustomizer
     modalcontent.appendChild(returna)
 }
@@ -458,6 +502,7 @@ function getDeckDictFromForm() {
     if (curlabel)
         document.getElementById(curlabel+"selectedstate").click()
 
+    deckDict.limit = parseInt(document.getElementById("cardcountdropdown").value)
     return deckDict
 }
 

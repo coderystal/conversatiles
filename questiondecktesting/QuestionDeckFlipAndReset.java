@@ -6,9 +6,12 @@ public class QuestionDeckFlipAndReset {
 	public static void main(String[] args) {
 		ConversatilesStepDefinitions conversatileSteps = new ConversatilesStepDefinitions();
 
-		conversatileSteps.customizeDeckByPreset("complete");
+		conversatileSteps.customizeDeckByPreset("complete", true);
 		
 		for (int i = 0; i < conversatileSteps.getTotQsComplete(); i++) {
+			if (i % 25 == 0)
+				System.out.println(i+"th");
+			
 			//click card or draw button *************************************************************************CARD AND DRAW NEW CARD
 			conversatileSteps.clickCardOrDraw();
 
