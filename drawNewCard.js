@@ -5,7 +5,7 @@ function drawNewCard(cardind, back) {
         var options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric'};
         let endTime = new Date()
         let elapsTime = startTime.toLocaleString("en-US", options) + ", " + startTime.toLocaleString("en-US", {hour: '2-digit', minute: '2-digit', hour12: false}) + " - "
-        if (!startTime.toDateString() === endTime.toDateString()) {
+        if (startTime.toDateString() !== endTime.toDateString()) {
             elapsTime += endTime.toLocaleString("en-US", options) + " ";
         }
         elapsTime += endTime.toLocaleString("en-US", {hour: '2-digit', minute: '2-digit', hour12: false});
