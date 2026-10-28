@@ -548,7 +548,7 @@ async function send(event) {
         title: "Conversatiles",
         text: "but think about this...",
         url: "https://coderystal.github.io/conversatiles/?"+
-            (deck == "custom" ? 
+            (!isDeckDictPresetAble() ? 
                 ("deck=complete&complete=true&question="+(cardnum)) :
                 ("deck="+deck+"&complete="+complete+"&question="+(current+1)))
     };
