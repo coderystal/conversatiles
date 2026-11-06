@@ -1031,7 +1031,8 @@ let completequestions = [
 ["What does progress look like?", "worldview", true,"coderystal", true,"",2],
 ["What has never really changed?", "worldview", true,"coderystal", true,"perhaps it seemed like it might have, many times, but always ended up the same // 20261025 troubled",4],
 ["What's something you asked for recently?", "experience", false,"coderystal", true,"202610 create opportunities for gratitude by asking for something you probably won't get - maybe you'll get it",2],
-["What's something you're glad you asked for?", "experience", false,"coderystal", true,"",3]
+["What's something you're glad you asked for?", "experience", false,"coderystal", true,"",3],
+["What are you doing about it?", "goals", true,"coderystal", true,"",4]
 ]
 
 let totalnum = completequestions.length
