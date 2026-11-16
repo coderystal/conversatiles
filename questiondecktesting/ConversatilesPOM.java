@@ -60,6 +60,11 @@ public class ConversatilesPOM {
 	public WebElement getInfoButton() {
 		return driver.findElement(new By.ByCssSelector(".cardAtt>a:nth-child(1)>img"));
 	}
+	public WebElement getShareButton() {
+		return driver.findElement(new By.ByCssSelector(".cardAtt>a:nth-child(2)>img"));
+	}
+	
+	//info
 	public WebElement getInfoQuestion() {
 		return driver.findElement(new ById("questiontext"));
 	}
@@ -70,6 +75,11 @@ public class ConversatilesPOM {
 	//popup
 	public WebElement getModalContent() {
 		return driver.findElement(new ByClassName("modal-content"));
+	}
+	
+	//share copy text
+	public WebElement getShareCopyText() {
+		return driver.findElement(new By.ByCssSelector(".modal-content div"));
 	}
 	
 	//contextualize

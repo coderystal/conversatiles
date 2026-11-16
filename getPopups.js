@@ -568,6 +568,7 @@ async function send(event) {
 }
 
 async function copyToClipboard(text) {
+    console.log("copy " + text);
     try {
         await navigator.clipboard.writeText(text);
         document.getElementById("copyToClipboardButton").innerHTML = "Copied!"

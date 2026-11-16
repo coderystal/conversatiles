@@ -2,7 +2,9 @@ package questiondecktesting;
 
 import static org.junit.Assert.assertEquals;
 
-
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -555,5 +557,51 @@ public class ConversatilesStepDefinitions {
 		conversatilesPage.getResumeButton().click();
 		assertEquals("card question and info question", cardq, conversatilesPage.getCardQuestion().getText());
 		conversatilesPage.getScreenToggle().click();
+	}
+	public void clickShareCompareCopyAndCopiedLinkAndComeBack() throws Exception {
+		String prevUrl = (String) Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .getData(DataFlavor.stringFlavor);
+		
+		String cardq = conversatilesPage.getCardQuestion().getText();
+		System.out.println("current card: " + cardq);
+		
+		//click share
+		conversatilesPage.getShareButton().click();
+		
+		//check copy text
+		assertEquals("card question and share copy text", cardq, conversatilesPage.getShareCopyText().getText().substring(0, cardq.length()));
+		
+		//check copied link
+		Thread.sleep(500);
+		conversatilesPage.getButtonByText("Copy").click();
+		Thread.sleep(500);
+
+            String newUrl = (String) Toolkit.getDefaultToolkit()
+                    .getSystemClipboard()
+                    .getData(DataFlavor.stringFlavor);
+            
+            System.out.println("new:" + newUrl);
+            System.out.println("old:" + prevUrl);
+            System.out.println(newUrl.equals(prevUrl));
+            while (newUrl.equals(prevUrl)) {
+        		conversatilesPage.getButtonByText("Copy").click();
+        		Thread.sleep(1000);
+
+                newUrl = (String) Toolkit.getDefaultToolkit()
+                        .getSystemClipboard()
+                        .getData(DataFlavor.stringFlavor);
+
+                System.out.println("new:" + newUrl);
+            }
+            System.out.println("copied: " + newUrl);
+    		conversatilesPage.getDriver().get(newUrl);
+    		assertEquals("card question and copied link card question", cardq, conversatilesPage.getCardQuestion().getText());
+    		
+    	//come back
+    		conversatilesPage.getDriver().navigate().back();
+    		conversatilesPage.getScreenToggle().click();
+    		
+		System.out.println();
 	}
 }
